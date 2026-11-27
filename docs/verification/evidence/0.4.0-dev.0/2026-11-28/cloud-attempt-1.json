@@ -1,0 +1,19 @@
+{
+  "runId": 46030918417,
+  "jobId": 140614202933,
+  "url": "https://github.com/liuhua303/library/actions/runs/46030918417",
+  "commit": "d12d6cc62d8d1fe2dda58ddac7c0ae3f39556774",
+  "conclusion": "failure",
+  "failedStep": "Install dependencies",
+  "excerpt": [
+    "2026-11-27T16:07:51.0914270Z node: v24.22.3",
+    "2026-11-27T16:07:51.0916730Z npm: 11.19.1",
+    "2026-11-27T16:07:51.1104620Z \u001b[36;1mconsole.log(`Build host: ${process.platform}/${process.arch}, Node ${process.version}`);\u001b[0m",
+    "2026-11-27T16:07:51.2059380Z Build host: darwin/arm64, Node v24.22.3",
+    "2026-11-27T16:07:52.2797640Z npm error code EUSAGE",
+    "2026-11-27T16:07:52.2823540Z npm error `npm ci` can only install packages when your package.json and package-lock.json or npm-shrinkwrap.json are in sync. Please update your lock file with `npm install` before continuing.",
+    "2026-11-27T16:07:52.2826400Z npm error Missing: @emnapi/core@2.0.0-beta.2 from lock file",
+    "2026-11-27T16:07:52.2827640Z npm error Missing: @emnapi/runtime@2.0.0-beta.2 from lock file"
+  ],
+  "note": "Actual first cloud attempt. No Mac package was built."
+}
