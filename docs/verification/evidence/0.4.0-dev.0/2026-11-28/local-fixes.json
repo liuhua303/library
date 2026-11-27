@@ -1,0 +1,59 @@
+{
+  "recordedAt": "2026-11-27T16:18:03.914Z",
+  "timeZone": "Asia/Shanghai",
+  "version": "0.4.0-dev.0",
+  "commit": "b141a711ec09f919ce95bb153266848640bc90ed",
+  "environment": {
+    "platform": "win32",
+    "arch": "x64",
+    "node": "v24.12.0"
+  },
+  "checks": {
+    "unit": {
+      "passed": true,
+      "tests": 115,
+      "files": 8,
+      "result": "unit-results-fixed.json"
+    },
+    "build": {
+      "passed": true,
+      "command": "npm.cmd run build"
+    },
+    "plist": {
+      "epubXmlVersion": "0.9.12",
+      "packagingXmlVersion": "0.8.15",
+      "entitlementsParsePassed": true
+    },
+    "macHostGuard": {
+      "exitCode": 1,
+      "expected": true
+    }
+  },
+  "notes": [
+    "Application runtime sources unchanged in cloud workflow fixes.",
+    "Original optional WASM lock nodes retained after npm recalculation.",
+    "This is Windows validation, not a Mac runtime result."
+  ],
+  "files": [
+    {
+      "file": "package.json",
+      "sha256": "92D5FFA3EB67A90022B06C4C37535DE1F87E6F0C2DFAAB4AFAB840F5F6638C30"
+    },
+    {
+      "file": "package-lock.json",
+      "sha256": "0042E6ECC8E53430E302E65E51412979B60074039B5C5C30B6845444129F9EFB"
+    },
+    {
+      "file": "scripts/build-mac.mjs",
+      "sha256": "72D45C9336782569CD6D0180FDFF48E6D2B492119D243D209303DC7B3B77FBE7"
+    },
+    {
+      "file": "tests/mac-build.test.ts",
+      "sha256": "70BD615B35A8B74EAE6FF3CCCE1758F2FA56AE980BE6E45D271ACA15605A4BC2"
+    },
+    {
+      "file": ".github/workflows/build-mac.yml",
+      "sha256": "D4E8922A5D522CBEA0FC613F2339BD34FF74D8FF0AC9290E31CEEAAC86CD992A"
+    }
+  ]
+}

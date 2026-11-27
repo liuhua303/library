@@ -221,7 +221,7 @@ node scripts/check-package.mjs "release/mac-arm64-local/mac-arm64/阅间.app"
 
 本地构建还支持上一节的其他公证配置；当前云端工作流使用此固定的 Secrets 组合。DeepSeek API 密钥属于应用使用者，不需要放到构建 Secrets。
 
-工作流使用 `macos-15` runner 和 Node.js 24，先断言实际环境为 `darwin/arm64`，再执行 `npm ci`、`npm test`、对应构建命令及 `check-package.mjs` 隔离启动检查。当前 GitHub 标准 runner 的该标签为 Apple Silicon；标签和供应情况以 [GitHub runner 官方说明](https://docs.github.com/en/actions/reference/runners/github-hosted-runners) 为准。只有所有检查成功才上传 DMG artifact；检查证据无论成功或失败均尝试保留已有文件，两类 artifact 均保留 14 天。失败时通过运行日志及已有检查证据定位问题，不把失败产物作为交付。过期前需要自行下载保留，artifact 不是永久发布地址。
+工作流使用 `macos-26` runner 和 Node.js 24，先断言实际环境为 `darwin/arm64`，再执行 `npm ci`、`npm test`、对应构建命令及 `check-package.mjs` 隔离启动检查。当前 GitHub 标准 runner 的该标签为 Apple Silicon；标签和供应情况以 [GitHub runner 官方说明](https://docs.github.com/en/actions/reference/runners/github-hosted-runners) 为准。只有所有检查成功才上传 DMG artifact；检查证据无论成功或失败均尝试保留已有文件，两类 artifact 均保留 14 天。失败时通过运行日志及已有检查证据定位问题，不把失败产物作为交付。过期前需要自行下载保留，artifact 不是永久发布地址。
 
 云端构建成功只能证明该次 runner 环境中实际完成的检查，不替代 DMG 安装、Keychain 交互和真实阅读体验验收。后续应把运行链接、提交、mode、runner、实际结果和未验证项追加到版本报告；当前不能填写云端通过结论。
 
