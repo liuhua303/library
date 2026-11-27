@@ -1,0 +1,1 @@
+5b8e5e6882a49c2c238932ca846e6c8355afd0afb192e2bb2fc4a1a25fceaa7d  release/mac-arm64-local/Yuejian-0.4.0-dev.0-mac-arm64-local.dmg

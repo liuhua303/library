@@ -1,0 +1,21 @@
+{
+  "version": "0.4.0-dev.0",
+  "commit": "16b8425483846bd9afa3d64d804c60c0fcbf8b70",
+  "mode": "trial",
+  "platform": "darwin",
+  "arch": "arm64",
+  "node": "v24.22.3",
+  "recordedAt": "2026-11-27T16:24:46.459Z",
+  "workflowRun": "https://github.com/liuhua303/library/actions/runs/46033067492",
+  "packagedStartup": {
+    "passed": true,
+    "version": "0.4.0-dev.0",
+    "platform": "darwin",
+    "arch": "arm64",
+    "title": "阅间 · 英语阅读器",
+    "booksReadable": true,
+    "settingsReadable": true,
+    "executablePath": "/Users/runner/work/library/library/release/mac-arm64-local/mac-arm64/阅间.app/Contents/MacOS/阅间",
+    "recordedAt": "2026-11-27T16:24:44.598Z"
+  }
+}

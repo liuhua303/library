@@ -1,8 +1,8 @@
 # 更新记录
 
-## 0.4.0-dev.0（Mac 源码准备）
+## 0.4.0-dev.0（Mac 试用版）
 
-准备范围与实际检查见 [0.4.0-dev.0 记录](./docs/verification/0.4.0-dev.0.md)。尚无 Mac DMG，未完成 Mac 实机、签名或公证验证；最后已交付 Windows 版本仍为 0.3.3。
+构建范围与实际检查见 [0.4.0-dev.0 记录](./docs/verification/0.4.0-dev.0.md)。已生成 Mac arm64 试用 DMG，云端构建及包内程序启动检查通过；试用包为 ad-hoc 签名、未公证。正式 `release` 构建、DMG 安装、Keychain 与真实阅读体验人工验收尚未完成；最后已交付 Windows 正式安装包仍为 0.3.3。
 
 - 新增 M 系列 Mac（arm64、macOS 13+）目标，不提供 Intel 或 universal 包。
 - 准备 Mac 系统菜单、Cmd 编辑/退出快捷键、关窗保存与 Dock 重开，以及退出保存流程；密钥保护沿用系统安全存储。
@@ -10,7 +10,7 @@
 
 2026-11-28 补充：
 
-- 增加手动 GitHub Actions 构建入口，提供默认试用与正式签名公证两种模式；成功完成检查后保留可下载的 DMG artifact，不自动发布 Release。完整使用步骤见 [开发说明](./docs/development.md#通过-github-actions-构建)。已确定目标仓库，本次首次上传与云端运行结果尚待记录。
+- 增加手动 GitHub Actions 构建入口，提供默认试用与正式签名公证两种模式；成功完成检查后保留可下载的 DMG artifact，不自动发布 Release。源码已上传，Mac 试用包云端构建与启动检查已通过，下载和使用步骤见 [开发说明](./docs/development.md#通过-github-actions-构建)。
 
 ## 0.3.3
 

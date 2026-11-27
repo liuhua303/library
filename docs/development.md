@@ -1,8 +1,8 @@
 # 开发说明
 
-状态：当前开发与维护约定；源码预备版本 0.4.0-dev.0，最后已交付 Windows 版本 0.3.3。更新日期：2026-11-28。
+状态：当前开发与维护约定；开发版本 0.4.0-dev.0 已生成 Mac 试用包，最后已交付 Windows 正式安装包为 0.3.3。更新日期：2026-11-28。
 
-本轮准备 Apple Silicon Mac 的源码、平台分支、本机构建与 GitHub Actions 入口，尚无 Mac DMG，也没有 Mac 实机运行、签名、公证或安装验证结果。本轮开始时本地没有提交和远程地址，现已确定目标为 [liuhua303/library](https://github.com/liuhua303/library)；首次上传与云端构建结果尚待本次执行记录。本轮实际检查见 [0.4.0-dev.0 记录](./verification/0.4.0-dev.0.md)，既有 Windows 交付见 [0.3.3 报告](./verification/0.3.3.md)。
+源码已上传到 [liuhua303/library](https://github.com/liuhua303/library)，Mac arm64 试用 DMG 已在云端构建并完成包内程序启动检查。当前为 `trial`：ad-hoc 签名、未公证；正式 `release` 模式尚未运行，DMG 安装、Keychain 与真实阅读体验仍未人工验收。本轮实际检查见 [0.4.0-dev.0 记录](./verification/0.4.0-dev.0.md)，既有 Windows 交付见 [0.3.3 报告](./verification/0.3.3.md)。
 
 ## 文档维护规则
 
@@ -105,7 +105,7 @@ npm run dev
 
 ### Mac 窗口与菜单约定
 
-Mac 使用标准应用、编辑和窗口菜单，提供 Cmd 编辑/退出快捷键。关闭最后一个窗口时先完成保存，再保留应用供 Dock 重开；真正退出时完成阅读位置刷新和本机数据关闭。Windows 仍沿用关最后窗口退出的流程。平台分支需同时覆盖关闭窗口、Dock 重开、Cmd+Q 和退出保存失败的处理；Mac 实机未验证，不将静态代码检查视为这些流程已通过。
+Mac 使用标准应用、编辑和窗口菜单，提供 Cmd 编辑/退出快捷键。关闭最后一个窗口时先完成保存，再保留应用供 Dock 重开；真正退出时完成阅读位置刷新和本机数据关闭。Windows 仍沿用关最后窗口退出的流程。平台分支需同时覆盖关闭窗口、Dock 重开、Cmd+Q 和退出保存失败的处理；这些人工交互流程尚未验收，不将包内程序启动检查视为它们全部通过。
 
 ## 构建、测试与打包
 
@@ -146,7 +146,7 @@ node scripts/check-package.mjs "release/win-unpacked/阅间.exe"
 
 ## Mac 准备与打包
 
-当前只准备 Apple Silicon arm64；以下命令必须在 macOS 上执行，不能在本次 Windows 环境中生成或验证 Mac 包。构建目标固定 arm64，不扩展 Intel 或 universal。版本号以 [package.json](../package.json) 为准，目前为 `0.4.0-dev.0`；以下路径是脚本的预期输出，尚无对应 Mac 产物。
+当前 Mac 构建目标固定 Apple Silicon arm64，不扩展 Intel 或 universal。以下命令需在 macOS 上执行，可使用本地 Mac 或下述 GitHub macOS runner，不能直接在 Windows 主机执行。版本号以 [package.json](../package.json) 为准，目前为 `0.4.0-dev.0`；本轮已生成试用 DMG，正式签名公证包尚未构建。
 
 ### 本机试用包
 
@@ -192,11 +192,11 @@ mkdir -p artifacts
 node scripts/check-package.mjs "release/mac-arm64-local/mac-arm64/阅间.app"
 ```
 
-正式构建后改传 `release/mac-arm64/mac-arm64/阅间.app`。脚本使用独立测试数据目录检查包内程序，不代替 DMG 安装、公证状态和真实阅读验收。Mac 后续至少核对导入与数据库、续读与书签、主题、沉浸及触控板翻页、Cmd 菜单、关窗/Dock 重开/退出保存，以及 Keychain 授权和重启读回。所有实际命令、结果与未验证项目写入对应版本报告；目前没有 Mac 实机通过记录。
+正式构建后改传 `release/mac-arm64/mac-arm64/阅间.app`。脚本使用独立测试数据目录检查包内程序，不代替 DMG 安装、公证状态和真实阅读验收。Mac 后续至少核对导入与数据库、续读与书签、主题、沉浸及触控板翻页、Cmd 菜单、关窗/Dock 重开/退出保存，以及 Keychain 授权和重启读回。云端试用包启动检查已通过，实际结果见版本报告；目前没有 Mac 人工验收记录。
 
 ### 通过 GitHub Actions 构建
 
-没有本地 Mac 时，可将完整源码托管到 GitHub，手动使用 [.github/workflows/build-mac.yml](../.github/workflows/build-mac.yml)。该配置仅支持 `workflow_dispatch`，不会因推送自动构建，也不会创建 Release 或自动发布。目标仓库为 [liuhua303/library](https://github.com/liuhua303/library)，工作流入口为 [Build Mac arm64](https://github.com/liuhua303/library/actions/workflows/build-mac.yml)；入口需在配置进入默认分支后可用，本次首次执行结果尚待记录。
+没有本地 Mac 时，可将完整源码托管到 GitHub，手动使用 [.github/workflows/build-mac.yml](../.github/workflows/build-mac.yml)。该配置仅支持 `workflow_dispatch`，不会因推送自动构建，也不会创建 Release 或自动发布。源码和工作流已进入 [liuhua303/library](https://github.com/liuhua303/library)，入口为 [Build Mac arm64](https://github.com/liuhua303/library/actions/workflows/build-mac.yml)。本次 [trial 运行已成功](https://github.com/liuhua303/library/actions/runs/46033067492)，详情集中在 [版本报告](./verification/0.4.0-dev.0.md)。
 
 1. 将完整源码提交并推送到目标仓库的默认分支 `main`，包含 `.github/`、`build/`、`scripts/`、`src/`、锁文件及其他源码文件。若在其他仓库使用，先创建仓库并确认其默认分支。工作流配置必须先存在于默认分支，Actions 页面才可手动触发；操作人需有仓库写权限。[GitHub 手动运行说明](https://docs.github.com/en/actions/how-tos/manage-workflow-runs/manually-run-a-workflow)
 2. 需要正式包时，先按下表配置仓库 Secrets；首次尝试可直接使用不需要 Apple 分发凭据的 `trial`。
@@ -223,7 +223,9 @@ node scripts/check-package.mjs "release/mac-arm64-local/mac-arm64/阅间.app"
 
 工作流使用 `macos-26` runner 和 Node.js 24，先断言实际环境为 `darwin/arm64`，再执行 `npm ci`、`npm test`、对应构建命令及 `check-package.mjs` 隔离启动检查。当前 GitHub 标准 runner 的该标签为 Apple Silicon；标签和供应情况以 [GitHub runner 官方说明](https://docs.github.com/en/actions/reference/runners/github-hosted-runners) 为准。只有所有检查成功才上传 DMG artifact；检查证据无论成功或失败均尝试保留已有文件，两类 artifact 均保留 14 天。失败时通过运行日志及已有检查证据定位问题，不把失败产物作为交付。过期前需要自行下载保留，artifact 不是永久发布地址。
 
-云端构建成功只能证明该次 runner 环境中实际完成的检查，不替代 DMG 安装、Keychain 交互和真实阅读体验验收。后续应把运行链接、提交、mode、runner、实际结果和未验证项追加到版本报告；当前不能填写云端通过结论。
+本次 trial 已在云端 Mac arm64 完成构建与隔离启动检查，产物为 [Yuejian-mac-arm64-trial-4](https://github.com/liuhua303/library/actions/runs/46033067492/artifacts/15215362014)，包含 `Yuejian-0.4.0-dev.0-mac-arm64-local.dmg`，保留至 2026-12-12（北京时间）。登录并具备仓库读取权限后，按上述步骤下载、解压并转发 DMG。
+
+云端成功仅证明该次 runner 环境中实际完成的检查，不替代 DMG 安装、Keychain 交互和真实阅读体验验收。运行环境、提交、实际结果与未验证项见 [版本报告](./verification/0.4.0-dev.0.md)；正式 `release` 模式尚未运行。
 
 ### 仓库可见性与费用
 
