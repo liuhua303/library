@@ -1,0 +1,110 @@
+{
+  "passed": true,
+  "version": "0.3.2",
+  "runtimeAppVersion": "0.3.2",
+  "startedAt": "2026-11-27T05:09:07.430Z",
+  "recordedAt": "2026-11-27T05:09:18.166Z",
+  "timeZone": "Asia/Shanghai",
+  "mode": "packaged",
+  "executablePath": "D:\\Users\\ASUS\\Documents\\ChatGPT\\enlish\\release\\0.3.2\\win-unpacked\\阅间.exe",
+  "checks": [
+    "使用隔离数据与自编 EPUB，底部上一页/下一页箭头已从 DOM 移除",
+    "正文 iframe 留白单击进入纯阅读，内外层无鼠标，正文、书名、页数保留且布局位置不变",
+    "外层页边同样可进入纯阅读；真实鼠标移动与 Esc 均恢复控件和指针",
+    "工具、目录、阅读设置或单词本打开时，留白单击只收起面板，本次不进入纯阅读、不误收录",
+    "已有选区先取消而不进入纯阅读；单词点击、真实拖选和菜单收录均保留，产生真实本机记录与下划线",
+    "通过真实收录生成可滚动单词本；浮层内部滚轮只滚动词条，不改变正文页码或内容位置",
+    "左右方向键、PageDown/PageUp 与正文真实滚轮均可翻页，并保存新的内容位置",
+    "书架 API 输入仍接收 J 与光标移动；未保存测试密钥、未调用付费模型"
+  ],
+  "measurements": [
+    {
+      "stage": "正文留白",
+      "inside": {
+        "hiddenAttribute": true,
+        "html": "none",
+        "body": "none",
+        "paragraph": "none"
+      },
+      "outside": "none"
+    },
+    {
+      "stage": "真实鼠标移动",
+      "inside": {
+        "hiddenAttribute": false,
+        "html": "auto",
+        "body": "auto",
+        "paragraph": "auto"
+      },
+      "outside": "auto"
+    },
+    {
+      "stage": "外层页边留白",
+      "inside": {
+        "hiddenAttribute": true,
+        "html": "none",
+        "body": "none",
+        "paragraph": "none"
+      },
+      "outside": "none"
+    },
+    {
+      "stage": "Esc 恢复",
+      "inside": {
+        "hiddenAttribute": false,
+        "html": "auto",
+        "body": "auto",
+        "paragraph": "auto"
+      },
+      "outside": "auto"
+    },
+    {
+      "stage": "点击单词后",
+      "inside": {
+        "hiddenAttribute": false,
+        "html": "auto",
+        "body": "auto",
+        "paragraph": "auto"
+      },
+      "outside": "auto"
+    },
+    {
+      "stage": "ArrowRight",
+      "before": "1 / 13",
+      "after": "2 / 13",
+      "cfi": "epubcfi(/6/2!/4/10/1:754)"
+    },
+    {
+      "stage": "ArrowLeft",
+      "before": "2 / 13",
+      "after": "1 / 13",
+      "cfi": "epubcfi(/6/2!/4/2/1:0)"
+    },
+    {
+      "stage": "PageDown",
+      "before": "1 / 13",
+      "after": "2 / 13",
+      "cfi": "epubcfi(/6/2!/4/10/1:754)"
+    },
+    {
+      "stage": "PageUp",
+      "before": "2 / 13",
+      "after": "1 / 13",
+      "cfi": "epubcfi(/6/2!/4/2/1:0)"
+    },
+    {
+      "stage": "正文向下滚轮",
+      "before": "1 / 13",
+      "after": "2 / 13",
+      "cfi": "epubcfi(/6/2!/4/10/1:754)"
+    },
+    {
+      "stage": "正文向上滚轮",
+      "before": "2 / 13",
+      "after": "1 / 13",
+      "cfi": "epubcfi(/6/2!/4/2/1:0)"
+    }
+  ],
+  "errors": [],
+  "userData": "C:\\Users\\ASUS\\AppData\\Local\\Temp\\yuejian-immersive-hMIraq\\data"
+}

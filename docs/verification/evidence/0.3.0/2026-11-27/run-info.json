@@ -1,0 +1,224 @@
+{
+  "version": "0.3.0",
+  "recordedAt": "2026-11-27T04:48:30.3423890+00:00",
+  "timeZone": "Asia/Shanghai",
+  "verificationDate": "2026-11-27",
+  "gitCommit": null,
+  "workspace": "No commits; source and build checksums identify this workspace snapshot",
+  "environment": {
+    "os": "Microsoft Windows NT 10.0.26200.0",
+    "architecture": "x64",
+    "node": "24.12.0",
+    "electron": "45.5.0"
+  },
+  "unitTests": {
+    "passed": 89,
+    "files": 6,
+    "command": "npm test"
+  },
+  "build": {
+    "command": "npm run build",
+    "passed": true
+  },
+  "commands": [
+    "node scripts/smoke.mjs",
+    "node scripts/reader-interactions.mjs",
+    "node scripts/reader-color-smoke.mjs",
+    "node scripts/reader-selection-smoke.mjs",
+    "node scripts/visual-redesign-smoke.mjs",
+    "node scripts/reading-preferences-smoke.mjs",
+    "node node_modules/electron-builder/cli.js --win nsis --x64 --config.electronDist=node_modules/electron/dist --config.directories.output=release/0.3.0",
+    "node scripts/reading-preferences-smoke.mjs \"release/0.3.0/win-unpacked/阅间.exe\""
+  ],
+  "results": [
+    "smoke-result.json",
+    "reader-interactions-result.json",
+    "reader-color-result.json",
+    "reader-selection-result.json",
+    "visual-redesign-result.json",
+    "reading-preferences-result.json"
+  ],
+  "screenshots": [
+    "preferences-settings.png",
+    "preferences-settings-panel.png",
+    "preferences-quiet.png",
+    "preferences-navigation.png",
+    "preferences-shelf.png"
+  ],
+  "installerSha256": "73DBF811B25A97EC30B8267776FF20095818D4E6BF4BDE606568E81C8656E5AD",
+  "applicationAsarSha256": "E93E1FED10DAA42531E9BE53312CF27BEAB36293C8769539111F3A3B8E3984C8",
+  "sources": [
+    {
+      "path": "index.html",
+      "sha256": "40019EB51D9553B94E24177142E2A158DE60EA419CCBEEBED9114C9935D203ED"
+    },
+    {
+      "path": "package-lock.json",
+      "sha256": "06531D3BE7D011A7EC9654D8679700313A7A06D5097C4110C9D70D583BE026F1"
+    },
+    {
+      "path": "package.json",
+      "sha256": "7901CC44D2417D1BC41E6F9AAD8CA3CCFD30E603530E75F4F04C382EDC65A1B4"
+    },
+    {
+      "path": "samples/reading-demo.epub",
+      "sha256": "21417793104C1E7F21978AD2747E5647CEBFC1DE9C2968F23AB892F739F21725"
+    },
+    {
+      "path": "scripts/build-main.mjs",
+      "sha256": "1605DF03251A619131DDDD0FF7F66B83B9E52CA249A42031894B6CEF7B478DB9"
+    },
+    {
+      "path": "scripts/check-package.mjs",
+      "sha256": "A19F435D9E84C480652B181A37DB8B4CBFD3F8E2E9EDA2FFBB59C72E3E6403C0"
+    },
+    {
+      "path": "scripts/create-sample.mjs",
+      "sha256": "9355B68F52AED5FD60DE478C04E379E45EC3C0ABDD772ECB74F6919E3AC8D9A3"
+    },
+    {
+      "path": "scripts/dev.mjs",
+      "sha256": "039BC90F583496EF8773A397E2B545035770E775CA0AC1B87D8AC0610969C5FB"
+    },
+    {
+      "path": "scripts/reader-color-smoke.mjs",
+      "sha256": "801F22097307363FDCEF40A7046435462F86280E1E6C5F752B57DBAB7234A318"
+    },
+    {
+      "path": "scripts/reader-interactions.mjs",
+      "sha256": "E1D888A4D29C6AED4BAEA7209724FEA09E1949BF8A81F7D7FB999476D98FEF89"
+    },
+    {
+      "path": "scripts/reader-selection-smoke.mjs",
+      "sha256": "6D83CBF260BB5AA848E73BFC55917E32BDF808406837E4D91EB74A43FE675946"
+    },
+    {
+      "path": "scripts/reader-test-ui.mjs",
+      "sha256": "2162E89F5588B70F9BEF749702DADFB9B6928DE7BD3C5F784220D54B73C10BD9"
+    },
+    {
+      "path": "scripts/reading-preferences-smoke.mjs",
+      "sha256": "5DBB7C913B4B1930CD259FAD2E57B6190655E14BB4DF780E9BF5569ECEED91D2"
+    },
+    {
+      "path": "scripts/smoke.mjs",
+      "sha256": "DACA74F0297EEBDA8898F34F99C67AF255517B9C498974C66AA0FC63F837EE4B"
+    },
+    {
+      "path": "scripts/visual-redesign-smoke.mjs",
+      "sha256": "B9300B59DE053B1D5CE9E6C820E35674868FC9AFD33B371047133990F4ACDAAC"
+    },
+    {
+      "path": "src/main/analysis.ts",
+      "sha256": "8F2537220C38375255C3D0E5A3C19611815EACB503088D48AE9232DBA9409634"
+    },
+    {
+      "path": "src/main/book-write-buffer.ts",
+      "sha256": "6858BA6FD6D3C059F49BE1EC46D64986851D6D9DECA8F821A40DF2D88B5438BB"
+    },
+    {
+      "path": "src/main/epub.ts",
+      "sha256": "F8B93B704C627884A8A720DA2FACE64E0506760285F52FE166D2D7D754D35757"
+    },
+    {
+      "path": "src/main/index.ts",
+      "sha256": "0C5CABF55578DFF2CA14814B010BC672C3021ABA31B0FD87FE6BD909CB1C7138"
+    },
+    {
+      "path": "src/main/preload.ts",
+      "sha256": "1620A9A5282E474AD835883E86284B2B20CAF1BDF733DC13B4660EE73F2B4C62"
+    },
+    {
+      "path": "src/main/queue.ts",
+      "sha256": "74B789B738B0E9955BC95E99D6713395650DA1124F1DF2757E6F4569AFD27A21"
+    },
+    {
+      "path": "src/main/store.ts",
+      "sha256": "566B84B6C6603B59AB1F533F5A765D9AF20A353E573409DC952A68D3733B95A7"
+    },
+    {
+      "path": "src/main/validation.ts",
+      "sha256": "DA66BC5A0A86546C2A1BEBD17A01FA902AF35C7D3B6F460DA7555E6D674127CD"
+    },
+    {
+      "path": "src/main/vault.ts",
+      "sha256": "4A000EA2AD8FD440E0D5F170463DD8FBC0D0219800240A318F3FDCDC3EE7F657"
+    },
+    {
+      "path": "src/renderer/App.tsx",
+      "sha256": "2B1E56AD46BADC55575864ACC538FE207218D891773AD3BC66248C0B27A1463E"
+    },
+    {
+      "path": "src/renderer/components/EpubReader.tsx",
+      "sha256": "6BAAE2836453EB16BA194E0792DBFD40A5F92E7D10AB3B4C3D2E8A4DC46D493E"
+    },
+    {
+      "path": "src/renderer/main.tsx",
+      "sha256": "40102923FD52806E8C999A1520F92714AD242A2D15AF9265B4B08F03F595BA09"
+    },
+    {
+      "path": "src/renderer/reader/geometry.ts",
+      "sha256": "CC53FCA0482655E13B2D550BEC99F50808E38E9583F3E75D785824A4D8B96053"
+    },
+    {
+      "path": "src/renderer/reader/reader.css",
+      "sha256": "492DD71B7311BAD20CF32E255F6FAF766F7C59B15193B1839211A63E309CA05D"
+    },
+    {
+      "path": "src/renderer/reader/styles.ts",
+      "sha256": "BA4221180636C3FE026EBAA79E555F38ADB6417F59489239A734188A8BE04CC1"
+    },
+    {
+      "path": "src/renderer/reader/text.ts",
+      "sha256": "C45C2798FC5C88880E7A43C222B6FCB7E86F3260B0A0A57504CDD1648175E406"
+    },
+    {
+      "path": "src/renderer/reader/themes.ts",
+      "sha256": "01440843E01206499C53BE1818C0A9A6931F4F6952A6744655B842F5BB47B7F9"
+    },
+    {
+      "path": "src/renderer/styles.css",
+      "sha256": "C261EB97AA3DD7F6318E6825653E7D9C6D14C94FFFE9079BA622F4A9039F3BE5"
+    },
+    {
+      "path": "src/shared/types.ts",
+      "sha256": "2BC24F8B905A2ADD8048913191132F4CC84C32227CFCCE06E8B3CEC44D108192"
+    },
+    {
+      "path": "tests/backend.test.ts",
+      "sha256": "7243183B88EFB4B569CFC6069ECCFADA03A66AF867B534C57BB715BF2729C08C"
+    },
+    {
+      "path": "tests/bookmarks.test.ts",
+      "sha256": "08624CFE0156D5E481A575AD08CFC1B4BC2F14850401EE9CDCAF34955B209E1E"
+    },
+    {
+      "path": "tests/epub-cover.test.ts",
+      "sha256": "79AAD4C688BAE56F6A63F24F9D1B8CB7AB57F3D3EC9D711B58BCEDCD12C225B5"
+    },
+    {
+      "path": "tests/library-navigation.test.tsx",
+      "sha256": "6BAF9FC5380462C3BA6990BDE2FD55A23AC6A05E0A9ECB0A2DD1D6DB95448B22"
+    },
+    {
+      "path": "tests/reader-geometry.test.ts",
+      "sha256": "04B3B078226F66C1D9539AA428252C213A556F9A1AEAB910FF44DAB7B012E992"
+    },
+    {
+      "path": "tests/reader-text.test.ts",
+      "sha256": "299675D6FE8B987AE80CFBC813B4EBFB7C680559365B9ECE161A09242CBD0A41"
+    },
+    {
+      "path": "tsconfig.json",
+      "sha256": "0AA1922075227DB0C7E43B6154957456DADB3126BBB8EFB384CDD218143094D4"
+    },
+    {
+      "path": "vite.config.ts",
+      "sha256": "6F5ACD4125BE316D9DC2447CD0470F178B5CA14488FEC8D4A27FC23FDF19A790"
+    },
+    {
+      "path": "vitest.config.ts",
+      "sha256": "F922236C926D90C27E390A46F10FD7113AA5F42C183F244B504A58EB5468A427"
+    }
+  ]
+}

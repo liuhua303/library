@@ -1,0 +1,87 @@
+{
+  "name": "yuejian-reader",
+  "version": "0.4.0-dev.0",
+  "private": true,
+  "description": "阅间 · 本地英语阅读器",
+  "author": "Yuejian",
+  "type": "module",
+  "main": "app/main.cjs",
+  "scripts": {
+    "dev": "node scripts/dev.mjs",
+    "build": "tsc --noEmit && vite build && node scripts/build-main.mjs",
+    "test": "vitest run",
+    "test:e2e": "node scripts/smoke.mjs && node scripts/reader-interactions.mjs && node scripts/reader-color-smoke.mjs && node scripts/reader-selection-smoke.mjs && node scripts/visual-redesign-smoke.mjs && node scripts/reading-preferences-smoke.mjs && node scripts/immersive-reading-smoke.mjs",
+    "dist": "npm run build && electron-builder --win nsis --x64",
+    "dist:mac": "node scripts/build-mac.mjs",
+    "dist:mac:local": "node scripts/build-mac.mjs --local"
+  },
+  "build": {
+    "appId": "com.yuejian.reader",
+    "productName": "阅间",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "app/**/*",
+      "package.json"
+    ],
+    "asar": true,
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "artifactName": "Yuejian-Setup-${version}.${ext}",
+      "signAndEditExecutable": false
+    },
+    "mac": {
+      "target": [{ "target": "dmg", "arch": ["arm64"] }],
+      "artifactName": "Yuejian-${version}-mac-${arch}.${ext}",
+      "category": "public.app-category.education",
+      "minimumSystemVersion": "13.0.0",
+      "type": "distribution",
+      "hardenedRuntime": true,
+      "entitlements": "build/entitlements.mac.plist",
+      "entitlementsInherit": "build/entitlements.mac.plist",
+      "notarize": true
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "阅间",
+      "deleteAppDataOnUninstall": false
+    }
+  },
+  "dependencies": {
+    "epubjs": "0.3.93",
+    "fast-xml-parser": "^5.3.6",
+    "jszip": "^3.10.1",
+    "lucide-react": "^0.577.0",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1"
+  },
+  "overrides": {
+    "@xmldom/xmldom": "^0.9.12",
+    "minimatch@>=7.0.0 <11.0.1": "^11.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.0",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "@vitejs/plugin-react": "latest",
+    "electron": "45.5.0",
+    "electron-builder": "26.18.0",
+    "esbuild": "latest",
+    "jsdom": "^26.1.0",
+    "playwright": "latest",
+    "typescript": "latest",
+    "vite": "8.3.8",
+    "vitest": "latest"
+  }
+}

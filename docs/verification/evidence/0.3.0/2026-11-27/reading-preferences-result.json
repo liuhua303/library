@@ -1,0 +1,247 @@
+{
+  "passed": true,
+  "version": "0.3.0",
+  "runtimeAppVersion": "0.3.0",
+  "startedAt": "2026-11-27T04:47:33.195Z",
+  "recordedAt": "2026-11-27T04:47:39.858Z",
+  "timeZone": "Asia/Shanghai",
+  "mode": "packaged",
+  "executablePath": "D:\\Users\\ASUS\\Documents\\ChatGPT\\enlish\\release\\0.3.0\\win-unpacked\\阅间.exe",
+  "checks": [
+    "阅读设置只含小/大 A 与六种主题，不显示字号数值和 API 配置；字号按步长保存",
+    "六种主题的页面背景、正文颜色与选择状态正确；覆盖原书 inline !important，暗色正文与下划线可见",
+    "工具栏添加当前页书签，目录/书签分段导航、书签回跳及调整字号后回跳正确",
+    "阅读菜单与书架显示相同真实进度，书架采用书本外观且进度在左下；书签和阅读偏好按书隔离",
+    "重启后主题、字号与书签保留；列表删除后再次重启书签不复现"
+  ],
+  "measurements": [
+    {
+      "theme": "original",
+      "paper": "rgb(255, 255, 255)",
+      "htmlInk": "rgb(0, 0, 0)",
+      "bodyInk": "rgb(0, 0, 0)",
+      "bodyPaper": "rgba(0, 0, 0, 0)",
+      "fontSize": "22px",
+      "probes": [
+        {
+          "name": "paragraph",
+          "color": "rgb(0, 0, 0)",
+          "textFill": "rgb(0, 0, 0)",
+          "background": "rgba(0, 0, 0, 0)",
+          "fontFamily": "Georgia, \"Times New Roman\", serif",
+          "fontWeight": "400"
+        },
+        {
+          "name": "inline",
+          "color": "rgb(0, 0, 0)",
+          "textFill": "rgb(0, 0, 0)",
+          "background": "rgba(0, 0, 0, 0)",
+          "fontFamily": "Georgia, \"Times New Roman\", serif",
+          "fontWeight": "400"
+        }
+      ]
+    },
+    {
+      "theme": "quiet",
+      "paper": "rgb(65, 65, 68)",
+      "htmlInk": "rgb(229, 228, 225)",
+      "bodyInk": "rgb(229, 228, 225)",
+      "bodyPaper": "rgba(0, 0, 0, 0)",
+      "fontSize": "22px",
+      "probes": [
+        {
+          "name": "paragraph",
+          "color": "rgb(229, 228, 225)",
+          "textFill": "rgb(229, 228, 225)",
+          "background": "rgba(0, 0, 0, 0)",
+          "fontFamily": "Georgia, \"Times New Roman\", serif",
+          "fontWeight": "400"
+        },
+        {
+          "name": "inline",
+          "color": "rgb(229, 228, 225)",
+          "textFill": "rgb(229, 228, 225)",
+          "background": "rgba(0, 0, 0, 0)",
+          "fontFamily": "Georgia, \"Times New Roman\", serif",
+          "fontWeight": "400"
+        }
+      ]
+    },
+    {
+      "theme": "paper",
+      "paper": "rgb(238, 237, 233)",
+      "htmlInk": "rgb(41, 40, 36)",
+      "bodyInk": "rgb(41, 40, 36)",
+      "bodyPaper": "rgba(0, 0, 0, 0)",
+      "fontSize": "22px",
+      "probes": [
+        {
+          "name": "paragraph",
+          "color": "rgb(41, 40, 36)",
+          "textFill": "rgb(41, 40, 36)",
+          "background": "rgba(0, 0, 0, 0)",
+          "fontFamily": "Georgia, \"Times New Roman\", serif",
+          "fontWeight": "400"
+        },
+        {
+          "name": "inline",
+          "color": "rgb(41, 40, 36)",
+          "textFill": "rgb(41, 40, 36)",
+          "background": "rgba(0, 0, 0, 0)",
+          "fontFamily": "Georgia, \"Times New Roman\", serif",
+          "fontWeight": "400"
+        }
+      ]
+    },
+    {
+      "theme": "bold",
+      "paper": "rgb(255, 255, 255)",
+      "htmlInk": "rgb(18, 18, 18)",
+      "bodyInk": "rgb(18, 18, 18)",
+      "bodyPaper": "rgba(0, 0, 0, 0)",
+      "fontSize": "22px",
+      "probes": [
+        {
+          "name": "paragraph",
+          "color": "rgb(18, 18, 18)",
+          "textFill": "rgb(18, 18, 18)",
+          "background": "rgba(0, 0, 0, 0)",
+          "fontFamily": "\"Segoe UI\", \"Microsoft YaHei\", sans-serif",
+          "fontWeight": "600"
+        },
+        {
+          "name": "inline",
+          "color": "rgb(18, 18, 18)",
+          "textFill": "rgb(18, 18, 18)",
+          "background": "rgba(0, 0, 0, 0)",
+          "fontFamily": "\"Segoe UI\", \"Microsoft YaHei\", sans-serif",
+          "fontWeight": "600"
+        }
+      ]
+    },
+    {
+      "theme": "calm",
+      "paper": "rgb(242, 228, 200)",
+      "htmlInk": "rgb(62, 52, 37)",
+      "bodyInk": "rgb(62, 52, 37)",
+      "bodyPaper": "rgba(0, 0, 0, 0)",
+      "fontSize": "22px",
+      "probes": [
+        {
+          "name": "paragraph",
+          "color": "rgb(62, 52, 37)",
+          "textFill": "rgb(62, 52, 37)",
+          "background": "rgba(0, 0, 0, 0)",
+          "fontFamily": "Georgia, \"Times New Roman\", serif",
+          "fontWeight": "400"
+        },
+        {
+          "name": "inline",
+          "color": "rgb(62, 52, 37)",
+          "textFill": "rgb(62, 52, 37)",
+          "background": "rgba(0, 0, 0, 0)",
+          "fontFamily": "Georgia, \"Times New Roman\", serif",
+          "fontWeight": "400"
+        }
+      ]
+    },
+    {
+      "theme": "focus",
+      "paper": "rgb(255, 251, 242)",
+      "htmlInk": "rgb(41, 40, 32)",
+      "bodyInk": "rgb(41, 40, 32)",
+      "bodyPaper": "rgba(0, 0, 0, 0)",
+      "fontSize": "22px",
+      "probes": [
+        {
+          "name": "paragraph",
+          "color": "rgb(41, 40, 32)",
+          "textFill": "rgb(41, 40, 32)",
+          "background": "rgba(0, 0, 0, 0)",
+          "fontFamily": "\"Segoe UI\", \"Microsoft YaHei\", sans-serif",
+          "fontWeight": "400"
+        },
+        {
+          "name": "inline",
+          "color": "rgb(41, 40, 32)",
+          "textFill": "rgb(41, 40, 32)",
+          "background": "rgba(0, 0, 0, 0)",
+          "fontFamily": "\"Segoe UI\", \"Microsoft YaHei\", sans-serif",
+          "fontWeight": "400"
+        }
+      ]
+    },
+    {
+      "theme": "quiet",
+      "paper": "rgb(65, 65, 68)",
+      "htmlInk": "rgb(229, 228, 225)",
+      "bodyInk": "rgb(229, 228, 225)",
+      "bodyPaper": "rgba(0, 0, 0, 0)",
+      "fontSize": "22px",
+      "probes": [
+        {
+          "name": "paragraph",
+          "color": "rgb(229, 228, 225)",
+          "textFill": "rgb(229, 228, 225)",
+          "background": "rgba(0, 0, 0, 0)",
+          "fontFamily": "Georgia, \"Times New Roman\", serif",
+          "fontWeight": "400"
+        },
+        {
+          "name": "inline",
+          "color": "rgb(229, 228, 225)",
+          "textFill": "rgb(229, 228, 225)",
+          "background": "rgba(0, 0, 0, 0)",
+          "fontFamily": "Georgia, \"Times New Roman\", serif",
+          "fontWeight": "400"
+        }
+      ]
+    },
+    {
+      "darkMark": {
+        "color": "rgb(229, 228, 225)",
+        "width": 78.6875,
+        "height": 2,
+        "blend": "screen"
+      }
+    },
+    {
+      "readerPercentage": 3,
+      "shelfGeometry": {
+        "coverLeft": 160,
+        "progressLeft": 160,
+        "coverBottom": 384,
+        "progressTop": 397,
+        "shadow": "rgba(0, 0, 0, 0.12) 1px 2px 3px 0px, rgba(0, 0, 0, 0.16) 5px 8px 12px 0px, rgba(0, 0, 0, 0.28) 9px 18px 24px -14px"
+      }
+    },
+    {
+      "theme": "quiet",
+      "paper": "rgb(65, 65, 68)",
+      "htmlInk": "rgb(229, 228, 225)",
+      "bodyInk": "rgb(229, 228, 225)",
+      "bodyPaper": "rgba(0, 0, 0, 0)",
+      "fontSize": "24px",
+      "probes": [
+        {
+          "name": "paragraph",
+          "color": "rgb(229, 228, 225)",
+          "textFill": "rgb(229, 228, 225)",
+          "background": "rgba(0, 0, 0, 0)",
+          "fontFamily": "Georgia, \"Times New Roman\", serif",
+          "fontWeight": "400"
+        },
+        {
+          "name": "inline",
+          "color": "rgb(229, 228, 225)",
+          "textFill": "rgb(229, 228, 225)",
+          "background": "rgba(0, 0, 0, 0)",
+          "fontFamily": "Georgia, \"Times New Roman\", serif",
+          "fontWeight": "400"
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "userData": "C:\\Users\\ASUS\\AppData\\Local\\Temp\\yuejian-preferences-AxMlhr"
+}

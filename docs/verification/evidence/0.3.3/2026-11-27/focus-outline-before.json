@@ -1,0 +1,50 @@
+{
+  "active": "reader-viewport",
+  "rectangles": [
+    {
+      "className": "epub-reader",
+      "focused": false,
+      "focusVisible": false,
+      "outlineStyle": "none",
+      "outlineWidth": "3px",
+      "outlineColor": "rgb(0, 0, 0)",
+      "border": "0px none rgb(0, 0, 0)",
+      "rectangle": {
+        "x": 0,
+        "y": 0,
+        "width": 1440,
+        "height": 960
+      }
+    },
+    {
+      "className": "reader-viewport",
+      "focused": true,
+      "focusVisible": true,
+      "outlineStyle": "auto",
+      "outlineWidth": "1px",
+      "outlineColor": "rgb(0, 0, 0)",
+      "border": "0px none rgb(0, 0, 0)",
+      "rectangle": {
+        "x": 340,
+        "y": 80,
+        "width": 760,
+        "height": 808
+      }
+    },
+    {
+      "className": "",
+      "focused": false,
+      "focusVisible": false,
+      "outlineStyle": "none",
+      "outlineWidth": "3px",
+      "outlineColor": "rgb(0, 0, 0)",
+      "border": "0px none rgb(0, 0, 0)",
+      "rectangle": {
+        "x": 340,
+        "y": 80,
+        "width": 6840,
+        "height": 808
+      }
+    }
+  ]
+}

@@ -1,0 +1,65 @@
+{
+  "recordedAt": "2026-11-27T16:06:30.978Z",
+  "timeZone": "Asia/Shanghai",
+  "version": "0.4.0-dev.0",
+  "gitCommitAtLocalChecks": null,
+  "workspaceAtLocalChecks": "No commits yet; checks occurred before the initial GitHub upload.",
+  "platform": "win32",
+  "arch": "x64",
+  "node": "v24.12.0",
+  "repository": "https://github.com/liuhua303/library",
+  "checks": {
+    "actionlint": {
+      "version": "1.7.12",
+      "passed": true,
+      "command": "artifacts/mac-workflow-lint/actionlint/actionlint.exe -color .github/workflows/build-mac.yml"
+    },
+    "yamlAndWorkflowStructure": {
+      "passed": true,
+      "runSteps": 8,
+      "totalSteps": 12
+    },
+    "unit": {
+      "passed": true,
+      "tests": 114,
+      "files": 8,
+      "command": "npm.cmd test -- --reporter=default --reporter=json --outputFile=artifacts/mac-workflow-unit-results.json"
+    },
+    "documentation": {
+      "passed": true,
+      "markdownFiles": 16,
+      "relativeLinks": 170
+    }
+  },
+  "cloudBuildRun": false,
+  "files": [
+    {
+      "file": ".github/workflows/build-mac.yml",
+      "sha256": "D4E8922A5D522CBEA0FC613F2339BD34FF74D8FF0AC9290E31CEEAAC86CD992A"
+    },
+    {
+      "file": "scripts/build-mac.mjs",
+      "sha256": "80E8D55F3FB9E3EBDBD4C920EEC47535C59768354CA024956FBBC8EFCAC5D869"
+    },
+    {
+      "file": "scripts/mac-build-options.mjs",
+      "sha256": "BD2CE5B22DDB43A1950CA4EB242ED07A03E1DF90E2FA5D5E3DF36714C0719B7A"
+    },
+    {
+      "file": "scripts/check-package.mjs",
+      "sha256": "9F063EF0F756801FEE895FA8EB204C0FB5DDFE7BB272159447C52141C3F153B7"
+    },
+    {
+      "file": "scripts/package-paths.mjs",
+      "sha256": "2E8332542515D43E8AF323398E4D1FB3DAC5767D67326C5A18779F0F86311FAC"
+    },
+    {
+      "file": "package.json",
+      "sha256": "0708547D701D60800505E61269916A528EF0D20DC8AF99CB0FBF8AFFF04CB769"
+    },
+    {
+      "file": "package-lock.json",
+      "sha256": "7947DC764EA786DD9B7BB1562D11BD252BDEE60347F1167CD8B4B9149D686CEC"
+    }
+  ]
+}

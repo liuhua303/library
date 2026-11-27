@@ -1,0 +1,50 @@
+{
+  "version": "0.3.3",
+  "recordedAt": "2026-11-27T14:36:30.2134431+00:00",
+  "timeZone": "Asia/Shanghai",
+  "gitCommit": null,
+  "workspace": "No commits; checksums identify relevant workspace files and packaged application",
+  "environment": {
+    "os": "Microsoft Windows NT 10.0.26200.0",
+    "architecture": "x64",
+    "node": "24.12.0",
+    "electron": "45.5.0"
+  },
+  "buildPassed": true,
+  "commands": [
+    "npm run build",
+    "node node_modules/electron-builder/cli.js --win nsis --x64 --config.electronDist=node_modules/electron/dist --config.directories.output=release/0.3.3",
+    "node scripts/immersive-reading-smoke.mjs \"release/0.3.3/win-unpacked/阅间.exe\""
+  ],
+  "installerSha256": "DF8C2F9A48D7BFD83C374B078DE6DEB5F2058B2E1446CF7FA30D511AF59C223C",
+  "files": [
+    {
+      "path": "src/renderer/reader/reader.css",
+      "sha256": "751A8A9C01E319C66B8E1F7270C51155687381A93AD7F10B58AFDC26115C3B7C"
+    },
+    {
+      "path": "scripts/immersive-reading-smoke.mjs",
+      "sha256": "7BFF853327F1ADB498C60B7FD2DBA4B548F32DDD23461D5822118A31CBA45155"
+    },
+    {
+      "path": "package.json",
+      "sha256": "DD28A9C03C9A8617B0E063F79CBDAABF7EEFECC4AB43528F065411A9F6654177"
+    },
+    {
+      "path": "package-lock.json",
+      "sha256": "2743D44905AB3746680F68EB062C31A91C7E02EFB91DC2B5875FC6FD81EF08B1"
+    },
+    {
+      "path": "release/0.3.3/win-unpacked/resources/app.asar",
+      "sha256": "BB07176F8221F975A97E256899B0359A97A86DE7CD067951FDB95B2EA13D0C70"
+    }
+  ],
+  "evidence": [
+    "immersive-reading-result.json",
+    "focus-outline-before.json",
+    "focus-outline-before.png",
+    "focus-outline-fixed.png",
+    "immersive-reading.png",
+    "immersive-controls.png"
+  ]
+}

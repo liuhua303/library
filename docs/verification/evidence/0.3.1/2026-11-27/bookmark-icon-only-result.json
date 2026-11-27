@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "version": "0.3.1",
+  "recordedAt": "2026-11-27T04:56:24.091Z",
+  "timeZone": "Asia/Shanghai",
+  "mode": "packaged",
+  "checks": [
+    "书签区域仅一个图标按钮，无常驻解释文字",
+    "添加后选中状态与可访问名称正确",
+    "移除后恢复未添加状态，仍无解释文字"
+  ],
+  "errors": []
+}

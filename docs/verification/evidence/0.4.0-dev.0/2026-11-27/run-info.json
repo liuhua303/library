@@ -1,0 +1,329 @@
+{
+  "version": "0.4.0-dev.0",
+  "recordedAt": "2026-11-27T15:32:51.136Z",
+  "timeZone": "Asia/Shanghai",
+  "gitCommit": null,
+  "workspace": "Repository has no commits; workspace source is untracked. File hashes identify the tested source and application build.",
+  "environment": {
+    "os": "Windows_NT 10.0.26200",
+    "arch": "x64",
+    "node": "v24.12.0",
+    "electron": "45.5.0",
+    "electronBuilder": "26.18.0",
+    "npm": "11.6.2"
+  },
+  "checks": {
+    "unit": {
+      "command": "npm.cmd test",
+      "passed": true,
+      "files": 8,
+      "tests": 114
+    },
+    "productionBuild": {
+      "command": "npm.cmd run build",
+      "passed": true
+    },
+    "e2e": {
+      "command": "npm.cmd run test:e2e",
+      "passed": true,
+      "suites": [
+        {
+          "file": "smoke-result.json",
+          "passed": true,
+          "checkCount": 5,
+          "errors": []
+        },
+        {
+          "file": "reader-interactions-result.json",
+          "passed": true,
+          "checkCount": 8,
+          "errors": []
+        },
+        {
+          "file": "reader-color-result.json",
+          "passed": true,
+          "checkCount": 3,
+          "errors": []
+        },
+        {
+          "file": "reader-selection-result.json",
+          "passed": true,
+          "checkCount": 4,
+          "errors": []
+        },
+        {
+          "file": "visual-redesign-result.json",
+          "passed": true,
+          "checkCount": 9,
+          "errors": []
+        },
+        {
+          "file": "reading-preferences-result.json",
+          "passed": true,
+          "checkCount": 5,
+          "errors": []
+        },
+        {
+          "file": "immersive-reading-result.json",
+          "passed": true,
+          "checkCount": 10,
+          "errors": []
+        }
+      ]
+    },
+    "configuration": {
+      "passed": true,
+      "base": true,
+      "mergedFormalMac": true,
+      "mergedLocalMac": true,
+      "entitlementsXml": true,
+      "note": "Validated against the installed electron-builder schema and XML parser; not a macOS build."
+    },
+    "hostGuard": {
+      "command": "npm.cmd run dist:mac:local",
+      "host": "win32",
+      "exitCode": 1,
+      "expected": true,
+      "message": "Mac arm64 安装包需在 macOS 上构建。请在 M 系列 Mac 上执行此命令。"
+    },
+    "documentation": {
+      "passed": true,
+      "markdownFiles": 16,
+      "relativeFileLinks": 162,
+      "packageLockVersionConsistent": true
+    },
+    "scriptSyntax": {
+      "passed": true,
+      "files": [
+        "scripts/build-mac.mjs",
+        "scripts/mac-build-options.mjs",
+        "scripts/package-paths.mjs",
+        "scripts/check-package.mjs"
+      ]
+    }
+  },
+  "macBuildPerformed": false,
+  "macRuntimeVerified": false,
+  "files": [
+    {
+      "path": "package.json",
+      "sha256": "0708547D701D60800505E61269916A528EF0D20DC8AF99CB0FBF8AFFF04CB769"
+    },
+    {
+      "path": "package-lock.json",
+      "sha256": "7947DC764EA786DD9B7BB1562D11BD252BDEE60347F1167CD8B4B9149D686CEC"
+    },
+    {
+      "path": "tsconfig.json",
+      "sha256": "0AA1922075227DB0C7E43B6154957456DADB3126BBB8EFB384CDD218143094D4"
+    },
+    {
+      "path": "vite.config.ts",
+      "sha256": "6F5ACD4125BE316D9DC2447CD0470F178B5CA14488FEC8D4A27FC23FDF19A790"
+    },
+    {
+      "path": "vitest.config.ts",
+      "sha256": "F922236C926D90C27E390A46F10FD7113AA5F42C183F244B504A58EB5468A427"
+    },
+    {
+      "path": "app/main.cjs",
+      "sha256": "8BC2E698A506025B89579BD02A33046FDD6683F2BB381028212D165BC5E64B93"
+    },
+    {
+      "path": "app/preload.cjs",
+      "sha256": "6896C569394AE47E2E9E11BD50E081B091066945D932A927EC2B7A73EB0DDD9F"
+    },
+    {
+      "path": "app/renderer/assets/index-P3gtK_R9.css",
+      "sha256": "842F65570DCB8E891755E209CF45DA16B5B309C66D2B09D2CF9B272262CDA8ED"
+    },
+    {
+      "path": "app/renderer/assets/index-YdISW13i.js",
+      "sha256": "431502357C38A0ACD6F4888330A501087060A13694E1463C5B6A78F976B93E00"
+    },
+    {
+      "path": "app/renderer/assets/index-YdISW13i.js.map",
+      "sha256": "9C57F69CA09FA8F50C5B92EB1EDA75E4BD6FE43085EC6A1599A0D471EF2B56DA"
+    },
+    {
+      "path": "app/renderer/index.html",
+      "sha256": "E9BD4A3AF11FA95957D6DA216E106AE85434F4256CBD0740DE4FAA53FB201BF9"
+    },
+    {
+      "path": "src/main/analysis.ts",
+      "sha256": "8F2537220C38375255C3D0E5A3C19611815EACB503088D48AE9232DBA9409634"
+    },
+    {
+      "path": "src/main/book-write-buffer.ts",
+      "sha256": "6858BA6FD6D3C059F49BE1EC46D64986851D6D9DECA8F821A40DF2D88B5438BB"
+    },
+    {
+      "path": "src/main/epub.ts",
+      "sha256": "F8B93B704C627884A8A720DA2FACE64E0506760285F52FE166D2D7D754D35757"
+    },
+    {
+      "path": "src/main/index.ts",
+      "sha256": "BEC320FB78FC0F556B706368F35F6DA695D3521D4A6CACEA0AE2635C21726D13"
+    },
+    {
+      "path": "src/main/platform.ts",
+      "sha256": "1AF33B43B785D5C38F0FE64DE8B804E13EC3B39B00D159A4C769334331C3D481"
+    },
+    {
+      "path": "src/main/preload.ts",
+      "sha256": "1620A9A5282E474AD835883E86284B2B20CAF1BDF733DC13B4660EE73F2B4C62"
+    },
+    {
+      "path": "src/main/queue.ts",
+      "sha256": "74B789B738B0E9955BC95E99D6713395650DA1124F1DF2757E6F4569AFD27A21"
+    },
+    {
+      "path": "src/main/store.ts",
+      "sha256": "566B84B6C6603B59AB1F533F5A765D9AF20A353E573409DC952A68D3733B95A7"
+    },
+    {
+      "path": "src/main/validation.ts",
+      "sha256": "DA66BC5A0A86546C2A1BEBD17A01FA902AF35C7D3B6F460DA7555E6D674127CD"
+    },
+    {
+      "path": "src/main/vault.ts",
+      "sha256": "6977E6BDB57056A91D8E045990A0F3518B45FA9AA27331D0FD639452F83FB59F"
+    },
+    {
+      "path": "src/renderer/App.tsx",
+      "sha256": "E6242AE506D538E21B7BB66F7F5A4185E6B297FB643D70A944D22EFA9899CF0D"
+    },
+    {
+      "path": "src/renderer/components/EpubReader.tsx",
+      "sha256": "8A698454CE994055F0393309D4F0E4AA7EADF37BFD2BD0CDCE32C245D607D8D1"
+    },
+    {
+      "path": "src/renderer/main.tsx",
+      "sha256": "40102923FD52806E8C999A1520F92714AD242A2D15AF9265B4B08F03F595BA09"
+    },
+    {
+      "path": "src/renderer/reader/geometry.ts",
+      "sha256": "CC53FCA0482655E13B2D550BEC99F50808E38E9583F3E75D785824A4D8B96053"
+    },
+    {
+      "path": "src/renderer/reader/reader.css",
+      "sha256": "751A8A9C01E319C66B8E1F7270C51155687381A93AD7F10B58AFDC26115C3B7C"
+    },
+    {
+      "path": "src/renderer/reader/styles.ts",
+      "sha256": "044BE7FC2F81D2EEC1357D63AA693354E8FEEFB271BA91E61E5FB62FF61D30C9"
+    },
+    {
+      "path": "src/renderer/reader/text.ts",
+      "sha256": "C45C2798FC5C88880E7A43C222B6FCB7E86F3260B0A0A57504CDD1648175E406"
+    },
+    {
+      "path": "src/renderer/reader/themes.ts",
+      "sha256": "01440843E01206499C53BE1818C0A9A6931F4F6952A6744655B842F5BB47B7F9"
+    },
+    {
+      "path": "src/renderer/styles.css",
+      "sha256": "C261EB97AA3DD7F6318E6825653E7D9C6D14C94FFFE9079BA622F4A9039F3BE5"
+    },
+    {
+      "path": "src/shared/types.ts",
+      "sha256": "2BC24F8B905A2ADD8048913191132F4CC84C32227CFCCE06E8B3CEC44D108192"
+    },
+    {
+      "path": "scripts/build-mac.mjs",
+      "sha256": "80E8D55F3FB9E3EBDBD4C920EEC47535C59768354CA024956FBBC8EFCAC5D869"
+    },
+    {
+      "path": "scripts/build-main.mjs",
+      "sha256": "1605DF03251A619131DDDD0FF7F66B83B9E52CA249A42031894B6CEF7B478DB9"
+    },
+    {
+      "path": "scripts/check-package.mjs",
+      "sha256": "9F063EF0F756801FEE895FA8EB204C0FB5DDFE7BB272159447C52141C3F153B7"
+    },
+    {
+      "path": "scripts/create-sample.mjs",
+      "sha256": "9355B68F52AED5FD60DE478C04E379E45EC3C0ABDD772ECB74F6919E3AC8D9A3"
+    },
+    {
+      "path": "scripts/dev.mjs",
+      "sha256": "039BC90F583496EF8773A397E2B545035770E775CA0AC1B87D8AC0610969C5FB"
+    },
+    {
+      "path": "scripts/immersive-reading-smoke.mjs",
+      "sha256": "7BFF853327F1ADB498C60B7FD2DBA4B548F32DDD23461D5822118A31CBA45155"
+    },
+    {
+      "path": "scripts/mac-build-options.mjs",
+      "sha256": "BD2CE5B22DDB43A1950CA4EB242ED07A03E1DF90E2FA5D5E3DF36714C0719B7A"
+    },
+    {
+      "path": "scripts/package-paths.mjs",
+      "sha256": "2E8332542515D43E8AF323398E4D1FB3DAC5767D67326C5A18779F0F86311FAC"
+    },
+    {
+      "path": "scripts/reader-color-smoke.mjs",
+      "sha256": "1565555676829013B064A8887CA91466DF0C8A8A47BE29F9B50C15E95822216D"
+    },
+    {
+      "path": "scripts/reader-interactions.mjs",
+      "sha256": "80860D5A98980238B0DB971C4D8DFD9A98407F9C1E80E006812AE48331C356DF"
+    },
+    {
+      "path": "scripts/reader-selection-smoke.mjs",
+      "sha256": "CA00915B6A101B76A31A410039903D596EA8766C635FE3B3634C39D76F344236"
+    },
+    {
+      "path": "scripts/reader-test-ui.mjs",
+      "sha256": "9EE9DBF4F9787AA03CC09070560005A4EB035C0C9DF8F769F34F98AE654CE6A3"
+    },
+    {
+      "path": "scripts/reading-preferences-smoke.mjs",
+      "sha256": "77D2360A11446935D5D77B21CE6F3727A1D9459C761FD968848261D4052FAC2D"
+    },
+    {
+      "path": "scripts/smoke.mjs",
+      "sha256": "401C0F52945B152C73C3C011D27B7970FD212662C584D82C922AE3E541C6B265"
+    },
+    {
+      "path": "scripts/visual-redesign-smoke.mjs",
+      "sha256": "BDFF85651F85475F05D2AE4EBB23E28DE846F36E3B33784188FC2D23C4EFB14D"
+    },
+    {
+      "path": "tests/backend.test.ts",
+      "sha256": "7243183B88EFB4B569CFC6069ECCFADA03A66AF867B534C57BB715BF2729C08C"
+    },
+    {
+      "path": "tests/bookmarks.test.ts",
+      "sha256": "08624CFE0156D5E481A575AD08CFC1B4BC2F14850401EE9CDCAF34955B209E1E"
+    },
+    {
+      "path": "tests/epub-cover.test.ts",
+      "sha256": "79AAD4C688BAE56F6A63F24F9D1B8CB7AB57F3D3EC9D711B58BCEDCD12C225B5"
+    },
+    {
+      "path": "tests/library-navigation.test.tsx",
+      "sha256": "6BAF9FC5380462C3BA6990BDE2FD55A23AC6A05E0A9ECB0A2DD1D6DB95448B22"
+    },
+    {
+      "path": "tests/mac-build.test.ts",
+      "sha256": "931AA57038CCB80535C2230E159BEE83E3AD0A9FDAD174CCADCA4E86782DB870"
+    },
+    {
+      "path": "tests/platform.test.ts",
+      "sha256": "C3D831D257A078DD65AA574F297B502070F6D59786FEB3CE58F9FE5E776A7839"
+    },
+    {
+      "path": "tests/reader-geometry.test.ts",
+      "sha256": "04B3B078226F66C1D9539AA428252C213A556F9A1AEAB910FF44DAB7B012E992"
+    },
+    {
+      "path": "tests/reader-text.test.ts",
+      "sha256": "299675D6FE8B987AE80CFBC813B4EBFB7C680559365B9ECE161A09242CBD0A41"
+    },
+    {
+      "path": "build/entitlements.mac.plist",
+      "sha256": "42938451CD68EE3192F490DA1BACA4E1DD4B5E3EB1629F0D30AF04944C36E4D8"
+    }
+  ]
+}

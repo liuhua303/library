@@ -1,0 +1,9 @@
+node_modules/
+app/
+release/
+artifacts/
+*.log
+.env
+.env.*
+!.env.example
+

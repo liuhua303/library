@@ -1,0 +1,31 @@
+{
+  "version": "0.3.1",
+  "recordedAt": "2026-11-27T04:56:43.4082984+00:00",
+  "timeZone": "Asia/Shanghai",
+  "gitCommit": null,
+  "gitState": "No commits; uncommitted workspace",
+  "buildPassed": true,
+  "installerSha256": "95142118DF0FD2F2672EEEB231AFA749D30B1FD6BAAD08CE2A59825BA7306670",
+  "files": [
+    {
+      "path": "src/renderer/components/EpubReader.tsx",
+      "sha256": "EAE5071147DDAE137834E41D8A19B67968D5EE89AE9E5F83572E73B61BBCCF8E"
+    },
+    {
+      "path": "src/renderer/reader/reader.css",
+      "sha256": "10FFEB3BC89AE15CD799BB30F2CE571267975FCA1C1C7779B363897F9E65449C"
+    },
+    {
+      "path": "package.json",
+      "sha256": "7988DABC377679FB37B645E97EFF335901CD7B7817D7582A2F1DBC74C6E6F512"
+    },
+    {
+      "path": "package-lock.json",
+      "sha256": "92116A762B1F1B17951FCFE7919AAEE4416362803B0E45F0E46C43B6602FAEDD"
+    },
+    {
+      "path": "release/0.3.1/win-unpacked/resources/app.asar",
+      "sha256": "2EDE4C0CA82DE257B848FA0CEBF6B2D1804179CB9E5D385A8E73C4B17178D2C8"
+    }
+  ]
+}

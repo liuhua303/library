@@ -1,0 +1,86 @@
+{
+  "passed": true,
+  "checks": [
+    "启动先显示极简白色书架，导入和设置可发现，无旧版说明文案",
+    "书架保留 API 密钥与模型设置，输入 J 正常且关闭后返回书架",
+    "J 在宿主与 EPUB 正文均切换一次，浮层开关保持容器、文字换行、页码和内容位置",
+    "工具和浮层操作不清除选区，不改变高亮几何，也不穿透误收录",
+    "阅读设置仅包含阅读选项，J 不打开单词本，方向键不翻动背后书页",
+    "原文查看定位并展开正确解析，返回原文收起浮层并闪烁两次（隔离模拟 API）",
+    "封面原图像素与比例保留，无封面书籍显示书名占位，两本书均可阅读",
+    "翻页后返回书架并立即重开同一本书，页码与内容位置不回退",
+    "最小窗口浮层不越界，重启先显示书架，点击封面后续读，书籍与收录数据保留"
+  ],
+  "measurements": [
+    {
+      "stage": "宿主 J 打开",
+      "viewport": {
+        "x": 340,
+        "y": 80,
+        "width": 760,
+        "height": 808
+      },
+      "cfi": "epubcfi(/6/2!/4/2/1:0)",
+      "page": "1 / 13",
+      "measuredWords": 25
+    },
+    {
+      "stage": "正文 J 关闭",
+      "viewport": {
+        "x": 340,
+        "y": 80,
+        "width": 760,
+        "height": 808
+      },
+      "cfi": "epubcfi(/6/2!/4/2/1:0)",
+      "page": "1 / 13",
+      "measuredWords": 25
+    },
+    {
+      "stage": "选区中打开浮层",
+      "viewport": {
+        "x": 340,
+        "y": 80,
+        "width": 760,
+        "height": 808
+      },
+      "cfi": "epubcfi(/6/2!/4/2/1:0)",
+      "page": "1 / 13",
+      "measuredWords": 25
+    },
+    {
+      "stage": "阅读设置",
+      "width": 1440,
+      "height": 960,
+      "scrollWidth": 1440,
+      "scrollHeight": 960,
+      "panels": [
+        {
+          "class": "reader-appearance",
+          "left": 980,
+          "top": 422,
+          "right": 1410,
+          "bottom": 876
+        }
+      ]
+    },
+    {
+      "stage": "最小窗口单词本",
+      "width": 1050,
+      "height": 680,
+      "scrollWidth": 1050,
+      "scrollHeight": 680,
+      "panels": [
+        {
+          "class": "vocabulary-sidebar",
+          "left": 674,
+          "top": 16,
+          "right": 1046,
+          "bottom": 664
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "userData": "C:\\Users\\ASUS\\AppData\\Local\\Temp\\yuejian-redesign-pH26zh"
+}

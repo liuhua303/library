@@ -1,0 +1,180 @@
+{
+  "passed": true,
+  "expectedColor": "rgb(0, 0, 0)",
+  "checks": [
+    "普通正文、id/name 定位锚点、真实链接、内联颜色和文字填充色保持统一",
+    "连续翻过三页，正文颜色仍然一致且未产生收录标记",
+    "切换章节后重新注入样式，并连续翻页保持正确颜色"
+  ],
+  "measurements": [
+    {
+      "stage": "第一章初次显示",
+      "chapter": "1",
+      "totalCases": 108,
+      "visibleCases": [
+        "ordinary-0",
+        "self-closing-anchor-0",
+        "self-closing-following-0",
+        "id-anchor-0",
+        "name-anchor-0",
+        "real-link-0",
+        "inline-color-0"
+      ],
+      "colors": [
+        "rgb(0, 0, 0)"
+      ],
+      "textFillColors": [
+        "rgb(0, 0, 0)"
+      ],
+      "mismatchedExamples": []
+    },
+    {
+      "stage": "第 1 章翻页 1",
+      "chapter": "1",
+      "totalCases": 108,
+      "visibleCases": [
+        "text-fill-0",
+        "nested-0",
+        "ordinary-1",
+        "self-closing-anchor-1",
+        "self-closing-following-1",
+        "id-anchor-1",
+        "name-anchor-1",
+        "real-link-1"
+      ],
+      "colors": [
+        "rgb(0, 0, 0)"
+      ],
+      "textFillColors": [
+        "rgb(0, 0, 0)"
+      ],
+      "mismatchedExamples": []
+    },
+    {
+      "stage": "第 1 章翻页 2",
+      "chapter": "1",
+      "totalCases": 108,
+      "visibleCases": [
+        "inline-color-1",
+        "text-fill-1",
+        "nested-1",
+        "ordinary-2"
+      ],
+      "colors": [
+        "rgb(0, 0, 0)"
+      ],
+      "textFillColors": [
+        "rgb(0, 0, 0)"
+      ],
+      "mismatchedExamples": []
+    },
+    {
+      "stage": "第 1 章翻页 3",
+      "chapter": "1",
+      "totalCases": 108,
+      "visibleCases": [
+        "self-closing-anchor-2",
+        "self-closing-following-2",
+        "id-anchor-2",
+        "name-anchor-2",
+        "real-link-2",
+        "inline-color-2",
+        "text-fill-2",
+        "nested-2"
+      ],
+      "colors": [
+        "rgb(0, 0, 0)"
+      ],
+      "textFillColors": [
+        "rgb(0, 0, 0)"
+      ],
+      "mismatchedExamples": []
+    },
+    {
+      "stage": "第二章初次显示",
+      "chapter": "2",
+      "totalCases": 108,
+      "visibleCases": [
+        "ordinary-0",
+        "self-closing-anchor-0",
+        "self-closing-following-0",
+        "id-anchor-0",
+        "name-anchor-0",
+        "real-link-0",
+        "inline-color-0"
+      ],
+      "colors": [
+        "rgb(0, 0, 0)"
+      ],
+      "textFillColors": [
+        "rgb(0, 0, 0)"
+      ],
+      "mismatchedExamples": []
+    },
+    {
+      "stage": "第 2 章翻页 1",
+      "chapter": "2",
+      "totalCases": 108,
+      "visibleCases": [
+        "text-fill-0",
+        "nested-0",
+        "ordinary-1",
+        "self-closing-anchor-1",
+        "self-closing-following-1",
+        "id-anchor-1",
+        "name-anchor-1",
+        "real-link-1"
+      ],
+      "colors": [
+        "rgb(0, 0, 0)"
+      ],
+      "textFillColors": [
+        "rgb(0, 0, 0)"
+      ],
+      "mismatchedExamples": []
+    },
+    {
+      "stage": "第 2 章翻页 2",
+      "chapter": "2",
+      "totalCases": 108,
+      "visibleCases": [
+        "inline-color-1",
+        "text-fill-1",
+        "nested-1",
+        "ordinary-2",
+        "self-closing-anchor-2",
+        "self-closing-following-2"
+      ],
+      "colors": [
+        "rgb(0, 0, 0)"
+      ],
+      "textFillColors": [
+        "rgb(0, 0, 0)"
+      ],
+      "mismatchedExamples": []
+    },
+    {
+      "stage": "第 2 章翻页 3",
+      "chapter": "2",
+      "totalCases": 108,
+      "visibleCases": [
+        "id-anchor-2",
+        "name-anchor-2",
+        "real-link-2",
+        "inline-color-2",
+        "text-fill-2",
+        "nested-2",
+        "ordinary-3",
+        "self-closing-anchor-3"
+      ],
+      "colors": [
+        "rgb(0, 0, 0)"
+      ],
+      "textFillColors": [
+        "rgb(0, 0, 0)"
+      ],
+      "mismatchedExamples": []
+    }
+  ],
+  "errors": []
+}
