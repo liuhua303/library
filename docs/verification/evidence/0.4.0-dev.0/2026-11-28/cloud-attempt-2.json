@@ -1,0 +1,19 @@
+{
+  "runId": 46031701353,
+  "jobId": 140616877122,
+  "url": "https://github.com/liuhua303/library/actions/runs/46031701353",
+  "commit": "d42cb2b53235a6984f506a4ec357a6bc92a36535",
+  "conclusion": "failure",
+  "installAndUnitTestsPassed": true,
+  "productionBuildPassed": true,
+  "packagingCompleted": false,
+  "failedStep": "Check packaged application",
+  "packagingError": "Global xmldom override breaks plist@3.1.0: parseFromString called without required MIME type.",
+  "exitCodeIssue": "Builder cleanup hid the packaging rejection after process.exitCode=1; missing executable then caused check-package to fail. Fixed to process.exit(1) and require actual DMG files.",
+  "excerpt": [
+    "2026-11-27T16:13:38.3742260Z \u001b[2m Test Files \u001b[22m \u001b[1m\u001b[32m8 passed\u001b[39m\u001b[22m\u001b[90m (8)\u001b[39m",
+    "2026-11-27T16:13:43.9428050Z   • packaging       platform=darwin arch=arm64 electron=45.5.0 appOutDir=release/mac-arm64-local/mac-arm64",
+    "2026-11-27T16:14:06.6359450Z DOMParser.parseFromString: the provided mimeType \"undefined\" is not valid.",
+    "2026-11-27T16:14:07.3793870Z electron.launch: Failed to launch: Error: spawn /Users/runner/work/library/library/release/mac-arm64-local/mac-arm64/阅间.app/Contents/MacOS/阅间 ENOENT"
+  ]
+}

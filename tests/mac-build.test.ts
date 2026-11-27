@@ -1,12 +1,22 @@
 import { describe, expect, it } from 'vitest';
 import path from 'node:path';
 import { readFileSync } from 'node:fs';
+import { createRequire } from 'node:module';
 
 // These Node CLI helpers are JavaScript and are also executed directly by npm.
 const { planMacBuild } = await import(new URL('../scripts/mac-build-options.mjs', import.meta.url).href);
 const { packageExecutablePath } = await import(new URL('../scripts/package-paths.mjs', import.meta.url).href);
 
 describe('Apple Silicon distribution entry points', () => {
+  it('parses Mac signing entitlements using the packaging library', () => {
+    const plist = createRequire(import.meta.url)('plist');
+    const xml = readFileSync(new URL('../build/entitlements.mac.plist', import.meta.url), 'utf8');
+    expect(plist.parse(xml)).toMatchObject({
+      'com.apple.security.cs.allow-jit': true,
+      'com.apple.security.cs.allow-unsigned-executable-memory': true,
+    });
+  });
+
   it('stops unsupported build hosts before any build or credential operation', () => {
     const env = new Proxy({}, { get() { throw new Error('Credentials must not be read'); } });
     expect(() => planMacBuild({ platform: 'win32', env })).toThrow('需在 macOS 上构建');

@@ -1,5 +1,6 @@
 import { spawn } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
+import { access } from 'node:fs/promises';
 import { planMacBuild } from './mac-build-options.mjs';
 
 try {
@@ -21,9 +22,13 @@ try {
     projectDir: projectRoot, targets: Platform.MAC.createTarget([plan.target], Arch.arm64),
     config: plan.config, publish: 'never',
   });
+  if (!files.some(file => file.endsWith('.dmg'))) throw new Error('Mac 构建未生成 DMG。');
+  await Promise.all(files.map(file => access(file)));
   console.log(plan.local ? 'Mac arm64 本机试用包已生成（ad-hoc 签名，未公证）：' : 'Mac arm64 正式签名及公证构建已完成：');
   for (const file of files) console.log(file);
 } catch (error) {
   console.error(error instanceof Error ? error.message : String(error));
-  process.exitCode = 1;
+  // Some builder cleanup handlers overwrite process.exitCode. Fail explicitly so
+  // a rejected packaging operation cannot appear successful to CI.
+  process.exit(1);
 }
