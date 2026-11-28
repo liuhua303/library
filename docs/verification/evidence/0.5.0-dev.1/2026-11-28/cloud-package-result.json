@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "version": "0.5.0-dev.1",
+  "platform": "darwin",
+  "arch": "arm64",
+  "title": "阅间 · 阅读器",
+  "booksReadable": true,
+  "settingsReadable": true,
+  "executablePath": "/Users/runner/work/library/library/release/mac-arm64-local/mac-arm64/阅间.app/Contents/MacOS/阅间",
+  "recordedAt": "2026-11-28T07:52:11.012Z"
+}

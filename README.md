@@ -2,9 +2,9 @@
 
 本地阅读器，提供 Windows 版和 M 系列 Mac 试用包。阅读时快速收录词句，后台结合原文生成释义，按书籍保存在单词本中。
 
-当前源码在 `codex/japanese-support` 分支修复 0.5.0-dev.1 的旧日文书语言识别与失败解析重试，尚未合并进 `main`。用户已确认日语适配流程，本轮修复已完成 Windows 自动检查并生成试用包，Mac 检查待运行；实际状态见 [0.5.0-dev.1 验证报告](./docs/verification/0.5.0-dev.1.md)。`main` 和标签 `v0.4.0-dev.1` 保留用户已检查的版本。
+当前源码在 `codex/japanese-support` 分支修复 0.5.0-dev.1 的旧日文书语言识别与失败解析重试，尚未合并进 `main`。用户已确认日语适配流程，本轮修复已完成 Windows 和 Mac 自动检查并生成试用包；实际状态见 [0.5.0-dev.1 验证报告](./docs/verification/0.5.0-dev.1.md)。`main` 和标签 `v0.4.0-dev.1` 保留用户已检查的版本。
 
-本轮 Windows 修复包位于 `release/0.5.0-dev.1/Yuejian-Setup-0.5.0-dev.1.exe`。
+本轮 Windows 修复包位于 `release/0.5.0-dev.1/Yuejian-Setup-0.5.0-dev.1.exe`；Mac 下载[修复包 artifact](https://github.com/liuhua303/library/actions/runs/46123016387/artifacts/15255055158)，解压得到 `Yuejian-0.5.0-dev.1-mac-arm64-local.dmg`，需登录 GitHub，ad-hoc 签名、未公证，保留至北京时间 2026-12-12 15:53。
 
 上一版日语分支 0.5.0-dev.0 的 Windows、Mac 自动检查与包记录保留在 [历史报告](./docs/verification/0.5.0-dev.0.md)。Windows 包位于 `release/0.5.0-dev.0/Yuejian-Setup-0.5.0-dev.0.exe`；Mac 的[历史试用包 artifact](https://github.com/liuhua303/library/actions/runs/46121112223/artifacts/15253397529)解压后为 `Yuejian-0.5.0-dev.0-mac-arm64-local.dmg`，ad-hoc 签名、未公证，登录 GitHub 后可下载，保留至北京时间 2026-12-12 15:27。这些包不含本轮旧书修复。下方“安装使用”和“当前交付”保留 0.4.0-dev.1 稳定试用包入口，0.4.0-dev.1 不含日语适配。
 

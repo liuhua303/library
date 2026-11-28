@@ -1,6 +1,6 @@
 # 开发说明
 
-状态：当前开发与维护约定；`codex/japanese-support` 分支源码为 0.5.0-dev.1，尚未合并进 `main`。本轮 Windows 自动检查和试用包已完成，Mac 检查待运行；`main` 保留 0.4.0-dev.1，0.5.0-dev.0 日语试用包保留历史归属。更新日期：2026-11-28。
+状态：当前开发与维护约定；`codex/japanese-support` 分支源码为 0.5.0-dev.1，尚未合并进 `main`。本轮 Windows 和 Mac 自动检查及试用包已完成；`main` 保留 0.4.0-dev.1，0.5.0-dev.0 日语试用包保留历史归属。更新日期：2026-11-28。
 
 源码仓库为 [liuhua303/library](https://github.com/liuhua303/library)。用户已确认日语适配流程，当前在独立分支修复旧书仍按英文解析的问题，本轮实现与验证状态见 [0.5.0-dev.1 验证报告](./verification/0.5.0-dev.1.md)。上一版日语包的自动检查与产物见 [0.5.0-dev.0 历史报告](./verification/0.5.0-dev.0.md)，不作为本轮修复通过证明。`main` 和标签 `v0.4.0-dev.1` 保留用户已检查的版本，产物见 [历史报告](./verification/0.4.0-dev.1.md)。Mac 试用包为 ad-hoc 签名、未公证；正式 Developer ID 签名和公证尚未配置，安装及原生交互的人工验收仍未完成，真实模型质量单独验收。
 
@@ -51,7 +51,7 @@ docs/
 | [src/main/queue.ts](../src/main/queue.ts)、[analysis.ts](../src/main/analysis.ts) | 后台队列、超时重试、DeepSeek 请求、字段和原文匹配校验 |
 | [src/main/vault.ts](../src/main/vault.ts) | 使用 Electron safeStorage 保护本机 API 密钥 |
 | [src/main/epub.ts](../src/main/epub.ts)、[validation.ts](../src/main/validation.ts) | EPUB 元数据与封面提取、IPC 输入校验 |
-| [src/main/book-language.ts](../src/main/book-language.ts) | EPUB 语言标记解析、正文抽样、英语/日语探测及未确定来源 |
+| [src/main/book-language.ts](../src/main/book-language.ts)、[book-language-upgrade.ts](../src/main/book-language-upgrade.ts) | EPUB 语言探测，以及启动时旧书语言识别升级 |
 | [src/main/book-language-upgrade.ts](../src/main/book-language-upgrade.ts) | 启动时读取本机 EPUB 修正 legacy 旧书语言，隔离单本识别失败 |
 | [src/shared/types.ts](../src/shared/types.ts) | 前后端共享数据结构、主题与语言标识、书签及 ReaderApi 接口 |
 | [src/renderer/App.tsx](../src/renderer/App.tsx) | 书架、书架 API 设置、单词本和每书阅读设置状态 |
@@ -165,7 +165,7 @@ node scripts/check-package.mjs "release/win-unpacked/阅间.exe"
 
 ## Mac 准备与打包
 
-当前 Mac 构建目标固定 Apple Silicon arm64，不扩展 Intel 或 universal。以下命令需在 macOS 上执行，可使用本地 Mac 或下述 GitHub macOS runner，不能直接在 Windows 主机执行。版本号以 [package.json](../package.json) 为准，当前分支源码为 `0.5.0-dev.1`，暂无本轮新包；已生成的日语分支 DMG 为 `0.5.0-dev.0` 历史产物，`main` 的 `0.4.0-dev.1` 包仍作为用户已检查版本保留。各版实际结果分别写入对应验证报告。
+当前 Mac 构建目标固定 Apple Silicon arm64，不扩展 Intel 或 universal。以下命令需在 macOS 上执行，可使用本地 Mac 或下述 GitHub macOS runner，不能直接在 Windows 主机执行。版本号以 [package.json](../package.json) 为准，当前分支源码为 `0.5.0-dev.1`，本轮已生成修复试用 DMG；`0.5.0-dev.0` DMG 保留为历史产物，`main` 的 `0.4.0-dev.1` 包仍作为用户已检查版本保留。各版实际结果分别写入对应验证报告。
 
 ### 本机试用包
 
@@ -240,7 +240,9 @@ node scripts/check-package.mjs "release/mac-arm64-local/mac-arm64/阅间.app"
 
 本地构建还支持上一节的其他公证配置；当前云端工作流使用此固定的 Secrets 组合。DeepSeek API 密钥属于应用使用者，不需要放到构建 Secrets。
 
-工作流使用 `macos-26` runner 和 Node.js 24，先断言实际环境为 `darwin/arm64`，再执行 `npm ci`、`npm test`、对应构建命令、`check-package.mjs` 隔离启动，以及针对打包程序的 `reading-preferences-smoke.mjs` 六主题、非空单词本、书签和重启回归；日语分支新增 `japanese-smoke.mjs` 打包程序检查。准确步骤以工作流正文为准，新增步骤不表示已在 Mac 跑通。当前 GitHub 标准 runner 的该标签为 Apple Silicon；标签和供应情况以 [GitHub runner 官方说明](https://docs.github.com/en/actions/reference/runners/github-hosted-runners) 为准。只有所有检查成功才上传 DMG artifact；`Mac-check-results-...` 保留启动、主题与日语回归结果及 `preferences-notebook-*.png`、`japanese-*.png` 等当次证据，两类 artifact 均保留 14 天。失败时通过运行日志及已有证据定位问题，不把失败产物作为交付。过期前需要自行下载保留，artifact 不是永久发布地址。
+工作流使用 `macos-26` runner 和 Node.js 24，先断言实际环境为 `darwin/arm64`，再执行 `npm ci`、`npm test`、对应构建命令、`check-package.mjs` 隔离启动，以及针对打包程序的 `reading-preferences-smoke.mjs` 六主题、非空单词本、书签和重启回归；日语分支还运行 `japanese-smoke.mjs` 与 `language-recovery-smoke.mjs`，覆盖日语/英语及旧书失败项恢复。准确步骤以工作流正文为准，实际结果见本版验证报告。当前 GitHub 标准 runner 的该标签为 Apple Silicon；标签和供应情况以 [GitHub runner 官方说明](https://docs.github.com/en/actions/reference/runners/github-hosted-runners) 为准。只有所有检查成功才上传 DMG artifact；`Mac-check-results-...` 保留启动、主题与日语回归结果及 `preferences-notebook-*.png`、`japanese-*.png`、`language-recovery-*.png` 等当次证据，两类 artifact 均保留 14 天。失败时通过运行日志及已有证据定位问题，不把失败产物作为交付。过期前需要自行下载保留，artifact 不是永久发布地址。
+
+本轮 [0.5.0-dev.1 Mac 运行](https://github.com/liuhua303/library/actions/runs/46123016387)已成功，[修复试用包 artifact](https://github.com/liuhua303/library/actions/runs/46123016387/artifacts/15255055158)解压后为 `Yuejian-0.5.0-dev.1-mac-arm64-local.dmg`，保留至北京时间 2026-12-12 15:53。
 
 上一版日语分支产物为 [Yuejian-mac-arm64-trial-6](https://github.com/liuhua303/library/actions/runs/46121112223/artifacts/15253397529)，包含 `Yuejian-0.5.0-dev.0-mac-arm64-local.dmg`，保留至北京时间 2026-12-12 15:27。登录并具备仓库读取权限后可按上述步骤下载并解压；该历史包不含 0.5.0-dev.1 旧书修复。`main` 尚未合并日语适配，稳定版包仍可从历史报告查找。
 
