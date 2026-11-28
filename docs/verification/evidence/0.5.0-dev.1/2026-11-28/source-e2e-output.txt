@@ -1,0 +1,3000 @@
+
+> yuejian-reader@0.5.0-dev.1 test:e2e
+> node scripts/smoke.mjs && node scripts/reader-interactions.mjs && node scripts/reader-color-smoke.mjs && node scripts/reader-selection-smoke.mjs && node scripts/visual-redesign-smoke.mjs && node scripts/reading-preferences-smoke.mjs && node scripts/immersive-reading-smoke.mjs && node scripts/japanese-smoke.mjs && node scripts/language-recovery-smoke.mjs
+
+Debugger ending on ws://127.0.0.1:63226/2d35a3f6-009b-4629-804b-8f9bcd9fd97d
+For help, see: https://nodejs.org/learn/getting-started/debugging
+{
+  "passed": true,
+  "checks": [
+    "真实 EPUB 导入并分页渲染",
+    "单击收录且无 API 密钥仍可保存",
+    "右侧书籍单词本",
+    "模型返回落库及完整短语标记扩展（模拟 API 响应）",
+    "翻页后立即关闭，重启后阅读位置、词条与解析仍然保留"
+  ],
+  "feedbackMs": 7.700000002980232,
+  "userData": "C:\\Users\\ASUS\\AppData\\Local\\Temp\\yuejian-smoke-vuAgGw",
+  "runtime": {
+    "node": "24.22.3",
+    "acorn": "8.18.0",
+    "ada": "4.0.0",
+    "amaro": "1.1.11",
+    "ares": "1.34.9",
+    "brotli": "1.2.0",
+    "cldr": "48.0",
+    "icu": "78.2",
+    "llhttp": "9.4.4",
+    "merve": "1.2.2",
+    "modules": "150",
+    "napi": "10",
+    "nbytes": "0.1.4",
+    "ncrypto": "0.0.1",
+    "nghttp2": "1.70.0",
+    "nghttp3": "",
+    "ngtcp2": "",
+    "openssl": "0.0.0",
+    "simdjson": "4.6.11",
+    "simdutf": "7.7.0",
+    "sqlite": "3.54.1",
+    "tz": "2026e",
+    "undici": "7.30.2",
+    "unicode": "17.0",
+    "uv": "1.52.1",
+    "uvwasi": "0.0.23",
+    "v8": "15.6.75.63-electron.46fec525e2404bf6",
+    "zlib": "1.3.2.1-motley",
+    "zstd": "1.6.0",
+    "electron": "45.5.0",
+    "chrome": "156.0.8078.109"
+  }
+}
+Debugger ending on ws://127.0.0.1:63230/43d72748-49dc-43c6-ac9e-4c9d2bb33fab
+For help, see: https://nodejs.org/learn/getting-started/debugging
+reader-interactions: launch
+reader-interactions: first window
+reader-interactions: imported
+reader-interactions: controlled pointer selection
+reader-interactions: copy
+reader-interactions: handles
+reader-interactions: cross page
+reader-interactions: view saved selection
+reader-interactions: jump and font resize
+reader-interactions: cancel collection
+{
+  "passed": true,
+  "checks": [
+    "真实鼠标拖选保留文本，未确认前不收录",
+    "选区工具条保持固定阅读视口，复制后可立即继续选择",
+    "复制写入系统剪贴板并取消选区，不误收录",
+    "首尾手柄真实拖动均能调整选择范围",
+    "跨页保留选区、在下一页调整终点并完整收录",
+    "点击已标记内容通过小菜单在右侧定位对应记录",
+    "回跳原文闪烁两次，调整字号后仍能定位同一内容",
+    "原文小菜单取消收录并移除下划线及词条"
+  ],
+  "userData": "C:\\Users\\ASUS\\AppData\\Local\\Temp\\yuejian-interactions-Xw3VAn",
+  "errors": []
+}
+reader-interactions: passed
+Debugger ending on ws://127.0.0.1:63234/6ddb4dd9-3c8f-4101-ba1c-110efa58afd2
+For help, see: https://nodejs.org/learn/getting-started/debugging
+reader-color: 启动隔离的测试阅读器
+{
+  "passed": true,
+  "expectedColor": "rgb(0, 0, 0)",
+  "checks": [
+    "普通正文、id/name 定位锚点、真实链接、内联颜色和文字填充色保持统一",
+    "连续翻过三页，正文颜色仍然一致且未产生收录标记",
+    "切换章节后重新注入样式，并连续翻页保持正确颜色"
+  ],
+  "measurements": [
+    {
+      "stage": "第一章初次显示",
+      "chapter": "1",
+      "totalCases": 108,
+      "visibleCases": [
+        "ordinary-0",
+        "self-closing-anchor-0",
+        "self-closing-following-0",
+        "id-anchor-0",
+        "name-anchor-0",
+        "real-link-0",
+        "inline-color-0"
+      ],
+      "colors": [
+        "rgb(0, 0, 0)"
+      ],
+      "textFillColors": [
+        "rgb(0, 0, 0)"
+      ],
+      "mismatchedExamples": []
+    },
+    {
+      "stage": "第 1 章翻页 1",
+      "chapter": "1",
+      "totalCases": 108,
+      "visibleCases": [
+        "text-fill-0",
+        "nested-0",
+        "ordinary-1",
+        "self-closing-anchor-1",
+        "self-closing-following-1",
+        "id-anchor-1",
+        "name-anchor-1",
+        "real-link-1"
+      ],
+      "colors": [
+        "rgb(0, 0, 0)"
+      ],
+      "textFillColors": [
+        "rgb(0, 0, 0)"
+      ],
+      "mismatchedExamples": []
+    },
+    {
+      "stage": "第 1 章翻页 2",
+      "chapter": "1",
+      "totalCases": 108,
+      "visibleCases": [
+        "inline-color-1",
+        "text-fill-1",
+        "nested-1",
+        "ordinary-2"
+      ],
+      "colors": [
+        "rgb(0, 0, 0)"
+      ],
+      "textFillColors": [
+        "rgb(0, 0, 0)"
+      ],
+      "mismatchedExamples": []
+    },
+    {
+      "stage": "第 1 章翻页 3",
+      "chapter": "1",
+      "totalCases": 108,
+      "visibleCases": [
+        "self-closing-anchor-2",
+        "self-closing-following-2",
+        "id-anchor-2",
+        "name-anchor-2",
+        "real-link-2",
+        "inline-color-2",
+        "text-fill-2",
+        "nested-2"
+      ],
+      "colors": [
+        "rgb(0, 0, 0)"
+      ],
+      "textFillColors": [
+        "rgb(0, 0, 0)"
+      ],
+      "mismatchedExamples": []
+    },
+    {
+      "stage": "第二章初次显示",
+      "chapter": "2",
+      "totalCases": 108,
+      "visibleCases": [
+        "ordinary-0",
+        "self-closing-anchor-0",
+        "self-closing-following-0",
+        "id-anchor-0",
+        "name-anchor-0",
+        "real-link-0",
+        "inline-color-0"
+      ],
+      "colors": [
+        "rgb(0, 0, 0)"
+      ],
+      "textFillColors": [
+        "rgb(0, 0, 0)"
+      ],
+      "mismatchedExamples": []
+    },
+    {
+      "stage": "第 2 章翻页 1",
+      "chapter": "2",
+      "totalCases": 108,
+      "visibleCases": [
+        "text-fill-0",
+        "nested-0",
+        "ordinary-1",
+        "self-closing-anchor-1",
+        "self-closing-following-1",
+        "id-anchor-1",
+        "name-anchor-1",
+        "real-link-1"
+      ],
+      "colors": [
+        "rgb(0, 0, 0)"
+      ],
+      "textFillColors": [
+        "rgb(0, 0, 0)"
+      ],
+      "mismatchedExamples": []
+    },
+    {
+      "stage": "第 2 章翻页 2",
+      "chapter": "2",
+      "totalCases": 108,
+      "visibleCases": [
+        "inline-color-1",
+        "text-fill-1",
+        "nested-1",
+        "ordinary-2",
+        "self-closing-anchor-2",
+        "self-closing-following-2"
+      ],
+      "colors": [
+        "rgb(0, 0, 0)"
+      ],
+      "textFillColors": [
+        "rgb(0, 0, 0)"
+      ],
+      "mismatchedExamples": []
+    },
+    {
+      "stage": "第 2 章翻页 3",
+      "chapter": "2",
+      "totalCases": 108,
+      "visibleCases": [
+        "id-anchor-2",
+        "name-anchor-2",
+        "real-link-2",
+        "inline-color-2",
+        "text-fill-2",
+        "nested-2",
+        "ordinary-3",
+        "self-closing-anchor-3"
+      ],
+      "colors": [
+        "rgb(0, 0, 0)"
+      ],
+      "textFillColors": [
+        "rgb(0, 0, 0)"
+      ],
+      "mismatchedExamples": []
+    }
+  ],
+  "errors": []
+}
+reader-selection: launch
+reader-selection: 跨多行和段落拖选
+reader-selection: 调整终点
+reader-selection: 字号变化
+reader-selection: 跨页继续选择
+{
+  "passed": true,
+  "checks": [
+    "嵌套行内元素、缩进、显式换行和跨段选中不重复绘制高亮",
+    "调整选区终点后高亮仍只覆盖文字且不叠加",
+    "字号变化后跨段选择无旧高亮残留或重复绘制",
+    "跨页保留并扩展选区后可见高亮不叠加"
+  ],
+  "measurements": [
+    {
+      "stage": "跨段选中",
+      "overlayCount": 9,
+      "leafRectCount": 9,
+      "overlapCount": 0,
+      "overlapExamples": [],
+      "extraArea": 0,
+      "missingArea": 0,
+      "maximumTextHeight": 38,
+      "tooTall": [],
+      "handleCount": 2,
+      "nativeEmpty": true
+    },
+    {
+      "stage": "调整终点后",
+      "overlayCount": 10,
+      "leafRectCount": 10,
+      "overlapCount": 0,
+      "overlapExamples": [],
+      "extraArea": 0,
+      "missingArea": 0,
+      "maximumTextHeight": 38,
+      "tooTall": [],
+      "handleCount": 2,
+      "nativeEmpty": true
+    },
+    {
+      "stage": "字号变化后",
+      "overlayCount": 10,
+      "leafRectCount": 10,
+      "overlapCount": 0,
+      "overlapExamples": [],
+      "extraArea": 0,
+      "missingArea": 0,
+      "maximumTextHeight": 36,
+      "tooTall": [],
+      "handleCount": 2,
+      "nativeEmpty": true
+    },
+    {
+      "stage": "跨页扩展后",
+      "overlayCount": 2,
+      "leafRectCount": 2,
+      "overlapCount": 0,
+      "overlapExamples": [],
+      "extraArea": 0,
+      "missingArea": 0,
+      "maximumTextHeight": 36,
+      "tooTall": [],
+      "handleCount": 2,
+      "nativeEmpty": true
+    }
+  ],
+  "errors": []
+}
+visual-redesign: 空书架
+visual-redesign: 书架 API 设置
+visual-redesign: 导入并阅读真实封面书籍
+visual-redesign: 宿主与正文 J、浮层不重排
+visual-redesign: 选区在工具与浮层之间保持
+visual-redesign: 阅读设置隔离 API 与阅读快捷键
+visual-redesign: 真实收录、查看和原文回跳
+visual-redesign: 书架原图与无封面降级
+visual-redesign: 窄窗口与续读
+{
+  "passed": true,
+  "checks": [
+    "启动先显示极简白色书架，导入和设置可发现，无旧版说明文案",
+    "书架保留 API 密钥与模型设置，输入 J 正常且关闭后返回书架",
+    "J 在宿主与 EPUB 正文均切换一次，浮层开关保持容器、文字换行、页码和内容位置",
+    "工具和浮层操作不清除选区，不改变高亮几何，也不穿透误收录",
+    "阅读设置仅包含阅读选项，J 不打开单词本，方向键不翻动背后书页",
+    "原文查看定位并展开正确解析，返回原文收起浮层并闪烁两次（隔离模拟 API）",
+    "封面原图像素与比例保留，无封面书籍显示书名占位，两本书均可阅读",
+    "翻页后返回书架并立即重开同一本书，页码与内容位置不回退",
+    "最小窗口浮层不越界，重启先显示书架，点击封面后续读，书籍与收录数据保留"
+  ],
+  "measurements": [
+    {
+      "stage": "宿主 J 打开",
+      "viewport": {
+        "x": 340,
+        "y": 80,
+        "width": 760,
+        "height": 808
+      },
+      "cfi": "epubcfi(/6/2!/4/2/1:0)",
+      "page": "1 / 13",
+      "measuredWords": 25
+    },
+    {
+      "stage": "正文 J 关闭",
+      "viewport": {
+        "x": 340,
+        "y": 80,
+        "width": 760,
+        "height": 808
+      },
+      "cfi": "epubcfi(/6/2!/4/2/1:0)",
+      "page": "1 / 13",
+      "measuredWords": 25
+    },
+    {
+      "stage": "选区中打开浮层",
+      "viewport": {
+        "x": 340,
+        "y": 80,
+        "width": 760,
+        "height": 808
+      },
+      "cfi": "epubcfi(/6/2!/4/2/1:0)",
+      "page": "1 / 13",
+      "measuredWords": 25
+    },
+    {
+      "stage": "阅读设置",
+      "width": 1440,
+      "height": 960,
+      "scrollWidth": 1440,
+      "scrollHeight": 960,
+      "panels": [
+        {
+          "class": "reader-appearance",
+          "left": 980,
+          "top": 308.8125,
+          "right": 1410,
+          "bottom": 876
+        }
+      ]
+    },
+    {
+      "stage": "最小窗口单词本",
+      "width": 1050,
+      "height": 680,
+      "scrollWidth": 1050,
+      "scrollHeight": 680,
+      "panels": [
+        {
+          "class": "vocabulary-sidebar",
+          "left": 674,
+          "top": 16,
+          "right": 1046,
+          "bottom": 664
+        }
+      ]
+    }
+  ],
+  "errors": []
+}
+reading-preferences: 独立数据启动、导入与阅读设置
+reading-preferences: 六种主题真实正文配色与原书颜色覆盖
+reading-preferences: 六主题非空单词本、实际文字对比与清晰度
+reading-preferences: 添加书签、导航与字号变化后的回跳
+reading-preferences: 真实阅读百分比、书架展示与按书隔离
+reading-preferences: 重启恢复与删除后不复现
+{
+  "passed": true,
+  "checks": [
+    "阅读设置提供小/大 A、六种主题和每书语言选择，不显示字号数值和 API 配置；字号按步长保存",
+    "六种主题的页面背景、正文颜色与选择状态正确；覆盖原书 inline !important，暗色正文与下划线可见",
+    "六主题非空单词本底色与文字跟随主题，词条、释义、原文与次要信息实际对比度≥4.5:1；边界/滚动条可见且无透明淡化或模糊滤镜",
+    "工具栏添加当前页书签，目录/书签分段导航、书签回跳及调整字号后回跳正确",
+    "阅读菜单与书架显示相同真实进度，书架采用书本外观且进度在左下；书签和阅读偏好按书隔离",
+    "重启后主题、字号与书签保留；列表删除后再次重启书签不复现"
+  ],
+  "measurements": [
+    {
+      "theme": "original",
+      "paper": "rgb(255, 255, 255)",
+      "htmlInk": "rgb(0, 0, 0)",
+      "bodyInk": "rgb(0, 0, 0)",
+      "bodyPaper": "rgba(0, 0, 0, 0)",
+      "fontSize": "22px",
+      "probes": [
+        {
+          "name": "paragraph",
+          "color": "rgb(0, 0, 0)",
+          "textFill": "rgb(0, 0, 0)",
+          "background": "rgba(0, 0, 0, 0)",
+          "fontFamily": "Georgia, \"Times New Roman\", serif",
+          "fontWeight": "400"
+        },
+        {
+          "name": "inline",
+          "color": "rgb(0, 0, 0)",
+          "textFill": "rgb(0, 0, 0)",
+          "background": "rgba(0, 0, 0, 0)",
+          "fontFamily": "Georgia, \"Times New Roman\", serif",
+          "fontWeight": "400"
+        }
+      ]
+    },
+    {
+      "theme": "quiet",
+      "paper": "rgb(65, 65, 68)",
+      "htmlInk": "rgb(229, 228, 225)",
+      "bodyInk": "rgb(229, 228, 225)",
+      "bodyPaper": "rgba(0, 0, 0, 0)",
+      "fontSize": "22px",
+      "probes": [
+        {
+          "name": "paragraph",
+          "color": "rgb(229, 228, 225)",
+          "textFill": "rgb(229, 228, 225)",
+          "background": "rgba(0, 0, 0, 0)",
+          "fontFamily": "Georgia, \"Times New Roman\", serif",
+          "fontWeight": "400"
+        },
+        {
+          "name": "inline",
+          "color": "rgb(229, 228, 225)",
+          "textFill": "rgb(229, 228, 225)",
+          "background": "rgba(0, 0, 0, 0)",
+          "fontFamily": "Georgia, \"Times New Roman\", serif",
+          "fontWeight": "400"
+        }
+      ]
+    },
+    {
+      "theme": "paper",
+      "paper": "rgb(238, 237, 233)",
+      "htmlInk": "rgb(41, 40, 36)",
+      "bodyInk": "rgb(41, 40, 36)",
+      "bodyPaper": "rgba(0, 0, 0, 0)",
+      "fontSize": "22px",
+      "probes": [
+        {
+          "name": "paragraph",
+          "color": "rgb(41, 40, 36)",
+          "textFill": "rgb(41, 40, 36)",
+          "background": "rgba(0, 0, 0, 0)",
+          "fontFamily": "Georgia, \"Times New Roman\", serif",
+          "fontWeight": "400"
+        },
+        {
+          "name": "inline",
+          "color": "rgb(41, 40, 36)",
+          "textFill": "rgb(41, 40, 36)",
+          "background": "rgba(0, 0, 0, 0)",
+          "fontFamily": "Georgia, \"Times New Roman\", serif",
+          "fontWeight": "400"
+        }
+      ]
+    },
+    {
+      "theme": "bold",
+      "paper": "rgb(255, 255, 255)",
+      "htmlInk": "rgb(18, 18, 18)",
+      "bodyInk": "rgb(18, 18, 18)",
+      "bodyPaper": "rgba(0, 0, 0, 0)",
+      "fontSize": "22px",
+      "probes": [
+        {
+          "name": "paragraph",
+          "color": "rgb(18, 18, 18)",
+          "textFill": "rgb(18, 18, 18)",
+          "background": "rgba(0, 0, 0, 0)",
+          "fontFamily": "\"Segoe UI\", \"Microsoft YaHei\", sans-serif",
+          "fontWeight": "600"
+        },
+        {
+          "name": "inline",
+          "color": "rgb(18, 18, 18)",
+          "textFill": "rgb(18, 18, 18)",
+          "background": "rgba(0, 0, 0, 0)",
+          "fontFamily": "\"Segoe UI\", \"Microsoft YaHei\", sans-serif",
+          "fontWeight": "600"
+        }
+      ]
+    },
+    {
+      "theme": "calm",
+      "paper": "rgb(242, 228, 200)",
+      "htmlInk": "rgb(62, 52, 37)",
+      "bodyInk": "rgb(62, 52, 37)",
+      "bodyPaper": "rgba(0, 0, 0, 0)",
+      "fontSize": "22px",
+      "probes": [
+        {
+          "name": "paragraph",
+          "color": "rgb(62, 52, 37)",
+          "textFill": "rgb(62, 52, 37)",
+          "background": "rgba(0, 0, 0, 0)",
+          "fontFamily": "Georgia, \"Times New Roman\", serif",
+          "fontWeight": "400"
+        },
+        {
+          "name": "inline",
+          "color": "rgb(62, 52, 37)",
+          "textFill": "rgb(62, 52, 37)",
+          "background": "rgba(0, 0, 0, 0)",
+          "fontFamily": "Georgia, \"Times New Roman\", serif",
+          "fontWeight": "400"
+        }
+      ]
+    },
+    {
+      "theme": "focus",
+      "paper": "rgb(255, 251, 242)",
+      "htmlInk": "rgb(41, 40, 32)",
+      "bodyInk": "rgb(41, 40, 32)",
+      "bodyPaper": "rgba(0, 0, 0, 0)",
+      "fontSize": "22px",
+      "probes": [
+        {
+          "name": "paragraph",
+          "color": "rgb(41, 40, 32)",
+          "textFill": "rgb(41, 40, 32)",
+          "background": "rgba(0, 0, 0, 0)",
+          "fontFamily": "\"Segoe UI\", \"Microsoft YaHei\", sans-serif",
+          "fontWeight": "400"
+        },
+        {
+          "name": "inline",
+          "color": "rgb(41, 40, 32)",
+          "textFill": "rgb(41, 40, 32)",
+          "background": "rgba(0, 0, 0, 0)",
+          "fontFamily": "\"Segoe UI\", \"Microsoft YaHei\", sans-serif",
+          "fontWeight": "400"
+        }
+      ]
+    },
+    {
+      "theme": "quiet",
+      "paper": "rgb(65, 65, 68)",
+      "htmlInk": "rgb(229, 228, 225)",
+      "bodyInk": "rgb(229, 228, 225)",
+      "bodyPaper": "rgba(0, 0, 0, 0)",
+      "fontSize": "22px",
+      "probes": [
+        {
+          "name": "paragraph",
+          "color": "rgb(229, 228, 225)",
+          "textFill": "rgb(229, 228, 225)",
+          "background": "rgba(0, 0, 0, 0)",
+          "fontFamily": "Georgia, \"Times New Roman\", serif",
+          "fontWeight": "400"
+        },
+        {
+          "name": "inline",
+          "color": "rgb(229, 228, 225)",
+          "textFill": "rgb(229, 228, 225)",
+          "background": "rgba(0, 0, 0, 0)",
+          "fontFamily": "Georgia, \"Times New Roman\", serif",
+          "fontWeight": "400"
+        }
+      ]
+    },
+    {
+      "darkMark": {
+        "color": "rgb(229, 228, 225)",
+        "width": 78.6875,
+        "height": 2,
+        "blend": "screen"
+      }
+    },
+    {
+      "notebookTheme": "quiet",
+      "stage": "Quiet 首次打开",
+      "background": "rgb(75, 75, 78)",
+      "color": "rgb(229, 228, 225)",
+      "border": "rgba(255, 255, 255, 0.15)",
+      "borderWidth": "1px",
+      "shadow": "rgba(0, 0, 0, 0.12) 0px 12px 56px 0px",
+      "scrollbar": {
+        "color": "rgb(229, 228, 225)",
+        "width": "6px",
+        "clientHeight": 806,
+        "scrollHeight": 806,
+        "contrast": 6.837274007523595
+      },
+      "sourceBorder": "rgb(229, 228, 225)",
+      "text": [
+        {
+          "selector": ".vocabulary-header h2",
+          "color": "rgb(229, 228, 225)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 57,
+          "height": 26,
+          "contrast": 6.837274007523595
+        },
+        {
+          "selector": ".configure-notice",
+          "color": "rgb(229, 228, 225)",
+          "textShadow": "none",
+          "display": "flex",
+          "visibility": "visible",
+          "width": 334,
+          "height": 44,
+          "contrast": 6.837274007523595
+        },
+        {
+          "selector": ".entry-term",
+          "color": "rgb(229, 228, 225)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 303,
+          "height": 35.09375,
+          "contrast": 6.837274007523595
+        },
+        {
+          "selector": ".meaning-zh",
+          "color": "rgb(229, 228, 225)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 334,
+          "height": 61.1875,
+          "contrast": 6.837274007523595
+        },
+        {
+          "selector": ".definition-en",
+          "color": "rgb(229, 228, 225)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 334,
+          "height": 26.25,
+          "contrast": 6.837274007523595
+        },
+        {
+          "selector": ".analysis-details summary",
+          "color": "rgb(229, 228, 225)",
+          "textShadow": "none",
+          "display": "list-item",
+          "visibility": "visible",
+          "width": 84.828125,
+          "height": 29.796875,
+          "contrast": 6.837274007523595
+        },
+        {
+          "selector": ".analysis-field > span",
+          "color": "rgb(197, 196, 192)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 334,
+          "height": 20.390625,
+          "contrast": 4.980593143275425
+        },
+        {
+          "selector": ".analysis-field > p",
+          "color": "rgb(229, 228, 225)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 334,
+          "height": 25.5,
+          "contrast": 6.837274007523595
+        },
+        {
+          "selector": ".source-details summary",
+          "color": "rgb(229, 228, 225)",
+          "textShadow": "none",
+          "display": "list-item",
+          "visibility": "visible",
+          "width": 42.828125,
+          "height": 29.796875,
+          "contrast": 6.837274007523595
+        },
+        {
+          "selector": ".source-caption",
+          "color": "rgb(197, 196, 192)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 334,
+          "height": 22.09375,
+          "contrast": 4.980593143275425
+        },
+        {
+          "selector": ".source-context",
+          "color": "rgb(229, 228, 225)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 334,
+          "height": 190.3125,
+          "contrast": 6.837274007523595
+        },
+        {
+          "selector": ".source-context mark",
+          "color": "rgb(229, 228, 225)",
+          "textShadow": "none",
+          "display": "inline",
+          "visibility": "visible",
+          "width": 57.234375,
+          "height": 19,
+          "contrast": 6.837274007523595
+        },
+        {
+          "selector": ".source-jump",
+          "color": "rgb(229, 228, 225)",
+          "textShadow": "none",
+          "display": "flex",
+          "visibility": "visible",
+          "width": 71,
+          "height": 31,
+          "contrast": 6.837274007523595
+        },
+        {
+          "selector": ".occurrence-footer",
+          "color": "rgb(197, 196, 192)",
+          "textShadow": "none",
+          "display": "flex",
+          "visibility": "visible",
+          "width": 334,
+          "height": 19.1875,
+          "contrast": 4.980593143275425
+        },
+        {
+          "selector": ".vocabulary-header .icon-button",
+          "color": "rgb(229, 228, 225)",
+          "textShadow": "none",
+          "display": "flex",
+          "visibility": "visible",
+          "width": 40,
+          "height": 40,
+          "contrast": 6.837274007523595
+        },
+        {
+          "selector": ".remove-occurrence",
+          "color": "rgb(229, 228, 225)",
+          "textShadow": "none",
+          "display": "flex",
+          "visibility": "visible",
+          "width": 34,
+          "height": 34,
+          "contrast": 6.837274007523595
+        }
+      ]
+    },
+    {
+      "theme": "original",
+      "paper": "rgb(255, 255, 255)",
+      "htmlInk": "rgb(0, 0, 0)",
+      "bodyInk": "rgb(0, 0, 0)",
+      "bodyPaper": "rgba(0, 0, 0, 0)",
+      "fontSize": "22px",
+      "probes": [
+        {
+          "name": "paragraph",
+          "color": "rgb(0, 0, 0)",
+          "textFill": "rgb(0, 0, 0)",
+          "background": "rgba(0, 0, 0, 0)",
+          "fontFamily": "Georgia, \"Times New Roman\", serif",
+          "fontWeight": "400"
+        },
+        {
+          "name": "inline",
+          "color": "rgb(0, 0, 0)",
+          "textFill": "rgb(0, 0, 0)",
+          "background": "rgba(0, 0, 0, 0)",
+          "fontFamily": "Georgia, \"Times New Roman\", serif",
+          "fontWeight": "400"
+        }
+      ]
+    },
+    {
+      "notebookTheme": "original",
+      "stage": "切换后重开",
+      "background": "rgb(255, 255, 255)",
+      "color": "rgb(0, 0, 0)",
+      "border": "rgba(0, 0, 0, 0.12)",
+      "borderWidth": "1px",
+      "shadow": "rgba(0, 0, 0, 0.12) 0px 12px 56px 0px",
+      "scrollbar": {
+        "color": "rgb(0, 0, 0)",
+        "width": "6px",
+        "clientHeight": 806,
+        "scrollHeight": 806,
+        "contrast": 21
+      },
+      "sourceBorder": "rgb(0, 0, 0)",
+      "text": [
+        {
+          "selector": ".vocabulary-header h2",
+          "color": "rgb(0, 0, 0)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 57,
+          "height": 26,
+          "contrast": 21
+        },
+        {
+          "selector": ".configure-notice",
+          "color": "rgb(0, 0, 0)",
+          "textShadow": "none",
+          "display": "flex",
+          "visibility": "visible",
+          "width": 334,
+          "height": 44,
+          "contrast": 21
+        },
+        {
+          "selector": ".entry-term",
+          "color": "rgb(0, 0, 0)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 303,
+          "height": 35.09375,
+          "contrast": 21
+        },
+        {
+          "selector": ".meaning-zh",
+          "color": "rgb(0, 0, 0)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 334,
+          "height": 61.1875,
+          "contrast": 21
+        },
+        {
+          "selector": ".definition-en",
+          "color": "rgb(0, 0, 0)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 334,
+          "height": 26.25,
+          "contrast": 21
+        },
+        {
+          "selector": ".analysis-details summary",
+          "color": "rgb(0, 0, 0)",
+          "textShadow": "none",
+          "display": "list-item",
+          "visibility": "visible",
+          "width": 84.828125,
+          "height": 29.796875,
+          "contrast": 21
+        },
+        {
+          "selector": ".analysis-field > span",
+          "color": "rgb(102, 102, 106)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 334,
+          "height": 20.390625,
+          "contrast": 5.716422821633999
+        },
+        {
+          "selector": ".analysis-field > p",
+          "color": "rgb(0, 0, 0)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 334,
+          "height": 25.5,
+          "contrast": 21
+        },
+        {
+          "selector": ".source-details summary",
+          "color": "rgb(0, 0, 0)",
+          "textShadow": "none",
+          "display": "list-item",
+          "visibility": "visible",
+          "width": 42.828125,
+          "height": 29.796875,
+          "contrast": 21
+        },
+        {
+          "selector": ".source-caption",
+          "color": "rgb(102, 102, 106)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 334,
+          "height": 22.09375,
+          "contrast": 5.716422821633999
+        },
+        {
+          "selector": ".source-context",
+          "color": "rgb(0, 0, 0)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 334,
+          "height": 190.3125,
+          "contrast": 21
+        },
+        {
+          "selector": ".source-context mark",
+          "color": "rgb(0, 0, 0)",
+          "textShadow": "none",
+          "display": "inline",
+          "visibility": "visible",
+          "width": 57.234375,
+          "height": 19,
+          "contrast": 21
+        },
+        {
+          "selector": ".source-jump",
+          "color": "rgb(0, 0, 0)",
+          "textShadow": "none",
+          "display": "flex",
+          "visibility": "visible",
+          "width": 71,
+          "height": 31,
+          "contrast": 21
+        },
+        {
+          "selector": ".occurrence-footer",
+          "color": "rgb(102, 102, 106)",
+          "textShadow": "none",
+          "display": "flex",
+          "visibility": "visible",
+          "width": 334,
+          "height": 19.1875,
+          "contrast": 5.716422821633999
+        },
+        {
+          "selector": ".vocabulary-header .icon-button",
+          "color": "rgb(0, 0, 0)",
+          "textShadow": "none",
+          "display": "flex",
+          "visibility": "visible",
+          "width": 40,
+          "height": 40,
+          "contrast": 21
+        },
+        {
+          "selector": ".remove-occurrence",
+          "color": "rgb(0, 0, 0)",
+          "textShadow": "none",
+          "display": "flex",
+          "visibility": "visible",
+          "width": 34,
+          "height": 34,
+          "contrast": 21
+        }
+      ]
+    },
+    {
+      "theme": "quiet",
+      "paper": "rgb(65, 65, 68)",
+      "htmlInk": "rgb(229, 228, 225)",
+      "bodyInk": "rgb(229, 228, 225)",
+      "bodyPaper": "rgba(0, 0, 0, 0)",
+      "fontSize": "22px",
+      "probes": [
+        {
+          "name": "paragraph",
+          "color": "rgb(229, 228, 225)",
+          "textFill": "rgb(229, 228, 225)",
+          "background": "rgba(0, 0, 0, 0)",
+          "fontFamily": "Georgia, \"Times New Roman\", serif",
+          "fontWeight": "400"
+        },
+        {
+          "name": "inline",
+          "color": "rgb(229, 228, 225)",
+          "textFill": "rgb(229, 228, 225)",
+          "background": "rgba(0, 0, 0, 0)",
+          "fontFamily": "Georgia, \"Times New Roman\", serif",
+          "fontWeight": "400"
+        }
+      ]
+    },
+    {
+      "notebookTheme": "quiet",
+      "stage": "切换后重开",
+      "background": "rgb(75, 75, 78)",
+      "color": "rgb(229, 228, 225)",
+      "border": "rgba(255, 255, 255, 0.15)",
+      "borderWidth": "1px",
+      "shadow": "rgba(0, 0, 0, 0.12) 0px 12px 56px 0px",
+      "scrollbar": {
+        "color": "rgb(229, 228, 225)",
+        "width": "6px",
+        "clientHeight": 806,
+        "scrollHeight": 806,
+        "contrast": 6.837274007523595
+      },
+      "sourceBorder": "rgb(229, 228, 225)",
+      "text": [
+        {
+          "selector": ".vocabulary-header h2",
+          "color": "rgb(229, 228, 225)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 57,
+          "height": 26,
+          "contrast": 6.837274007523595
+        },
+        {
+          "selector": ".configure-notice",
+          "color": "rgb(229, 228, 225)",
+          "textShadow": "none",
+          "display": "flex",
+          "visibility": "visible",
+          "width": 334,
+          "height": 44,
+          "contrast": 6.837274007523595
+        },
+        {
+          "selector": ".entry-term",
+          "color": "rgb(229, 228, 225)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 303,
+          "height": 35.09375,
+          "contrast": 6.837274007523595
+        },
+        {
+          "selector": ".meaning-zh",
+          "color": "rgb(229, 228, 225)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 334,
+          "height": 61.1875,
+          "contrast": 6.837274007523595
+        },
+        {
+          "selector": ".definition-en",
+          "color": "rgb(229, 228, 225)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 334,
+          "height": 26.25,
+          "contrast": 6.837274007523595
+        },
+        {
+          "selector": ".analysis-details summary",
+          "color": "rgb(229, 228, 225)",
+          "textShadow": "none",
+          "display": "list-item",
+          "visibility": "visible",
+          "width": 84.828125,
+          "height": 29.796875,
+          "contrast": 6.837274007523595
+        },
+        {
+          "selector": ".analysis-field > span",
+          "color": "rgb(197, 196, 192)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 334,
+          "height": 20.390625,
+          "contrast": 4.980593143275425
+        },
+        {
+          "selector": ".analysis-field > p",
+          "color": "rgb(229, 228, 225)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 334,
+          "height": 25.5,
+          "contrast": 6.837274007523595
+        },
+        {
+          "selector": ".source-details summary",
+          "color": "rgb(229, 228, 225)",
+          "textShadow": "none",
+          "display": "list-item",
+          "visibility": "visible",
+          "width": 42.828125,
+          "height": 29.796875,
+          "contrast": 6.837274007523595
+        },
+        {
+          "selector": ".source-caption",
+          "color": "rgb(197, 196, 192)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 334,
+          "height": 22.09375,
+          "contrast": 4.980593143275425
+        },
+        {
+          "selector": ".source-context",
+          "color": "rgb(229, 228, 225)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 334,
+          "height": 190.3125,
+          "contrast": 6.837274007523595
+        },
+        {
+          "selector": ".source-context mark",
+          "color": "rgb(229, 228, 225)",
+          "textShadow": "none",
+          "display": "inline",
+          "visibility": "visible",
+          "width": 57.234375,
+          "height": 19,
+          "contrast": 6.837274007523595
+        },
+        {
+          "selector": ".source-jump",
+          "color": "rgb(229, 228, 225)",
+          "textShadow": "none",
+          "display": "flex",
+          "visibility": "visible",
+          "width": 71,
+          "height": 31,
+          "contrast": 6.837274007523595
+        },
+        {
+          "selector": ".occurrence-footer",
+          "color": "rgb(197, 196, 192)",
+          "textShadow": "none",
+          "display": "flex",
+          "visibility": "visible",
+          "width": 334,
+          "height": 19.1875,
+          "contrast": 4.980593143275425
+        },
+        {
+          "selector": ".vocabulary-header .icon-button",
+          "color": "rgb(229, 228, 225)",
+          "textShadow": "none",
+          "display": "flex",
+          "visibility": "visible",
+          "width": 40,
+          "height": 40,
+          "contrast": 6.837274007523595
+        },
+        {
+          "selector": ".remove-occurrence",
+          "color": "rgb(229, 228, 225)",
+          "textShadow": "none",
+          "display": "flex",
+          "visibility": "visible",
+          "width": 34,
+          "height": 34,
+          "contrast": 6.837274007523595
+        }
+      ]
+    },
+    {
+      "theme": "paper",
+      "paper": "rgb(238, 237, 233)",
+      "htmlInk": "rgb(41, 40, 36)",
+      "bodyInk": "rgb(41, 40, 36)",
+      "bodyPaper": "rgba(0, 0, 0, 0)",
+      "fontSize": "22px",
+      "probes": [
+        {
+          "name": "paragraph",
+          "color": "rgb(41, 40, 36)",
+          "textFill": "rgb(41, 40, 36)",
+          "background": "rgba(0, 0, 0, 0)",
+          "fontFamily": "Georgia, \"Times New Roman\", serif",
+          "fontWeight": "400"
+        },
+        {
+          "name": "inline",
+          "color": "rgb(41, 40, 36)",
+          "textFill": "rgb(41, 40, 36)",
+          "background": "rgba(0, 0, 0, 0)",
+          "fontFamily": "Georgia, \"Times New Roman\", serif",
+          "fontWeight": "400"
+        }
+      ]
+    },
+    {
+      "notebookTheme": "paper",
+      "stage": "切换后重开",
+      "background": "rgb(246, 245, 241)",
+      "color": "rgb(41, 40, 36)",
+      "border": "rgba(0, 0, 0, 0.12)",
+      "borderWidth": "1px",
+      "shadow": "rgba(0, 0, 0, 0.12) 0px 12px 56px 0px",
+      "scrollbar": {
+        "color": "rgb(41, 40, 36)",
+        "width": "6px",
+        "clientHeight": 806,
+        "scrollHeight": 806,
+        "contrast": 13.524935822155884
+      },
+      "sourceBorder": "rgb(41, 40, 36)",
+      "text": [
+        {
+          "selector": ".vocabulary-header h2",
+          "color": "rgb(41, 40, 36)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 57,
+          "height": 26,
+          "contrast": 13.524935822155884
+        },
+        {
+          "selector": ".configure-notice",
+          "color": "rgb(41, 40, 36)",
+          "textShadow": "none",
+          "display": "flex",
+          "visibility": "visible",
+          "width": 334,
+          "height": 44,
+          "contrast": 13.524935822155884
+        },
+        {
+          "selector": ".entry-term",
+          "color": "rgb(41, 40, 36)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 303,
+          "height": 35.09375,
+          "contrast": 13.524935822155884
+        },
+        {
+          "selector": ".meaning-zh",
+          "color": "rgb(41, 40, 36)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 334,
+          "height": 61.1875,
+          "contrast": 13.524935822155884
+        },
+        {
+          "selector": ".definition-en",
+          "color": "rgb(41, 40, 36)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 334,
+          "height": 26.25,
+          "contrast": 13.524935822155884
+        },
+        {
+          "selector": ".analysis-details summary",
+          "color": "rgb(41, 40, 36)",
+          "textShadow": "none",
+          "display": "list-item",
+          "visibility": "visible",
+          "width": 84.828125,
+          "height": 29.796875,
+          "contrast": 13.524935822155884
+        },
+        {
+          "selector": ".analysis-field > span",
+          "color": "rgb(102, 102, 106)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 334,
+          "height": 20.390625,
+          "contrast": 5.239973654120704
+        },
+        {
+          "selector": ".analysis-field > p",
+          "color": "rgb(41, 40, 36)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 334,
+          "height": 25.5,
+          "contrast": 13.524935822155884
+        },
+        {
+          "selector": ".source-details summary",
+          "color": "rgb(41, 40, 36)",
+          "textShadow": "none",
+          "display": "list-item",
+          "visibility": "visible",
+          "width": 42.828125,
+          "height": 29.796875,
+          "contrast": 13.524935822155884
+        },
+        {
+          "selector": ".source-caption",
+          "color": "rgb(102, 102, 106)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 334,
+          "height": 22.09375,
+          "contrast": 5.239973654120704
+        },
+        {
+          "selector": ".source-context",
+          "color": "rgb(41, 40, 36)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 334,
+          "height": 190.3125,
+          "contrast": 13.524935822155884
+        },
+        {
+          "selector": ".source-context mark",
+          "color": "rgb(41, 40, 36)",
+          "textShadow": "none",
+          "display": "inline",
+          "visibility": "visible",
+          "width": 57.234375,
+          "height": 19,
+          "contrast": 13.524935822155884
+        },
+        {
+          "selector": ".source-jump",
+          "color": "rgb(41, 40, 36)",
+          "textShadow": "none",
+          "display": "flex",
+          "visibility": "visible",
+          "width": 71,
+          "height": 31,
+          "contrast": 13.524935822155884
+        },
+        {
+          "selector": ".occurrence-footer",
+          "color": "rgb(102, 102, 106)",
+          "textShadow": "none",
+          "display": "flex",
+          "visibility": "visible",
+          "width": 334,
+          "height": 19.1875,
+          "contrast": 5.239973654120704
+        },
+        {
+          "selector": ".vocabulary-header .icon-button",
+          "color": "rgb(41, 40, 36)",
+          "textShadow": "none",
+          "display": "flex",
+          "visibility": "visible",
+          "width": 40,
+          "height": 40,
+          "contrast": 13.524935822155884
+        },
+        {
+          "selector": ".remove-occurrence",
+          "color": "rgb(41, 40, 36)",
+          "textShadow": "none",
+          "display": "flex",
+          "visibility": "visible",
+          "width": 34,
+          "height": 34,
+          "contrast": 13.524935822155884
+        }
+      ]
+    },
+    {
+      "theme": "bold",
+      "paper": "rgb(255, 255, 255)",
+      "htmlInk": "rgb(18, 18, 18)",
+      "bodyInk": "rgb(18, 18, 18)",
+      "bodyPaper": "rgba(0, 0, 0, 0)",
+      "fontSize": "22px",
+      "probes": [
+        {
+          "name": "paragraph",
+          "color": "rgb(18, 18, 18)",
+          "textFill": "rgb(18, 18, 18)",
+          "background": "rgba(0, 0, 0, 0)",
+          "fontFamily": "\"Segoe UI\", \"Microsoft YaHei\", sans-serif",
+          "fontWeight": "600"
+        },
+        {
+          "name": "inline",
+          "color": "rgb(18, 18, 18)",
+          "textFill": "rgb(18, 18, 18)",
+          "background": "rgba(0, 0, 0, 0)",
+          "fontFamily": "\"Segoe UI\", \"Microsoft YaHei\", sans-serif",
+          "fontWeight": "600"
+        }
+      ]
+    },
+    {
+      "notebookTheme": "bold",
+      "stage": "切换后重开",
+      "background": "rgb(255, 255, 255)",
+      "color": "rgb(18, 18, 18)",
+      "border": "rgba(0, 0, 0, 0.12)",
+      "borderWidth": "1px",
+      "shadow": "rgba(0, 0, 0, 0.12) 0px 12px 56px 0px",
+      "scrollbar": {
+        "color": "rgb(18, 18, 18)",
+        "width": "6px",
+        "clientHeight": 806,
+        "scrollHeight": 806,
+        "contrast": 18.733663902900595
+      },
+      "sourceBorder": "rgb(18, 18, 18)",
+      "text": [
+        {
+          "selector": ".vocabulary-header h2",
+          "color": "rgb(18, 18, 18)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 57,
+          "height": 26,
+          "contrast": 18.733663902900595
+        },
+        {
+          "selector": ".configure-notice",
+          "color": "rgb(18, 18, 18)",
+          "textShadow": "none",
+          "display": "flex",
+          "visibility": "visible",
+          "width": 334,
+          "height": 44,
+          "contrast": 18.733663902900595
+        },
+        {
+          "selector": ".entry-term",
+          "color": "rgb(18, 18, 18)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 303,
+          "height": 35.09375,
+          "contrast": 18.733663902900595
+        },
+        {
+          "selector": ".meaning-zh",
+          "color": "rgb(18, 18, 18)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 334,
+          "height": 61.1875,
+          "contrast": 18.733663902900595
+        },
+        {
+          "selector": ".definition-en",
+          "color": "rgb(18, 18, 18)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 334,
+          "height": 26.25,
+          "contrast": 18.733663902900595
+        },
+        {
+          "selector": ".analysis-details summary",
+          "color": "rgb(18, 18, 18)",
+          "textShadow": "none",
+          "display": "list-item",
+          "visibility": "visible",
+          "width": 84.828125,
+          "height": 29.796875,
+          "contrast": 18.733663902900595
+        },
+        {
+          "selector": ".analysis-field > span",
+          "color": "rgb(102, 102, 106)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 334,
+          "height": 20.390625,
+          "contrast": 5.716422821633999
+        },
+        {
+          "selector": ".analysis-field > p",
+          "color": "rgb(18, 18, 18)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 334,
+          "height": 25.5,
+          "contrast": 18.733663902900595
+        },
+        {
+          "selector": ".source-details summary",
+          "color": "rgb(18, 18, 18)",
+          "textShadow": "none",
+          "display": "list-item",
+          "visibility": "visible",
+          "width": 42.828125,
+          "height": 29.796875,
+          "contrast": 18.733663902900595
+        },
+        {
+          "selector": ".source-caption",
+          "color": "rgb(102, 102, 106)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 334,
+          "height": 22.09375,
+          "contrast": 5.716422821633999
+        },
+        {
+          "selector": ".source-context",
+          "color": "rgb(18, 18, 18)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 334,
+          "height": 190.3125,
+          "contrast": 18.733663902900595
+        },
+        {
+          "selector": ".source-context mark",
+          "color": "rgb(18, 18, 18)",
+          "textShadow": "none",
+          "display": "inline",
+          "visibility": "visible",
+          "width": 57.234375,
+          "height": 19,
+          "contrast": 18.733663902900595
+        },
+        {
+          "selector": ".source-jump",
+          "color": "rgb(18, 18, 18)",
+          "textShadow": "none",
+          "display": "flex",
+          "visibility": "visible",
+          "width": 71,
+          "height": 31,
+          "contrast": 18.733663902900595
+        },
+        {
+          "selector": ".occurrence-footer",
+          "color": "rgb(102, 102, 106)",
+          "textShadow": "none",
+          "display": "flex",
+          "visibility": "visible",
+          "width": 334,
+          "height": 19.1875,
+          "contrast": 5.716422821633999
+        },
+        {
+          "selector": ".vocabulary-header .icon-button",
+          "color": "rgb(18, 18, 18)",
+          "textShadow": "none",
+          "display": "flex",
+          "visibility": "visible",
+          "width": 40,
+          "height": 40,
+          "contrast": 18.733663902900595
+        },
+        {
+          "selector": ".remove-occurrence",
+          "color": "rgb(18, 18, 18)",
+          "textShadow": "none",
+          "display": "flex",
+          "visibility": "visible",
+          "width": 34,
+          "height": 34,
+          "contrast": 18.733663902900595
+        }
+      ]
+    },
+    {
+      "theme": "calm",
+      "paper": "rgb(242, 228, 200)",
+      "htmlInk": "rgb(62, 52, 37)",
+      "bodyInk": "rgb(62, 52, 37)",
+      "bodyPaper": "rgba(0, 0, 0, 0)",
+      "fontSize": "22px",
+      "probes": [
+        {
+          "name": "paragraph",
+          "color": "rgb(62, 52, 37)",
+          "textFill": "rgb(62, 52, 37)",
+          "background": "rgba(0, 0, 0, 0)",
+          "fontFamily": "Georgia, \"Times New Roman\", serif",
+          "fontWeight": "400"
+        },
+        {
+          "name": "inline",
+          "color": "rgb(62, 52, 37)",
+          "textFill": "rgb(62, 52, 37)",
+          "background": "rgba(0, 0, 0, 0)",
+          "fontFamily": "Georgia, \"Times New Roman\", serif",
+          "fontWeight": "400"
+        }
+      ]
+    },
+    {
+      "notebookTheme": "calm",
+      "stage": "切换后重开",
+      "background": "rgb(249, 239, 217)",
+      "color": "rgb(62, 52, 37)",
+      "border": "rgba(0, 0, 0, 0.12)",
+      "borderWidth": "1px",
+      "shadow": "rgba(0, 0, 0, 0.12) 0px 12px 56px 0px",
+      "scrollbar": {
+        "color": "rgb(62, 52, 37)",
+        "width": "6px",
+        "clientHeight": 806,
+        "scrollHeight": 806,
+        "contrast": 10.667033648866358
+      },
+      "sourceBorder": "rgb(62, 52, 37)",
+      "text": [
+        {
+          "selector": ".vocabulary-header h2",
+          "color": "rgb(62, 52, 37)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 57,
+          "height": 26,
+          "contrast": 10.667033648866358
+        },
+        {
+          "selector": ".configure-notice",
+          "color": "rgb(62, 52, 37)",
+          "textShadow": "none",
+          "display": "flex",
+          "visibility": "visible",
+          "width": 334,
+          "height": 44,
+          "contrast": 10.667033648866358
+        },
+        {
+          "selector": ".entry-term",
+          "color": "rgb(62, 52, 37)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 303,
+          "height": 35.09375,
+          "contrast": 10.667033648866358
+        },
+        {
+          "selector": ".meaning-zh",
+          "color": "rgb(62, 52, 37)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 334,
+          "height": 61.1875,
+          "contrast": 10.667033648866358
+        },
+        {
+          "selector": ".definition-en",
+          "color": "rgb(62, 52, 37)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 334,
+          "height": 26.25,
+          "contrast": 10.667033648866358
+        },
+        {
+          "selector": ".analysis-details summary",
+          "color": "rgb(62, 52, 37)",
+          "textShadow": "none",
+          "display": "list-item",
+          "visibility": "visible",
+          "width": 84.828125,
+          "height": 29.796875,
+          "contrast": 10.667033648866358
+        },
+        {
+          "selector": ".analysis-field > span",
+          "color": "rgb(102, 102, 106)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 334,
+          "height": 20.390625,
+          "contrast": 5.002278012292713
+        },
+        {
+          "selector": ".analysis-field > p",
+          "color": "rgb(62, 52, 37)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 334,
+          "height": 25.5,
+          "contrast": 10.667033648866358
+        },
+        {
+          "selector": ".source-details summary",
+          "color": "rgb(62, 52, 37)",
+          "textShadow": "none",
+          "display": "list-item",
+          "visibility": "visible",
+          "width": 42.828125,
+          "height": 29.796875,
+          "contrast": 10.667033648866358
+        },
+        {
+          "selector": ".source-caption",
+          "color": "rgb(102, 102, 106)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 334,
+          "height": 22.09375,
+          "contrast": 5.002278012292713
+        },
+        {
+          "selector": ".source-context",
+          "color": "rgb(62, 52, 37)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 334,
+          "height": 190.3125,
+          "contrast": 10.667033648866358
+        },
+        {
+          "selector": ".source-context mark",
+          "color": "rgb(62, 52, 37)",
+          "textShadow": "none",
+          "display": "inline",
+          "visibility": "visible",
+          "width": 57.234375,
+          "height": 19,
+          "contrast": 10.667033648866358
+        },
+        {
+          "selector": ".source-jump",
+          "color": "rgb(62, 52, 37)",
+          "textShadow": "none",
+          "display": "flex",
+          "visibility": "visible",
+          "width": 71,
+          "height": 31,
+          "contrast": 10.667033648866358
+        },
+        {
+          "selector": ".occurrence-footer",
+          "color": "rgb(102, 102, 106)",
+          "textShadow": "none",
+          "display": "flex",
+          "visibility": "visible",
+          "width": 334,
+          "height": 19.1875,
+          "contrast": 5.002278012292713
+        },
+        {
+          "selector": ".vocabulary-header .icon-button",
+          "color": "rgb(62, 52, 37)",
+          "textShadow": "none",
+          "display": "flex",
+          "visibility": "visible",
+          "width": 40,
+          "height": 40,
+          "contrast": 10.667033648866358
+        },
+        {
+          "selector": ".remove-occurrence",
+          "color": "rgb(62, 52, 37)",
+          "textShadow": "none",
+          "display": "flex",
+          "visibility": "visible",
+          "width": 34,
+          "height": 34,
+          "contrast": 10.667033648866358
+        }
+      ]
+    },
+    {
+      "theme": "focus",
+      "paper": "rgb(255, 251, 242)",
+      "htmlInk": "rgb(41, 40, 32)",
+      "bodyInk": "rgb(41, 40, 32)",
+      "bodyPaper": "rgba(0, 0, 0, 0)",
+      "fontSize": "22px",
+      "probes": [
+        {
+          "name": "paragraph",
+          "color": "rgb(41, 40, 32)",
+          "textFill": "rgb(41, 40, 32)",
+          "background": "rgba(0, 0, 0, 0)",
+          "fontFamily": "\"Segoe UI\", \"Microsoft YaHei\", sans-serif",
+          "fontWeight": "400"
+        },
+        {
+          "name": "inline",
+          "color": "rgb(41, 40, 32)",
+          "textFill": "rgb(41, 40, 32)",
+          "background": "rgba(0, 0, 0, 0)",
+          "fontFamily": "\"Segoe UI\", \"Microsoft YaHei\", sans-serif",
+          "fontWeight": "400"
+        }
+      ]
+    },
+    {
+      "notebookTheme": "focus",
+      "stage": "切换后重开",
+      "background": "rgb(255, 253, 247)",
+      "color": "rgb(41, 40, 32)",
+      "border": "rgba(0, 0, 0, 0.12)",
+      "borderWidth": "1px",
+      "shadow": "rgba(0, 0, 0, 0.12) 0px 12px 56px 0px",
+      "scrollbar": {
+        "color": "rgb(41, 40, 32)",
+        "width": "6px",
+        "clientHeight": 806,
+        "scrollHeight": 806,
+        "contrast": 14.552631155740906
+      },
+      "sourceBorder": "rgb(41, 40, 32)",
+      "text": [
+        {
+          "selector": ".vocabulary-header h2",
+          "color": "rgb(41, 40, 32)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 57,
+          "height": 26,
+          "contrast": 14.552631155740906
+        },
+        {
+          "selector": ".configure-notice",
+          "color": "rgb(41, 40, 32)",
+          "textShadow": "none",
+          "display": "flex",
+          "visibility": "visible",
+          "width": 334,
+          "height": 44,
+          "contrast": 14.552631155740906
+        },
+        {
+          "selector": ".entry-term",
+          "color": "rgb(41, 40, 32)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 303,
+          "height": 35.09375,
+          "contrast": 14.552631155740906
+        },
+        {
+          "selector": ".meaning-zh",
+          "color": "rgb(41, 40, 32)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 334,
+          "height": 61.1875,
+          "contrast": 14.552631155740906
+        },
+        {
+          "selector": ".definition-en",
+          "color": "rgb(41, 40, 32)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 334,
+          "height": 26.25,
+          "contrast": 14.552631155740906
+        },
+        {
+          "selector": ".analysis-details summary",
+          "color": "rgb(41, 40, 32)",
+          "textShadow": "none",
+          "display": "list-item",
+          "visibility": "visible",
+          "width": 84.828125,
+          "height": 29.796875,
+          "contrast": 14.552631155740906
+        },
+        {
+          "selector": ".analysis-field > span",
+          "color": "rgb(102, 102, 106)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 334,
+          "height": 20.390625,
+          "contrast": 5.619840306111185
+        },
+        {
+          "selector": ".analysis-field > p",
+          "color": "rgb(41, 40, 32)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 334,
+          "height": 25.5,
+          "contrast": 14.552631155740906
+        },
+        {
+          "selector": ".source-details summary",
+          "color": "rgb(41, 40, 32)",
+          "textShadow": "none",
+          "display": "list-item",
+          "visibility": "visible",
+          "width": 42.828125,
+          "height": 29.796875,
+          "contrast": 14.552631155740906
+        },
+        {
+          "selector": ".source-caption",
+          "color": "rgb(102, 102, 106)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 334,
+          "height": 22.09375,
+          "contrast": 5.619840306111185
+        },
+        {
+          "selector": ".source-context",
+          "color": "rgb(41, 40, 32)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 334,
+          "height": 190.3125,
+          "contrast": 14.552631155740906
+        },
+        {
+          "selector": ".source-context mark",
+          "color": "rgb(41, 40, 32)",
+          "textShadow": "none",
+          "display": "inline",
+          "visibility": "visible",
+          "width": 57.234375,
+          "height": 19,
+          "contrast": 14.552631155740906
+        },
+        {
+          "selector": ".source-jump",
+          "color": "rgb(41, 40, 32)",
+          "textShadow": "none",
+          "display": "flex",
+          "visibility": "visible",
+          "width": 71,
+          "height": 31,
+          "contrast": 14.552631155740906
+        },
+        {
+          "selector": ".occurrence-footer",
+          "color": "rgb(102, 102, 106)",
+          "textShadow": "none",
+          "display": "flex",
+          "visibility": "visible",
+          "width": 334,
+          "height": 19.1875,
+          "contrast": 5.619840306111185
+        },
+        {
+          "selector": ".vocabulary-header .icon-button",
+          "color": "rgb(41, 40, 32)",
+          "textShadow": "none",
+          "display": "flex",
+          "visibility": "visible",
+          "width": 40,
+          "height": 40,
+          "contrast": 14.552631155740906
+        },
+        {
+          "selector": ".remove-occurrence",
+          "color": "rgb(41, 40, 32)",
+          "textShadow": "none",
+          "display": "flex",
+          "visibility": "visible",
+          "width": 34,
+          "height": 34,
+          "contrast": 14.552631155740906
+        }
+      ]
+    },
+    {
+      "theme": "quiet",
+      "paper": "rgb(65, 65, 68)",
+      "htmlInk": "rgb(229, 228, 225)",
+      "bodyInk": "rgb(229, 228, 225)",
+      "bodyPaper": "rgba(0, 0, 0, 0)",
+      "fontSize": "22px",
+      "probes": [
+        {
+          "name": "paragraph",
+          "color": "rgb(229, 228, 225)",
+          "textFill": "rgb(229, 228, 225)",
+          "background": "rgba(0, 0, 0, 0)",
+          "fontFamily": "Georgia, \"Times New Roman\", serif",
+          "fontWeight": "400"
+        },
+        {
+          "name": "inline",
+          "color": "rgb(229, 228, 225)",
+          "textFill": "rgb(229, 228, 225)",
+          "background": "rgba(0, 0, 0, 0)",
+          "fontFamily": "Georgia, \"Times New Roman\", serif",
+          "fontWeight": "400"
+        }
+      ]
+    },
+    {
+      "readerPercentage": 3,
+      "shelfGeometry": {
+        "coverLeft": 160,
+        "progressLeft": 160,
+        "coverBottom": 384,
+        "progressTop": 397,
+        "shadow": "rgba(0, 0, 0, 0.12) 1px 2px 3px 0px, rgba(0, 0, 0, 0.16) 5px 8px 12px 0px, rgba(0, 0, 0, 0.28) 9px 18px 24px -14px"
+      }
+    },
+    {
+      "theme": "quiet",
+      "paper": "rgb(65, 65, 68)",
+      "htmlInk": "rgb(229, 228, 225)",
+      "bodyInk": "rgb(229, 228, 225)",
+      "bodyPaper": "rgba(0, 0, 0, 0)",
+      "fontSize": "24px",
+      "probes": [
+        {
+          "name": "paragraph",
+          "color": "rgb(229, 228, 225)",
+          "textFill": "rgb(229, 228, 225)",
+          "background": "rgba(0, 0, 0, 0)",
+          "fontFamily": "Georgia, \"Times New Roman\", serif",
+          "fontWeight": "400"
+        },
+        {
+          "name": "inline",
+          "color": "rgb(229, 228, 225)",
+          "textFill": "rgb(229, 228, 225)",
+          "background": "rgba(0, 0, 0, 0)",
+          "fontFamily": "Georgia, \"Times New Roman\", serif",
+          "fontWeight": "400"
+        }
+      ]
+    }
+  ],
+  "errors": []
+}
+immersive-reading: 隔离启动与删除底部箭头
+immersive-reading: 键盘模式焦点不为正文绘制黑框
+immersive-reading: iframe 留白隐藏指针和控件且布局不变
+immersive-reading: 真实鼠标移动与 Esc 恢复
+immersive-reading: 已有面板先收起
+immersive-reading: 选区先取消，单词与拖选收录保持
+immersive-reading: 单词本滚动不穿透
+immersive-reading: 键盘与真实滚轮翻页
+immersive-reading: 第二本书与重开后无焦点黑框
+immersive-reading: 输入框保持普通输入
+{
+  "passed": true,
+  "checks": [
+    "使用隔离数据与自编 EPUB，底部上一页/下一页箭头已从 DOM 移除",
+    "真实键盘模式下阅读区与正文容器匹配 focus-visible，root/viewport/iframe 及 J 返回正文均无边框轮廓，阅读工具仍保留 2px 焦点提示",
+    "正文 iframe 留白单击进入纯阅读，内外层无鼠标，正文、书名、页数保留且布局位置不变",
+    "外层页边同样可进入纯阅读；真实鼠标移动与 Esc 均恢复控件和指针",
+    "工具、目录、阅读设置或单词本打开时，留白单击只收起面板，本次不进入纯阅读、不误收录",
+    "已有选区先取消而不进入纯阅读；单词点击、真实拖选和菜单收录均保留，产生真实本机记录与下划线",
+    "通过真实收录生成可滚动单词本；浮层内部滚轮只滚动词条，不改变正文页码或内容位置",
+    "左右方向键、PageDown/PageUp 与正文真实滚轮均可翻页，并保存新的内容位置",
+    "第二本自编书及返回书架后重新打开，都在真实 focus-visible 状态下保持正文无边框轮廓",
+    "书架 API 输入仍接收 J 与光标移动并保留 2px 焦点提示；未保存测试密钥、未调用付费模型"
+  ],
+  "measurements": [
+    {
+      "stage": "键盘焦点进入阅读区",
+      "selector": ".epub-reader",
+      "keyboardFocus": {
+        "active": true,
+        "focused": true,
+        "focusVisible": true
+      }
+    },
+    {
+      "stage": "键盘焦点进入阅读区",
+      "readerFocusStyles": [
+        {
+          "tag": "SECTION",
+          "className": "epub-reader",
+          "active": true,
+          "focused": true,
+          "focusVisible": true,
+          "outlineStyle": "none",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "borders": [
+            "0px",
+            "0px",
+            "0px",
+            "0px"
+          ]
+        },
+        {
+          "tag": "DIV",
+          "className": "reader-viewport",
+          "active": false,
+          "focused": false,
+          "focusVisible": false,
+          "outlineStyle": "none",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "borders": [
+            "0px",
+            "0px",
+            "0px",
+            "0px"
+          ]
+        },
+        {
+          "tag": "IFRAME",
+          "className": "",
+          "active": false,
+          "focused": false,
+          "focusVisible": false,
+          "outlineStyle": "none",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "borders": [
+            "0px",
+            "0px",
+            "0px",
+            "0px"
+          ]
+        }
+      ]
+    },
+    {
+      "stage": "键盘焦点进入正文容器",
+      "selector": ".reader-viewport",
+      "keyboardFocus": {
+        "active": true,
+        "focused": true,
+        "focusVisible": true
+      }
+    },
+    {
+      "stage": "键盘焦点进入正文容器",
+      "readerFocusStyles": [
+        {
+          "tag": "SECTION",
+          "className": "epub-reader",
+          "active": false,
+          "focused": false,
+          "focusVisible": false,
+          "outlineStyle": "none",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "borders": [
+            "0px",
+            "0px",
+            "0px",
+            "0px"
+          ]
+        },
+        {
+          "tag": "DIV",
+          "className": "reader-viewport",
+          "active": true,
+          "focused": true,
+          "focusVisible": true,
+          "outlineStyle": "none",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "borders": [
+            "0px",
+            "0px",
+            "0px",
+            "0px"
+          ]
+        },
+        {
+          "tag": "IFRAME",
+          "className": "",
+          "active": false,
+          "focused": false,
+          "focusVisible": false,
+          "outlineStyle": "none",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "borders": [
+            "0px",
+            "0px",
+            "0px",
+            "0px"
+          ]
+        }
+      ]
+    },
+    {
+      "stage": "键盘焦点进入正文 iframe",
+      "selector": ".reader-canvas iframe",
+      "keyboardFocus": {
+        "active": true,
+        "focused": false,
+        "focusVisible": false
+      }
+    },
+    {
+      "stage": "键盘焦点进入正文 iframe",
+      "readerFocusStyles": [
+        {
+          "tag": "SECTION",
+          "className": "epub-reader",
+          "active": false,
+          "focused": false,
+          "focusVisible": false,
+          "outlineStyle": "none",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "borders": [
+            "0px",
+            "0px",
+            "0px",
+            "0px"
+          ]
+        },
+        {
+          "tag": "DIV",
+          "className": "reader-viewport",
+          "active": false,
+          "focused": false,
+          "focusVisible": false,
+          "outlineStyle": "none",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "borders": [
+            "0px",
+            "0px",
+            "0px",
+            "0px"
+          ]
+        },
+        {
+          "tag": "IFRAME",
+          "className": "",
+          "active": true,
+          "focused": false,
+          "focusVisible": false,
+          "outlineStyle": "none",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "borders": [
+            "0px",
+            "0px",
+            "0px",
+            "0px"
+          ]
+        }
+      ]
+    },
+    {
+      "stage": "阅读工具按钮保留键盘焦点",
+      "controlFocusStyle": {
+        "active": true,
+        "focusVisible": true,
+        "outlineStyle": "solid",
+        "outlineWidth": "2px",
+        "outlineColor": "rgb(0, 0, 0)"
+      }
+    },
+    {
+      "stage": "正常阅读时正文容器有键盘焦点",
+      "selector": ".reader-viewport",
+      "keyboardFocus": {
+        "active": true,
+        "focused": true,
+        "focusVisible": true
+      }
+    },
+    {
+      "stage": "正常阅读时正文容器有键盘焦点",
+      "readerFocusStyles": [
+        {
+          "tag": "SECTION",
+          "className": "epub-reader",
+          "active": false,
+          "focused": false,
+          "focusVisible": false,
+          "outlineStyle": "none",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "borders": [
+            "0px",
+            "0px",
+            "0px",
+            "0px"
+          ]
+        },
+        {
+          "tag": "DIV",
+          "className": "reader-viewport",
+          "active": true,
+          "focused": true,
+          "focusVisible": true,
+          "outlineStyle": "none",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "borders": [
+            "0px",
+            "0px",
+            "0px",
+            "0px"
+          ]
+        },
+        {
+          "tag": "IFRAME",
+          "className": "",
+          "active": false,
+          "focused": false,
+          "focusVisible": false,
+          "outlineStyle": "none",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "borders": [
+            "0px",
+            "0px",
+            "0px",
+            "0px"
+          ]
+        }
+      ]
+    },
+    {
+      "stage": "J 关闭单词本后焦点回到正文 iframe",
+      "readerFocusStyles": [
+        {
+          "tag": "SECTION",
+          "className": "epub-reader",
+          "active": false,
+          "focused": false,
+          "focusVisible": false,
+          "outlineStyle": "none",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "borders": [
+            "0px",
+            "0px",
+            "0px",
+            "0px"
+          ]
+        },
+        {
+          "tag": "DIV",
+          "className": "reader-viewport",
+          "active": false,
+          "focused": false,
+          "focusVisible": false,
+          "outlineStyle": "none",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "borders": [
+            "0px",
+            "0px",
+            "0px",
+            "0px"
+          ]
+        },
+        {
+          "tag": "IFRAME",
+          "className": "",
+          "active": true,
+          "focused": false,
+          "focusVisible": false,
+          "outlineStyle": "none",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "borders": [
+            "0px",
+            "0px",
+            "0px",
+            "0px"
+          ]
+        }
+      ]
+    },
+    {
+      "stage": "正文留白",
+      "inside": {
+        "hiddenAttribute": true,
+        "html": "none",
+        "body": "none",
+        "paragraph": "none"
+      },
+      "outside": "none"
+    },
+    {
+      "stage": "正文留白",
+      "readerFocusStyles": [
+        {
+          "tag": "SECTION",
+          "className": "epub-reader",
+          "active": false,
+          "focused": false,
+          "focusVisible": false,
+          "outlineStyle": "none",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "borders": [
+            "0px",
+            "0px",
+            "0px",
+            "0px"
+          ]
+        },
+        {
+          "tag": "DIV",
+          "className": "reader-viewport",
+          "active": true,
+          "focused": true,
+          "focusVisible": true,
+          "outlineStyle": "none",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "borders": [
+            "0px",
+            "0px",
+            "0px",
+            "0px"
+          ]
+        },
+        {
+          "tag": "IFRAME",
+          "className": "",
+          "active": false,
+          "focused": false,
+          "focusVisible": false,
+          "outlineStyle": "none",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "borders": [
+            "0px",
+            "0px",
+            "0px",
+            "0px"
+          ]
+        }
+      ]
+    },
+    {
+      "stage": "真实鼠标移动",
+      "inside": {
+        "hiddenAttribute": false,
+        "html": "auto",
+        "body": "auto",
+        "paragraph": "auto"
+      },
+      "outside": "auto"
+    },
+    {
+      "stage": "真实鼠标移动",
+      "readerFocusStyles": [
+        {
+          "tag": "SECTION",
+          "className": "epub-reader",
+          "active": false,
+          "focused": false,
+          "focusVisible": false,
+          "outlineStyle": "none",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "borders": [
+            "0px",
+            "0px",
+            "0px",
+            "0px"
+          ]
+        },
+        {
+          "tag": "DIV",
+          "className": "reader-viewport",
+          "active": true,
+          "focused": true,
+          "focusVisible": true,
+          "outlineStyle": "none",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "borders": [
+            "0px",
+            "0px",
+            "0px",
+            "0px"
+          ]
+        },
+        {
+          "tag": "IFRAME",
+          "className": "",
+          "active": false,
+          "focused": false,
+          "focusVisible": false,
+          "outlineStyle": "none",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "borders": [
+            "0px",
+            "0px",
+            "0px",
+            "0px"
+          ]
+        }
+      ]
+    },
+    {
+      "stage": "外层页边留白",
+      "inside": {
+        "hiddenAttribute": true,
+        "html": "none",
+        "body": "none",
+        "paragraph": "none"
+      },
+      "outside": "none"
+    },
+    {
+      "stage": "外层页边留白",
+      "readerFocusStyles": [
+        {
+          "tag": "SECTION",
+          "className": "epub-reader",
+          "active": false,
+          "focused": false,
+          "focusVisible": false,
+          "outlineStyle": "none",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "borders": [
+            "0px",
+            "0px",
+            "0px",
+            "0px"
+          ]
+        },
+        {
+          "tag": "DIV",
+          "className": "reader-viewport",
+          "active": true,
+          "focused": true,
+          "focusVisible": false,
+          "outlineStyle": "none",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "borders": [
+            "0px",
+            "0px",
+            "0px",
+            "0px"
+          ]
+        },
+        {
+          "tag": "IFRAME",
+          "className": "",
+          "active": false,
+          "focused": false,
+          "focusVisible": false,
+          "outlineStyle": "none",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "borders": [
+            "0px",
+            "0px",
+            "0px",
+            "0px"
+          ]
+        }
+      ]
+    },
+    {
+      "stage": "Esc 恢复",
+      "inside": {
+        "hiddenAttribute": false,
+        "html": "auto",
+        "body": "auto",
+        "paragraph": "auto"
+      },
+      "outside": "auto"
+    },
+    {
+      "stage": "Esc 恢复",
+      "readerFocusStyles": [
+        {
+          "tag": "SECTION",
+          "className": "epub-reader",
+          "active": true,
+          "focused": true,
+          "focusVisible": true,
+          "outlineStyle": "none",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "borders": [
+            "0px",
+            "0px",
+            "0px",
+            "0px"
+          ]
+        },
+        {
+          "tag": "DIV",
+          "className": "reader-viewport",
+          "active": false,
+          "focused": false,
+          "focusVisible": false,
+          "outlineStyle": "none",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "borders": [
+            "0px",
+            "0px",
+            "0px",
+            "0px"
+          ]
+        },
+        {
+          "tag": "IFRAME",
+          "className": "",
+          "active": false,
+          "focused": false,
+          "focusVisible": false,
+          "outlineStyle": "none",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "borders": [
+            "0px",
+            "0px",
+            "0px",
+            "0px"
+          ]
+        }
+      ]
+    },
+    {
+      "stage": "点击单词后",
+      "inside": {
+        "hiddenAttribute": false,
+        "html": "auto",
+        "body": "auto",
+        "paragraph": "auto"
+      },
+      "outside": "auto"
+    },
+    {
+      "stage": "点击单词后",
+      "readerFocusStyles": [
+        {
+          "tag": "SECTION",
+          "className": "epub-reader",
+          "active": false,
+          "focused": false,
+          "focusVisible": false,
+          "outlineStyle": "none",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "borders": [
+            "0px",
+            "0px",
+            "0px",
+            "0px"
+          ]
+        },
+        {
+          "tag": "DIV",
+          "className": "reader-viewport",
+          "active": true,
+          "focused": true,
+          "focusVisible": false,
+          "outlineStyle": "none",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "borders": [
+            "0px",
+            "0px",
+            "0px",
+            "0px"
+          ]
+        },
+        {
+          "tag": "IFRAME",
+          "className": "",
+          "active": false,
+          "focused": false,
+          "focusVisible": false,
+          "outlineStyle": "none",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "borders": [
+            "0px",
+            "0px",
+            "0px",
+            "0px"
+          ]
+        }
+      ]
+    },
+    {
+      "stage": "ArrowRight",
+      "before": "1 / 13",
+      "after": "2 / 13",
+      "cfi": "epubcfi(/6/2!/4/10/1:754)"
+    },
+    {
+      "stage": "ArrowLeft",
+      "before": "2 / 13",
+      "after": "1 / 13",
+      "cfi": "epubcfi(/6/2!/4/2/1:0)"
+    },
+    {
+      "stage": "PageDown",
+      "before": "1 / 13",
+      "after": "2 / 13",
+      "cfi": "epubcfi(/6/2!/4/10/1:754)"
+    },
+    {
+      "stage": "PageUp",
+      "before": "2 / 13",
+      "after": "1 / 13",
+      "cfi": "epubcfi(/6/2!/4/2/1:0)"
+    },
+    {
+      "stage": "正文向下滚轮",
+      "before": "1 / 13",
+      "after": "2 / 13",
+      "cfi": "epubcfi(/6/2!/4/10/1:754)"
+    },
+    {
+      "stage": "正文向上滚轮",
+      "before": "2 / 13",
+      "after": "1 / 13",
+      "cfi": "epubcfi(/6/2!/4/2/1:0)"
+    },
+    {
+      "stage": "第二本书正文键盘焦点",
+      "selector": ".reader-viewport",
+      "keyboardFocus": {
+        "active": true,
+        "focused": true,
+        "focusVisible": true
+      }
+    },
+    {
+      "stage": "第二本书正文键盘焦点",
+      "readerFocusStyles": [
+        {
+          "tag": "SECTION",
+          "className": "epub-reader",
+          "active": false,
+          "focused": false,
+          "focusVisible": false,
+          "outlineStyle": "none",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "borders": [
+            "0px",
+            "0px",
+            "0px",
+            "0px"
+          ]
+        },
+        {
+          "tag": "DIV",
+          "className": "reader-viewport",
+          "active": true,
+          "focused": true,
+          "focusVisible": true,
+          "outlineStyle": "none",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "borders": [
+            "0px",
+            "0px",
+            "0px",
+            "0px"
+          ]
+        },
+        {
+          "tag": "IFRAME",
+          "className": "",
+          "active": false,
+          "focused": false,
+          "focusVisible": false,
+          "outlineStyle": "none",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "borders": [
+            "0px",
+            "0px",
+            "0px",
+            "0px"
+          ]
+        }
+      ]
+    },
+    {
+      "stage": "第二本书重开后正文键盘焦点",
+      "selector": ".reader-viewport",
+      "keyboardFocus": {
+        "active": true,
+        "focused": true,
+        "focusVisible": true
+      }
+    },
+    {
+      "stage": "第二本书重开后正文键盘焦点",
+      "readerFocusStyles": [
+        {
+          "tag": "SECTION",
+          "className": "epub-reader",
+          "active": false,
+          "focused": false,
+          "focusVisible": false,
+          "outlineStyle": "none",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "borders": [
+            "0px",
+            "0px",
+            "0px",
+            "0px"
+          ]
+        },
+        {
+          "tag": "DIV",
+          "className": "reader-viewport",
+          "active": true,
+          "focused": true,
+          "focusVisible": true,
+          "outlineStyle": "none",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "borders": [
+            "0px",
+            "0px",
+            "0px",
+            "0px"
+          ]
+        },
+        {
+          "tag": "IFRAME",
+          "className": "",
+          "active": false,
+          "focused": false,
+          "focusVisible": false,
+          "outlineStyle": "none",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "borders": [
+            "0px",
+            "0px",
+            "0px",
+            "0px"
+          ]
+        }
+      ]
+    },
+    {
+      "stage": "书架 API 输入保留键盘焦点",
+      "controlFocusStyle": {
+        "active": true,
+        "focusVisible": true,
+        "outlineStyle": "solid",
+        "outlineWidth": "2px",
+        "outlineColor": "rgb(0, 0, 0)"
+      }
+    }
+  ],
+  "errors": []
+}
+japanese-smoke: 隔离启动、自动识别和手动语言保存
+japanese-smoke: 真实点击无空格日语词语和日语释义展示
+japanese-smoke: 跨 ruby 真实拖选整句和原文回跳
+japanese-smoke: 旧释义语言快照、阅读位置和重启恢复
+japanese-smoke: 英文导入和英文解析回归
+{
+  "passed": true,
+  "runtime": {
+    "version": "45.5.0",
+    "platform": "win32",
+    "arch": "x64",
+    "versions": {
+      "node": "24.22.3",
+      "acorn": "8.18.0",
+      "ada": "4.0.0",
+      "amaro": "1.1.11",
+      "ares": "1.34.9",
+      "brotli": "1.2.0",
+      "cldr": "48.0",
+      "icu": "78.2",
+      "llhttp": "9.4.4",
+      "merve": "1.2.2",
+      "modules": "150",
+      "napi": "10",
+      "nbytes": "0.1.4",
+      "ncrypto": "0.0.1",
+      "nghttp2": "1.70.0",
+      "nghttp3": "",
+      "ngtcp2": "",
+      "openssl": "0.0.0",
+      "simdjson": "4.6.11",
+      "simdutf": "7.7.0",
+      "sqlite": "3.54.1",
+      "tz": "2026e",
+      "undici": "7.30.2",
+      "unicode": "17.0",
+      "uv": "1.52.1",
+      "uvwasi": "0.0.23",
+      "v8": "15.6.75.63-electron.46fec525e2404bf6",
+      "zlib": "1.3.2.1-motley",
+      "zstd": "1.6.0",
+      "electron": "45.5.0",
+      "chrome": "156.0.8078.109"
+    }
+  },
+  "checks": [
+    "ja-JP 元数据自动识别日语；设置中切换英语、重开保留，再切回日语",
+    "真实点击无空格日语词末字右半侧，按 ja 收录；展示中文义、假名、日文例句，无英文解释",
+    "日语读音在 Quiet 单词本使用对应深色面板和清晰的实色文字，无模糊滤镜或文字阴影",
+    "跨 ruby 拖选整句不混入 rt/rp，整句只显示中文翻译；标记可查看并返回原文",
+    "切换书籍语言保留已有释义；重启恢复日语字段、语言和阅读位置，原文仍可回跳",
+    "英文书仍按 en 收录并保留 definitionEn；日语和英语请求分流，已有日语释义保持"
+  ],
+  "errors": []
+}
+(node:55988) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+{
+  "passed": true,
+  "runtime": {
+    "version": "45.5.0",
+    "platform": "win32",
+    "arch": "x64"
+  },
+  "checks": [
+    "旧日文书从 legacy/en 升级为 ja，保留已完成释义和旧任务，启动不自动重译",
+    "真实点击失败项重新解析，经原 CFI 重建 ruby 前后偏移与原文，日语词和整句都不要求英文解释"
+  ],
+  "errors": []
+}

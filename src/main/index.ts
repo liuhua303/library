@@ -7,6 +7,7 @@ import type { AppSettings, DataChange } from '../shared/types';
 import { extractEpubCover, inspectEpub } from './epub';
 import { AnalysisQueue } from './queue';
 import { ReaderStore } from './store';
+import { upgradeLegacyBookLanguages } from './book-language-upgrade';
 import { KeyVault } from './vault';
 import { validAnchor, validBookmark, validBookPatch, validCollect, validId, validSettings } from './validation';
 import { applicationMenuTemplate, DesktopLifecycle } from './platform';
@@ -139,8 +140,8 @@ function registerIpc(): void {
     const occurrence = store.removeOccurrence(validId(id));
     if (occurrence) broadcast({ reason: 'vocabulary', bookId: occurrence.bookId });
   });
-  handle('reader:retry-occurrence', id => {
-    const occurrence = store.retry(validId(id));
+  handle('reader:retry-occurrence', (id, replacement) => {
+    const occurrence = store.retry(validId(id), replacement === undefined ? undefined : validCollect(replacement));
     if (occurrence) broadcast({ reason: 'vocabulary', bookId: occurrence.bookId });
     queue.resume();
   });
@@ -234,14 +235,15 @@ const hasLock = process.env.APP_TEST_MODE || app.requestSingleInstanceLock();
 if (!hasLock) app.quit();
 else {
   app.on('second-instance', () => {
-    if (app.isReady() && store) void lifecycle.activate().catch(error => dialog.showErrorBox('无法打开阅间', String(error)));
+    if (app.isReady() && queue) void lifecycle.activate().catch(error => dialog.showErrorBox('无法打开阅间', String(error)));
   });
   app.on('activate', () => {
-    if (app.isReady() && store) void lifecycle.activate().catch(error => dialog.showErrorBox('无法打开阅间', String(error)));
+    if (app.isReady() && queue) void lifecycle.activate().catch(error => dialog.showErrorBox('无法打开阅间', String(error)));
   });
   app.on('before-quit', event => lifecycle.beforeQuit(event));
   app.whenReady().then(async () => {
     store = new ReaderStore(app.getPath('userData'));
+    await upgradeLegacyBookLanguages(store);
     vault = new KeyVault(app.getPath('userData'));
     queue = new AnalysisQueue(store, { getApiKey: () => vault.get(), getModel: () => store.getSetting('model') || 'deepseek-flash', onChange: broadcast });
     const menuTemplate = applicationMenuTemplate(process.platform);

@@ -95,13 +95,24 @@ export class ReaderStore {
   addBook(bytes: Uint8Array, metadata: { title: string; author: string; fileName: string; language?: SourceLanguage; languageSource?: BookLanguageSource }): BookRecord {
     const hash = createHash('sha256').update(bytes).digest('hex');
     const existing = this.db.prepare('SELECT * FROM books WHERE hash = ?').get(hash) as unknown as BookRow | undefined;
-    if (existing) return JSON.parse(existing.data) as BookRecord;
+    if (existing) return this.reconcileBookLanguage(existing.id, {
+      language: metadata.language ?? 'en', languageSource: metadata.languageSource ?? 'unknown',
+    });
     const id = randomUUID();
     const book: BookRecord = { id, ...metadata, language: metadata.language ?? 'en', languageSource: metadata.languageSource ?? (metadata.language ? 'unknown' : 'legacy'), importedAt: new Date().toISOString(), lastLocation: null, progress: 0, fontSize: 20 };
     const filePath = this.bookPath(id);
     writeFileSync(`${filePath}.tmp`, bytes);
     renameSync(`${filePath}.tmp`, filePath);
     this.db.prepare('INSERT INTO books(id, hash, data) VALUES (?, ?, ?)').run(id, hash, JSON.stringify(book));
+    return book;
+  }
+
+  reconcileBookLanguage(id: string, detection: { language: SourceLanguage; languageSource: BookLanguageSource }): BookRecord {
+    const existing = this.getBook(id);
+    if (!['legacy', 'unknown'].includes(existing.languageSource ?? 'legacy') ||
+        !['metadata', 'content'].includes(detection.languageSource)) return existing;
+    const book: BookRecord = { ...existing, language: detection.language, languageSource: detection.languageSource };
+    this.db.prepare('UPDATE books SET data = ? WHERE id = ?').run(JSON.stringify(book), id);
     return book;
   }
 
@@ -256,9 +267,25 @@ export class ReaderStore {
     }
   }
 
-  retry(id: string): Occurrence | undefined {
+  retry(id: string, replacement?: CollectInput): Occurrence | undefined {
     const occurrence = this.getOccurrence(id);
     if (!occurrence || occurrence.status === 'processing' || occurrence.status === 'completed') return occurrence;
+    if (replacement) {
+      if (occurrence.status !== 'failed') throw new Error('只有解析失败的记录可以重新提取原文。');
+      if (replacement.bookId !== occurrence.bookId || replacement.anchor.cfi !== occurrence.originalAnchor.cfi) {
+        throw new Error('重新提取的原文与原收录位置不一致。');
+      }
+      const book = this.getBook(occurrence.bookId);
+      occurrence.selectedText = replacement.text;
+      occurrence.targetText = replacement.text;
+      occurrence.kind = replacement.kind;
+      occurrence.context = replacement.context;
+      occurrence.chapterTitle = replacement.chapterTitle;
+      occurrence.anchor = { ...replacement.anchor };
+      occurrence.originalAnchor = { ...replacement.anchor };
+      occurrence.language = book.language === 'ja' ? 'ja' : 'en';
+      occurrence.analysis = null;
+    }
     occurrence.status = 'pending'; occurrence.error = null;
     this.writeOccurrence(occurrence, { attempts: 0, nextAttemptAt: 0 });
     return occurrence;

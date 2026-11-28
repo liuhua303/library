@@ -1,8 +1,8 @@
 # 开发说明
 
-状态：当前开发与维护约定；`codex/japanese-support` 分支源码为 0.5.0-dev.0，尚未合并进 `main`。main 保留 0.4.0-dev.1，日语分支试用包及验证状态见对应报告。更新日期：2026-11-28。
+状态：当前开发与维护约定；`codex/japanese-support` 分支源码为 0.5.0-dev.1，尚未合并进 `main`。本轮 Windows 自动检查和试用包已完成，Mac 检查待运行；`main` 保留 0.4.0-dev.1，0.5.0-dev.0 日语试用包保留历史归属。更新日期：2026-11-28。
 
-源码仓库为 [liuhua303/library](https://github.com/liuhua303/library)。用户已确认日语适配流程，当前在独立分支实现并进行自动检查，仍待真实模型质量和用户试用，实际状态见 [0.5.0-dev.0 验证报告](./verification/0.5.0-dev.0.md)。`main` 和标签 `v0.4.0-dev.1` 保留用户已检查的版本；已生成的 Windows 与 Mac 0.4.0-dev.1 包及其检查见 [历史报告](./verification/0.4.0-dev.1.md)，不作为日语分支交付。Mac 试用包为 ad-hoc 签名、未公证；正式 Developer ID 签名和公证尚未配置，安装及原生交互的人工验收仍未完成。
+源码仓库为 [liuhua303/library](https://github.com/liuhua303/library)。用户已确认日语适配流程，当前在独立分支修复旧书仍按英文解析的问题，本轮实现与验证状态见 [0.5.0-dev.1 验证报告](./verification/0.5.0-dev.1.md)。上一版日语包的自动检查与产物见 [0.5.0-dev.0 历史报告](./verification/0.5.0-dev.0.md)，不作为本轮修复通过证明。`main` 和标签 `v0.4.0-dev.1` 保留用户已检查的版本，产物见 [历史报告](./verification/0.4.0-dev.1.md)。Mac 试用包为 ad-hoc 签名、未公证；正式 Developer ID 签名和公证尚未配置，安装及原生交互的人工验收仍未完成，真实模型质量单独验收。
 
 ## 文档维护规则
 
@@ -52,6 +52,7 @@ docs/
 | [src/main/vault.ts](../src/main/vault.ts) | 使用 Electron safeStorage 保护本机 API 密钥 |
 | [src/main/epub.ts](../src/main/epub.ts)、[validation.ts](../src/main/validation.ts) | EPUB 元数据与封面提取、IPC 输入校验 |
 | [src/main/book-language.ts](../src/main/book-language.ts) | EPUB 语言标记解析、正文抽样、英语/日语探测及未确定来源 |
+| [src/main/book-language-upgrade.ts](../src/main/book-language-upgrade.ts) | 启动时读取本机 EPUB 修正 legacy 旧书语言，隔离单本识别失败 |
 | [src/shared/types.ts](../src/shared/types.ts) | 前后端共享数据结构、主题与语言标识、书签及 ReaderApi 接口 |
 | [src/renderer/App.tsx](../src/renderer/App.tsx) | 书架、书架 API 设置、单词本和每书阅读设置状态 |
 | [src/renderer/components/EpubReader.tsx](../src/renderer/components/EpubReader.tsx)、[reader](../src/renderer/reader) | EPUB 阅读、目录/书签导航、阅读设置、选区、内容定位、标记几何与主题样式 |
@@ -78,7 +79,11 @@ docs/
 
 `SourceLanguage` 当前只含 `en` 与 `ja`。导入从 OPF 主语言及正文抽样判断，识别 `en` / `eng`、`ja` / `jpn` 及其区域标签；只有正文证据充分且与元数据冲突时采用正文，否则保留主语言声明。日语覆盖英语声明需在抽样中明显占优，英语覆盖日语声明需至少两份充分的英语正文样本。无可用主语言时再按正文及章节语言标记判断。正文探测结合假名、汉字、拉丁字母及英语常见词，不凭汉字或拉丁字母单独断言语言。抽样排除脚本、样式、导航、ruby 注音和可识别的封面、标题、版权等非正文；目前最多取四个有效正文样本，缺失或损坏的样本不阻断导入。仍无法判断时保存 `languageSource: 'unknown'` 并暂用 `en`，由阅读设置提示用户选择。
 
-语言与来源按书保存；手动变更来源记为 `manual`。语言变更只随当前请求发送，等待主进程保存成功后才切换界面；失败时继续使用原语言，不能被后续位置保存或关闭重试偷偷应用。位置、字号、主题保留原有写入缓冲与失败重试机制，语言字段不进入其待重试快照。每次收录由主进程根据已保存书籍语言生成 `Occurrence.language` 快照，后台任务按此快照处理，词条归并加入语言维度。旧记录缺失语言时迁移为 `en`，旧书来源记为 `legacy`；迁移不重译已有结果，不改写已有位置。书籍语言切换不回写旧语境及任务，迟到的书籍响应也不能覆盖已确认的本地状态。
+语言与来源按书保存；手动变更来源记为 `manual`。语言变更只随当前请求发送，等待主进程保存成功后才切换界面；失败时继续使用原语言，不能被后续位置保存或关闭重试偷偷应用。位置、字号、主题保留原有写入缓冲与失败重试机制，语言字段不进入其待重试快照。每次收录由主进程根据已保存书籍语言生成 `Occurrence.language` 快照，后台任务按此快照处理，词条归并加入语言维度。旧收录缺失语言时迁移为 `en`，旧书初始来源记为 `legacy`；迁移不重译已有结果，不改写已有位置。书籍语言切换本身不回写旧语境及任务，迟到的书籍响应也不能覆盖已确认的本地状态。
+
+启动在队列建立前运行 `upgradeLegacyBookLanguages`，只读取来源为 `legacy` 的本机书籍 EPUB。`reconcileBookLanguage` 仅允许 `legacy` / `unknown` 记录接受 `metadata` / `content` 的可靠检测结果；同 hash 重导复用此规则，返回原书籍 ID，保护 `manual` 和已有可靠来源。仅更新语言及来源，保留位置、字号、主题、导入日期和已有收录结果。缺失、损坏或不支持的旧文件按单本捕获并跳过，不阻断其他书籍启动；无法可靠判断时不强行覆盖，仍可手动选择。整个重新识别流程不发模型请求，也不自动重译旧任务。
+
+用户手动重试 `failed` 记录且语言快照与书籍当前已保存语言不同时，阅读器通过 `originalAnchor.cfi` 从 EPUB DOM 重新取 Range，再按当前语言的文本索引重建 `selectedText`、`context`、偏移锚点和 `kind`；日语索引排除 `rt` / `rp`。IPC 传入重建数据后，存储层校验同书、同原 CFI 且状态为 `failed`，保留语境 ID 和收录日期，采用书籍已保存语言替换失败任务并重新排队。不能只改语言后沿用旧英文偏移；重建失败保留原任务，`completed` / `processing` 不改写。普通重试和既有排队任务继续使用各自语言快照。上述跨语言纠正仅由用户手动重试触发，后续模型请求仍由原有队列执行。
 
 英文 system prompt、请求 payload 和字段校验继续使用原路径；仅 `Occurrence.language === 'ja'` 进入独立日文 prompt，并在数据中声明 `sourceLanguage: 'ja'`。两者仍各用一次完整模型请求，技术重试沿用队列，不增加第二轮模型审查。日语词语/短语必须返回 `meaningZh`、`reading`、`usage`、`example`，不要求 `definitionEn`；不确定读音允许明确返回“读音待确认”。整句只保留原始选文和中文翻译。字段校验不能证明翻译或读音正确，真实模型质量单独验收。
 
@@ -141,7 +146,7 @@ npm run dist
 | `npm run dist:mac` | 仅在 macOS 上构建固定 arm64 的正式包，要求 Developer ID 签名和公证凭据 |
 | `npm run dist:mac:local` | 仅在 macOS 上构建固定 arm64 的本机 ad-hoc 试用包，不公证 |
 
-`test:e2e` 的具体脚本以 [package.json](../package.json) 为准。阅读或主题改动除相关单元检查外，还应覆盖书架进度、目录/书签切换与持久化、每书字号与六主题、非空单词本的面板及内容可读性、API 入口分工，以及原有选区、收录和回跳。语言改动还应覆盖元数据与正文探测、未确定提示、手动切换持久化、旧数据迁移、任务语言快照、英日词条隔离、日语分词与 ruby 偏移、日文输出校验，以及英文请求和输出的回归。本轮实际运行范围与结果只写入 [0.5.0-dev.0 验证报告](./verification/0.5.0-dev.0.md)，不因本文列出检查场景就视为已通过。Windows 结果不替代 Mac 验证。
+`test:e2e` 的具体脚本以 [package.json](../package.json) 为准。阅读或主题改动除相关单元检查外，还应覆盖书架进度、目录/书签切换与持久化、每书字号与六主题、非空单词本的面板及内容可读性、API 入口分工，以及原有选区、收录和回跳。语言改动还应覆盖元数据与正文探测、未确定提示、手动切换持久化、旧数据迁移、任务语言快照、英日词条隔离、日语分词与 ruby 偏移、日文输出校验，以及英文请求和输出的回归。本轮旧书修复还需检查启动 legacy 识别、同 hash 重导、手动/可靠来源保护、缺失文件隔离、failed 跨语言原 CFI 重建，以及 completed/processing、ID、收录日期和阅读设置保持。本轮实际运行范围与结果只写入 [0.5.0-dev.1 验证报告](./verification/0.5.0-dev.1.md)，不因本文列出检查场景就视为已通过。Windows 结果不替代 Mac 验证。
 
 xmldom 的覆盖按使用方区分：EPUB.js 使用 0.9 安全修补分支，Mac 构建链的 plist 使用兼容的 0.8 安全修补分支，准确版本以锁文件为准；不要将构建链强制覆盖到不兼容 API。更新依赖后需保留其他平台可选包的完整锁记录，并通过干净的 `npm ci` 检查，不能只验证已有 `node_modules`。Mac 构建入口在发生错误或缺少实际 DMG 时必须失败。
 
@@ -160,7 +165,7 @@ node scripts/check-package.mjs "release/win-unpacked/阅间.exe"
 
 ## Mac 准备与打包
 
-当前 Mac 构建目标固定 Apple Silicon arm64，不扩展 Intel 或 universal。以下命令需在 macOS 上执行，可使用本地 Mac 或下述 GitHub macOS runner，不能直接在 Windows 主机执行。版本号以 [package.json](../package.json) 为准，当前分支源码为 `0.5.0-dev.0`，已生成日语分支试用 DMG；`main` 的 `0.4.0-dev.1` 包仍作为用户已检查版本保留。两版实际结果分别写入对应验证报告。
+当前 Mac 构建目标固定 Apple Silicon arm64，不扩展 Intel 或 universal。以下命令需在 macOS 上执行，可使用本地 Mac 或下述 GitHub macOS runner，不能直接在 Windows 主机执行。版本号以 [package.json](../package.json) 为准，当前分支源码为 `0.5.0-dev.1`，暂无本轮新包；已生成的日语分支 DMG 为 `0.5.0-dev.0` 历史产物，`main` 的 `0.4.0-dev.1` 包仍作为用户已检查版本保留。各版实际结果分别写入对应验证报告。
 
 ### 本机试用包
 
@@ -237,7 +242,7 @@ node scripts/check-package.mjs "release/mac-arm64-local/mac-arm64/阅间.app"
 
 工作流使用 `macos-26` runner 和 Node.js 24，先断言实际环境为 `darwin/arm64`，再执行 `npm ci`、`npm test`、对应构建命令、`check-package.mjs` 隔离启动，以及针对打包程序的 `reading-preferences-smoke.mjs` 六主题、非空单词本、书签和重启回归；日语分支新增 `japanese-smoke.mjs` 打包程序检查。准确步骤以工作流正文为准，新增步骤不表示已在 Mac 跑通。当前 GitHub 标准 runner 的该标签为 Apple Silicon；标签和供应情况以 [GitHub runner 官方说明](https://docs.github.com/en/actions/reference/runners/github-hosted-runners) 为准。只有所有检查成功才上传 DMG artifact；`Mac-check-results-...` 保留启动、主题与日语回归结果及 `preferences-notebook-*.png`、`japanese-*.png` 等当次证据，两类 artifact 均保留 14 天。失败时通过运行日志及已有证据定位问题，不把失败产物作为交付。过期前需要自行下载保留，artifact 不是永久发布地址。
 
-当前日语分支产物为 [Yuejian-mac-arm64-trial-6](https://github.com/liuhua303/library/actions/runs/46121112223/artifacts/15253397529)，包含 `Yuejian-0.5.0-dev.0-mac-arm64-local.dmg`，保留至北京时间 2026-12-12 15:27。登录并具备仓库读取权限后，按上述步骤下载、解压并转发 DMG；`main` 尚未合并日语适配，旧版包仍可从历史报告查找。
+上一版日语分支产物为 [Yuejian-mac-arm64-trial-6](https://github.com/liuhua303/library/actions/runs/46121112223/artifacts/15253397529)，包含 `Yuejian-0.5.0-dev.0-mac-arm64-local.dmg`，保留至北京时间 2026-12-12 15:27。登录并具备仓库读取权限后可按上述步骤下载并解压；该历史包不含 0.5.0-dev.1 旧书修复。`main` 尚未合并日语适配，稳定版包仍可从历史报告查找。
 
 云端成功仅证明该次 runner 环境中实际完成的检查，不替代 DMG 安装、真实 Keychain、原生菜单和阅读体验人工验收。运行环境、提交、实际结果与未验证项见 [版本报告](./verification/0.5.0-dev.0.md)；正式 Developer ID 签名和公证尚未配置。
 

@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { ArrowUpRight, Check, ChevronDown, CircleAlert, Clock3, Eye, EyeOff, KeyRound, LoaderCircle, Plus, Settings, Trash2, WifiOff, X } from 'lucide-react';
 import type { AppSettings, BookRecord, CollectInput, DataChange, Occurrence, ReaderTheme, SourceLanguage, TaskStatus, VocabularyEntry } from '../shared/types';
-import { EpubReader } from './components/EpubReader';
+import { EpubReader, type EpubReaderHandle } from './components/EpubReader';
 import { findPhraseBounds } from './reader/text';
 
 const KIND_LABEL = { word: '单词', phrase: '短语', sentence: '句子' };
@@ -197,6 +197,7 @@ export function App() {
   const pendingPosition = useRef<{ bookId: string; cfi: string; progress: number } | null>(null);
   const alive = useRef(true);
   const notebookRef = useRef<HTMLElement>(null);
+  const readerRef = useRef<EpubReaderHandle>(null);
   // All book writes originate here. Keep the latest local fields authoritative over
   // older list/write responses, including while the reader is temporarily unmounted.
   const localBookUpdates = useRef(new Map<string, Partial<Pick<BookRecord, 'lastLocation' | 'progress' | 'fontSize' | 'theme' | 'language' | 'languageSource'>>>());
@@ -411,7 +412,14 @@ export function App() {
 
   async function retry(id: string) {
     setRetryingIds(previous => new Set([...previous, id]));
-    try { await window.readerApi.retryOccurrence(id); if (currentBookId.current) await refreshEntries(currentBookId.current); }
+    try {
+      const occurrence = occurrences.find(item => item.id === id);
+      if (occurrence && (occurrence.language ?? 'en') !== (activeBook?.language ?? 'en')) {
+        if (!readerRef.current) throw new Error('书籍尚未加载完成，请稍后重试。');
+        await readerRef.current.retryOccurrence(occurrence);
+      } else await window.readerApi.retryOccurrence(id);
+      if (currentBookId.current) await refreshEntries(currentBookId.current);
+    }
     catch (reason) { setError(errorMessage(reason)); }
     finally { setRetryingIds(previous => { const next = new Set(previous); next.delete(id); return next; }); }
   }
@@ -443,7 +451,7 @@ export function App() {
           : <div className="shelf-empty"><button className="primary-button" aria-label="导入 EPUB" onClick={() => void importBook()} disabled={importing || !bridgeAvailable}>{importing ? <LoaderCircle size={18} className="spinning" /> : <Plus size={20} />}{importing ? '正在导入' : '导入 EPUB'}</button></div>}
       </main> : <main className="reading-layout" data-reader-theme={activeBook.theme ?? 'original'}>
         <section className="reading-space" aria-label="阅读区">
-          <EpubReader book={activeBook} occurrences={occurrences} focusOccurrenceId={readerFocus?.id} focusNonce={readerFocus?.nonce}
+          <EpubReader ref={readerRef} book={activeBook} occurrences={occurrences} focusOccurrenceId={readerFocus?.id} focusNonce={readerFocus?.nonce}
             onCollect={handleCollect} onView={handleView} onRemove={handleRemove} onLocationChange={handleLocation} onError={setError}
             onBack={returnToShelf} onFontSizeChange={delta => void changeFontSize(delta)} onThemeChange={theme => void changeTheme(theme)} onLanguageChange={changeLanguage}
             onToggleNotebook={toggleNotebook} notebookOpen={sidebarOpen} shortcutsDisabled={settingsOpen} />

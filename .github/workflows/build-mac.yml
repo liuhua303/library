@@ -104,6 +104,11 @@ jobs:
           MAC_OUTPUT: ${{ steps.output.outputs.directory }}
         run: node scripts/japanese-smoke.mjs "$MAC_OUTPUT/mac-arm64/阅间.app/Contents/MacOS/阅间"
 
+      - name: Check legacy language recovery in packaged application
+        env:
+          MAC_OUTPUT: ${{ steps.output.outputs.directory }}
+        run: node scripts/language-recovery-smoke.mjs "$MAC_OUTPUT/mac-arm64/阅间.app/Contents/MacOS/阅间"
+
       - name: Record checksums and build identity
         env:
           MAC_OUTPUT: ${{ steps.output.outputs.directory }}
@@ -155,5 +160,7 @@ jobs:
             artifacts/preferences-notebook-*.png
             artifacts/japanese-result.json
             artifacts/japanese-*.png
+            artifacts/language-recovery-result.json
+            artifacts/language-recovery-*.png
           if-no-files-found: ignore
           retention-days: 14

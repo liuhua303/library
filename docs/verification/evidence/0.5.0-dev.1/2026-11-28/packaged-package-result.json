@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "version": "0.5.0-dev.1",
+  "platform": "win32",
+  "arch": "x64",
+  "title": "阅间 · 阅读器",
+  "booksReadable": true,
+  "settingsReadable": true,
+  "executablePath": "D:\\Users\\ASUS\\Documents\\ChatGPT\\enlish\\release\\0.5.0-dev.1\\win-unpacked\\阅间.exe",
+  "recordedAt": "2026-11-28T07:48:20.322Z"
+}

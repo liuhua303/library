@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useImperativeHandle, useRef, useState, type Ref } from 'react';
 import ePub, { EpubCFI, type Book, type Contents, type Location, type NavItem, type Rendition } from 'epubjs';
 import { ArrowLeft, Bookmark, BookmarkCheck, BookMarked, Check, Copy, List, LoaderCircle, SlidersHorizontal, Trash2, X } from 'lucide-react';
 import type { BookmarkRecord, BookRecord, CollectInput, Occurrence, ReaderTheme, SourceLanguage, TextAnchor } from '../../shared/types';
@@ -12,7 +12,12 @@ import {
   type TextBounds, type TextIndex,
 } from '../reader/text';
 
+export interface EpubReaderHandle {
+  retryOccurrence: (occurrence: Occurrence) => Promise<void>;
+}
+
 export interface EpubReaderProps {
+  ref?: Ref<EpubReaderHandle>;
   book: BookRecord;
   occurrences: Occurrence[];
   focusOccurrenceId?: string | null;
@@ -628,6 +633,39 @@ export function EpubReader(props: EpubReaderProps) {
   }, [props.book.theme, props.book.language, loading, redraw]);
 
   useEffect(() => { clearSelection(); }, [props.book.language, clearSelection]);
+
+  useImperativeHandle(props.ref, () => ({
+    async retryOccurrence(occurrence) {
+      const record = propsRef.current.book;
+      if (record.id !== occurrence.bookId) throw new Error('请打开这条记录所在的书籍后重试。');
+      if ((occurrence.language ?? 'en') === (record.language ?? 'en')) {
+        await window.readerApi.retryOccurrence(occurrence.id);
+        return;
+      }
+      const currentBook = bookRef.current;
+      const generation = generationRef.current;
+      if (!currentBook || loadedBookIdRef.current !== record.id) throw new Error('书籍尚未加载完成，请稍后重试。');
+      // Old English indexes include ruby annotations. Rebuild both the text and
+      // its offsets from the saved DOM CFI before changing the task's language.
+      const sourceRange = await currentBook.getRange(occurrence.originalAnchor.cfi);
+      if (generation !== generationRef.current || propsRef.current.book.id !== record.id
+        || propsRef.current.book.language !== record.language) throw new Error('书籍或语言已改变，请重新解析。');
+      const root = sourceRange.startContainer.ownerDocument && rootFor(sourceRange.startContainer.ownerDocument);
+      if (!root) throw new Error('暂时无法读取这条记录的原文，请稍后重试。');
+      const index = indexText(root, record.language ?? 'en');
+      const bounds = boundsOfRange(index, sourceRange);
+      if (!bounds) throw new Error('暂时无法定位这条记录的原文，请重新选择收录。');
+      const text = index.text.slice(bounds.start, bounds.end);
+      const context = selectionContext(index.text, bounds.start, bounds.end);
+      await window.readerApi.retryOccurrence(occurrence.id, {
+        bookId: record.id, text, kind: inferSelectionKind(text, record.language ?? 'en'),
+        chapterTitle: occurrence.chapterTitle, context: context.text,
+        anchor: { ...occurrence.originalAnchor, startOffset: bounds.start, endOffset: bounds.end, contextStartOffset: context.startOffset },
+      });
+      anchorsRef.current.delete(occurrence.id);
+      redraw();
+    },
+  }), [redraw]);
 
   useEffect(() => {
     setOptimistic((items) => items.filter((item) => !props.occurrences.some((saved) => saved.id === item.id)));

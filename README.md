@@ -2,9 +2,13 @@
 
 本地阅读器，提供 Windows 版和 M 系列 Mac 试用包。阅读时快速收录词句，后台结合原文生成释义，按书籍保存在单词本中。
 
-当前源码在 `codex/japanese-support` 分支实现 0.5.0-dev.0 日语适配，尚未合并进 `main`。用户已确认适配流程，新增实现已完成本轮 Windows 和 Mac 自动检查，仍待真实模型质量和用户试用；检查与交付状态见 [0.5.0-dev.0 验证报告](./docs/verification/0.5.0-dev.0.md)。`main` 和标签 `v0.4.0-dev.1` 保留用户已检查的版本。
+当前源码在 `codex/japanese-support` 分支修复 0.5.0-dev.1 的旧日文书语言识别与失败解析重试，尚未合并进 `main`。用户已确认日语适配流程，本轮修复已完成 Windows 自动检查并生成试用包，Mac 检查待运行；实际状态见 [0.5.0-dev.1 验证报告](./docs/verification/0.5.0-dev.1.md)。`main` 和标签 `v0.4.0-dev.1` 保留用户已检查的版本。
 
-日语分支 Windows 试用包位于 `release/0.5.0-dev.0/Yuejian-Setup-0.5.0-dev.0.exe`；Mac 下载[日语分支试用包 artifact](https://github.com/liuhua303/library/actions/runs/46121112223/artifacts/15253397529)，解压取得 `Yuejian-0.5.0-dev.0-mac-arm64-local.dmg`，ad-hoc 签名、未公证，登录 GitHub 后可下载，保留至北京时间 2026-12-12 15:27。两平台均已检查打包程序。下方“安装使用”和“当前交付”保留 0.4.0-dev.1 稳定试用包入口，旧包不含日语适配。导入日文 EPUB 后自动识别语言；已有书籍或误判时，在阅读工具的“主题与设置 → 书籍语言”选择日语，旧释义保留。
+本轮 Windows 修复包位于 `release/0.5.0-dev.1/Yuejian-Setup-0.5.0-dev.1.exe`。
+
+上一版日语分支 0.5.0-dev.0 的 Windows、Mac 自动检查与包记录保留在 [历史报告](./docs/verification/0.5.0-dev.0.md)。Windows 包位于 `release/0.5.0-dev.0/Yuejian-Setup-0.5.0-dev.0.exe`；Mac 的[历史试用包 artifact](https://github.com/liuhua303/library/actions/runs/46121112223/artifacts/15253397529)解压后为 `Yuejian-0.5.0-dev.0-mac-arm64-local.dmg`，ad-hoc 签名、未公证，登录 GitHub 后可下载，保留至北京时间 2026-12-12 15:27。这些包不含本轮旧书修复。下方“安装使用”和“当前交付”保留 0.4.0-dev.1 稳定试用包入口，0.4.0-dev.1 不含日语适配。
+
+当前修复会在启动时为旧导入书籍从本机 EPUB 重新识别可靠语言；仍未确定或误判时，可在“主题与设置 → 书籍语言”手动选择。旧释义不自动重译；旧失败记录与当前书籍语言不同时，手动点“重新解析”会从原位置重建选文和上下文，再按当前语言处理。完整保护范围见 [旧书语言修正与失败重试](./docs/requirements.md#旧书语言修正与失败重试)。
 
 ## 安装使用
 
@@ -29,7 +33,7 @@ Mac 只面向 Apple Silicon（M 系列、arm64），要求 macOS 13 或更新版
 
 日语分支支持导入时识别书籍语言并在阅读设置中手动纠正，单击日语分词、拖选词句后先在本机保存，再后台解析。日语词语与短语展示中文义、假名读音、用法及日文例句，整句只提供中文翻译。英文解析路径和已有收录保留，切换语言不自动重译。固定版式 EPUB 仍不在本轮范围，竖排与真实模型质量尚待核对；完整规则见 [功能需求](./docs/requirements.md#日语适配与语言选择)。
 
-完整操作与功能边界见 [功能需求](./docs/requirements.md)，界面细节见 [界面规范](./docs/ui-design.md)。日语分支的检查与未验证范围见 [0.5.0-dev.0 验证报告](./docs/verification/0.5.0-dev.0.md)；已交付主题修复版见 [0.4.0-dev.1 验证报告](./docs/verification/0.4.0-dev.1.md)。模拟模型测试不代表真实释义质量已通过，Mac 云端启动检查也不替代人工验收。
+完整操作与功能边界见 [功能需求](./docs/requirements.md)，界面细节见 [界面规范](./docs/ui-design.md)。本轮检查与未验证范围见 [0.5.0-dev.1 验证报告](./docs/verification/0.5.0-dev.1.md)；上一版日语包见 [0.5.0-dev.0 历史报告](./docs/verification/0.5.0-dev.0.md)，稳定主题修复版见 [0.4.0-dev.1 验证报告](./docs/verification/0.4.0-dev.1.md)。模拟模型测试不代表真实释义质量已通过，Mac 云端启动检查也不替代人工验收。
 
 ## 从源码快速启动
 
@@ -53,7 +57,8 @@ npm run dev
 | [界面规范](./docs/ui-design.md) | 当前视觉与交互规则，以及尚未逐项确认的建议 |
 | [开发说明](./docs/development.md) | 文档维护规则、代码结构、开发、测试与打包 |
 | [更新记录](./CHANGELOG.md) | 各版本的用户可感知变化 |
-| [0.5.0-dev.0 验证报告](./docs/verification/0.5.0-dev.0.md) | 日语开发分支的检查、待验证范围与交付状态 |
+| [0.5.0-dev.1 验证报告](./docs/verification/0.5.0-dev.1.md) | 本轮旧书语言与失败重试修复的检查及交付状态 |
+| [0.5.0-dev.0 验证报告](./docs/verification/0.5.0-dev.0.md) | 上一版日语分支的实际检查、试用包与未验证范围 |
 | [0.4.0-dev.1 验证报告](./docs/verification/0.4.0-dev.1.md) | 已交付单词本主题修复版的实际检查与用户反馈 |
 | [0.4.0-dev.0 记录](./docs/verification/0.4.0-dev.0.md) | 上一版 Mac 云端试用包构建、启动检查及未验证范围 |
 | [0.3.3 验证报告](./docs/verification/0.3.3.md) | 旧版 Windows 的历史验证结果与产物 |
@@ -68,7 +73,7 @@ npm run dev
 
 ## 当前交付
 
-以下均为包含主题配色修复的 0.4.0-dev.1 试用包；不是日语分支的 0.5.0-dev.0 新包：
+以下均为包含主题配色修复的 0.4.0-dev.1 稳定试用包，不含日语适配；日语分支历史包见上方记录，本轮 0.5.0-dev.1 Windows 包见版本报告：
 
 - Windows 安装包：`release/0.4.0-dev.1/Yuejian-Setup-0.4.0-dev.1.exe`。
 - Windows 已解包程序：`release/0.4.0-dev.1/win-unpacked/阅间.exe`，运行时需要保留同目录其他文件。

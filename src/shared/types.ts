@@ -107,7 +107,7 @@ export interface ReaderApi {
   listEntries(bookId: string): Promise<VocabularyEntry[]>;
   collect(input: CollectInput): Promise<Occurrence>;
   removeOccurrence(id: string): Promise<void>;
-  retryOccurrence(id: string): Promise<void>;
+  retryOccurrence(id: string, replacement?: CollectInput): Promise<void>;
   updateAnchor(id: string, anchor: TextAnchor): Promise<void>;
   getSettings(): Promise<AppSettings>;
   saveSettings(settings: { apiKey?: string; model?: string }): Promise<AppSettings>;

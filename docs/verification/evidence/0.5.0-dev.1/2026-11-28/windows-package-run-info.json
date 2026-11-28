@@ -1,0 +1,21 @@
+{
+  "version": "0.5.0-dev.1",
+  "baseCommit": "49ba7c46bb2a6a55c4f18aac36a242ebdbd6823d",
+  "uncommittedChanges": true,
+  "branch": "codex/japanese-support",
+  "recordedAt": "2026-11-28T07:49:31.163Z",
+  "platform": "win32",
+  "arch": "x64",
+  "node": "v24.12.0",
+  "buildCommand": "node node_modules/electron-builder/cli.js --win nsis --x64 --config.electronDist=node_modules/electron/dist --config.directories.output=release/0.5.0-dev.1",
+  "checks": [
+    "check-package",
+    "language-recovery-smoke",
+    "japanese-smoke",
+    "reading-preferences-smoke"
+  ],
+  "artifacts": {
+    "release/0.5.0-dev.1/Yuejian-Setup-0.5.0-dev.1.exe": "f0d724a7b5d03795cb35fb640da707d660247b1d3ae0b7e3b91fe88939d8ff4f",
+    "release/0.5.0-dev.1/win-unpacked/resources/app.asar": "e8c1918091ed833ca98bedca05deeaccbd2a3f4a3a40347a5cff52be7e64432d"
+  }
+}
