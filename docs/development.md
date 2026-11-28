@@ -1,8 +1,8 @@
 # 开发说明
 
-状态：当前开发与维护约定；源码预备版本 0.4.0-dev.1。已有历史产物为 Windows 0.3.3 和 Mac 0.4.0-dev.0 试用包。更新日期：2026-11-28。
+状态：当前开发与维护约定；Windows 和 Mac 当前试用版本均为 0.4.0-dev.1。更新日期：2026-11-28。
 
-源码已上传到 [liuhua303/library](https://github.com/liuhua303/library)。本轮单词本主题修复的实际检查见 [0.4.0-dev.1 验证报告](./verification/0.4.0-dev.1.md)，不沿用旧版通过结论。上一版 Mac arm64 试用 DMG 的云端构建及启动结果见 [0.4.0-dev.0 历史记录](./verification/0.4.0-dev.0.md)：ad-hoc 签名、未公证；正式 `release` 模式、DMG 安装、Keychain 与真实阅读体验仍未人工验收。
+源码已上传到 [liuhua303/library](https://github.com/liuhua303/library)，本版 Windows 和 Mac 试用包均已生成，并完成打包程序自动化检查，具体结果见 [0.4.0-dev.1 验证报告](./verification/0.4.0-dev.1.md)。Mac 为 ad-hoc 签名、未公证；正式 Developer ID 签名和公证尚未配置，Windows 安装向导、Mac DMG 安装、真实 Keychain 和原生菜单等人工验收仍未完成。
 
 ## 文档维护规则
 
@@ -148,7 +148,7 @@ node scripts/check-package.mjs "release/win-unpacked/阅间.exe"
 
 ## Mac 准备与打包
 
-当前 Mac 构建目标固定 Apple Silicon arm64，不扩展 Intel 或 universal。以下命令需在 macOS 上执行，可使用本地 Mac 或下述 GitHub macOS runner，不能直接在 Windows 主机执行。版本号以 [package.json](../package.json) 为准，本轮源码预备版本为 `0.4.0-dev.1`；下述已生成的试用 DMG 和成功记录属于上一版 `0.4.0-dev.0`。
+当前 Mac 构建目标固定 Apple Silicon arm64，不扩展 Intel 或 universal。以下命令需在 macOS 上执行，可使用本地 Mac 或下述 GitHub macOS runner，不能直接在 Windows 主机执行。版本号以 [package.json](../package.json) 为准，当前试用版本为 `0.4.0-dev.1`，已生成本版试用 DMG。
 
 ### 本机试用包
 
@@ -198,7 +198,7 @@ node scripts/check-package.mjs "release/mac-arm64-local/mac-arm64/阅间.app"
 
 ### 通过 GitHub Actions 构建
 
-没有本地 Mac 时，可将完整源码托管到 GitHub，手动使用 [.github/workflows/build-mac.yml](../.github/workflows/build-mac.yml)。该配置仅支持 `workflow_dispatch`，不会因推送自动构建，也不会创建 Release 或自动发布。源码和工作流已进入 [liuhua303/library](https://github.com/liuhua303/library)，入口为 [Build Mac arm64](https://github.com/liuhua303/library/actions/workflows/build-mac.yml)。上一版 [0.4.0-dev.0 trial 运行已成功](https://github.com/liuhua303/library/actions/runs/46033067492)，详情集中在 [历史报告](./verification/0.4.0-dev.0.md)；本轮结果单独写入新报告。
+没有本地 Mac 时，可将完整源码托管到 GitHub，手动使用 [.github/workflows/build-mac.yml](../.github/workflows/build-mac.yml)。该配置仅支持 `workflow_dispatch`，不会因推送自动构建，也不会创建 Release 或自动发布。源码和工作流已进入 [liuhua303/library](https://github.com/liuhua303/library)，入口为 [Build Mac arm64](https://github.com/liuhua303/library/actions/workflows/build-mac.yml)。本版 [0.4.0-dev.1 trial 运行已成功](https://github.com/liuhua303/library/actions/runs/46111866028)，实际结果集中在 [版本报告](./verification/0.4.0-dev.1.md)。
 
 1. 将完整源码提交并推送到目标仓库的默认分支 `main`，包含 `.github/`、`build/`、`scripts/`、`src/`、锁文件及其他源码文件。若在其他仓库使用，先创建仓库并确认其默认分支。工作流配置必须先存在于默认分支，Actions 页面才可手动触发；操作人需有仓库写权限。[GitHub 手动运行说明](https://docs.github.com/en/actions/how-tos/manage-workflow-runs/manually-run-a-workflow)
 2. 需要正式包时，先按下表配置仓库 Secrets；首次尝试可直接使用不需要 Apple 分发凭据的 `trial`。
@@ -223,11 +223,11 @@ node scripts/check-package.mjs "release/mac-arm64-local/mac-arm64/阅间.app"
 
 本地构建还支持上一节的其他公证配置；当前云端工作流使用此固定的 Secrets 组合。DeepSeek API 密钥属于应用使用者，不需要放到构建 Secrets。
 
-工作流使用 `macos-26` runner 和 Node.js 24，先断言实际环境为 `darwin/arm64`，再执行 `npm ci`、`npm test`、对应构建命令及 `check-package.mjs` 隔离启动检查。当前 GitHub 标准 runner 的该标签为 Apple Silicon；标签和供应情况以 [GitHub runner 官方说明](https://docs.github.com/en/actions/reference/runners/github-hosted-runners) 为准。只有所有检查成功才上传 DMG artifact；检查证据无论成功或失败均尝试保留已有文件，两类 artifact 均保留 14 天。失败时通过运行日志及已有检查证据定位问题，不把失败产物作为交付。过期前需要自行下载保留，artifact 不是永久发布地址。
+工作流使用 `macos-26` runner 和 Node.js 24，先断言实际环境为 `darwin/arm64`，再执行 `npm ci`、`npm test`、对应构建命令、`check-package.mjs` 隔离启动，以及针对打包程序的 `reading-preferences-smoke.mjs` 六主题、非空单词本、书签和重启回归。准确步骤以工作流正文为准。当前 GitHub 标准 runner 的该标签为 Apple Silicon；标签和供应情况以 [GitHub runner 官方说明](https://docs.github.com/en/actions/reference/runners/github-hosted-runners) 为准。只有所有检查成功才上传 DMG artifact；`Mac-check-results-...` 同时保留主题回归结果及 `preferences-notebook-*.png` 截图等已有证据，两类 artifact 均保留 14 天。失败时通过运行日志及已有证据定位问题，不把失败产物作为交付。过期前需要自行下载保留，artifact 不是永久发布地址。
 
-历史版本 0.4.0-dev.0 trial 已在云端 Mac arm64 完成构建与隔离启动检查，产物为 [Yuejian-mac-arm64-trial-4](https://github.com/liuhua303/library/actions/runs/46033067492/artifacts/15215362014)，包含 `Yuejian-0.4.0-dev.0-mac-arm64-local.dmg`，保留至 2026-12-12（北京时间）。登录并具备仓库读取权限后，按上述步骤下载、解压并转发 DMG；该历史包不包含本轮主题修复。
+当前产物为 [Yuejian-mac-arm64-trial-5](https://github.com/liuhua303/library/actions/runs/46111866028/artifacts/15250640003)，包含 `Yuejian-0.4.0-dev.1-mac-arm64-local.dmg`，保留至北京时间 2026-12-12 13:25。登录并具备仓库读取权限后，按上述步骤下载、解压并转发 DMG。
 
-云端成功仅证明该次 runner 环境中实际完成的检查，不替代 DMG 安装、Keychain 交互和真实阅读体验验收。运行环境、提交、实际结果与未验证项见 [版本报告](./verification/0.4.0-dev.0.md)；正式 `release` 模式尚未运行。
+云端成功仅证明该次 runner 环境中实际完成的检查，不替代 DMG 安装、真实 Keychain、原生菜单和阅读体验人工验收。运行环境、提交、实际结果与未验证项见 [版本报告](./verification/0.4.0-dev.1.md)；正式 Developer ID 签名和公证尚未配置。
 
 ### 仓库可见性与费用
 
@@ -237,7 +237,7 @@ node scripts/check-package.mjs "release/mac-arm64-local/mac-arm64/阅间.app"
 
 ## 分享源码与交付
 
-源码压缩包保留 `.github/`、`src/`、`scripts/`、`tests/`、`samples/`、`docs/`、`build/`，以及根目录的 `package.json`、`package-lock.json`、`index.html`、配置文件、`.gitignore`、README、CHANGELOG 和 AGENTS。`.github/` 的工作流及 `build/` 的 Mac 签名权限声明属于源码配置，不是可排除的构建产物。历史源码包 `release/Yuejian-0.4.0-dev.0-github-source.zip` 不含本轮修复；本轮交付入口以 README 为准，源码包不是软件安装包。
+源码压缩包保留 `.github/`、`src/`、`scripts/`、`tests/`、`samples/`、`docs/`、`build/`，以及根目录的 `package.json`、`package-lock.json`、`index.html`、配置文件、`.gitignore`、README、CHANGELOG 和 AGENTS。`.github/` 的工作流及 `build/` 的 Mac 签名权限声明属于源码配置，不是可排除的构建产物。当前交付入口以 README 为准，源码包不是软件安装包。
 
 可排除 `node_modules/`、`app/`、`release/`、`artifacts/` 和 `.git/`。依赖由 `npm ci` 安装，`app/` 由脚本构建；手动压缩整个文件夹时，`.gitignore` 不会自动排除这些目录。保存在应用用户数据目录的个人书架、单词本和密钥不属于源码包，对方首次运行会看到空书架。
 

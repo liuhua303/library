@@ -4,11 +4,11 @@
 
 ## 安装使用
 
-当前源码预备版本为 0.4.0-dev.1，文档更新日期为 2026-11-28；本轮单词本主题修复的实际检查与交付状态见 [0.4.0-dev.1 验证报告](./docs/verification/0.4.0-dev.1.md)。以下安装包链接暂保留历史版本：Windows [0.3.3](./docs/verification/0.3.3.md)，位于 `release/Yuejian-Setup-0.3.3.exe`；Mac 为 0.4.0-dev.0 试用包，均不包含本轮修复。安装包无需 Node.js；`release` 是本地构建目录，源码仓库或源码压缩包可能不包含安装包。
+当前 Windows 和 Mac 试用版本均为 0.4.0-dev.1，包含单词本主题配色修复，文档更新日期为 2026-11-28。构建、打包程序检查与未验证范围见 [0.4.0-dev.1 验证报告](./docs/verification/0.4.0-dev.1.md)。Windows 安装包位于 `release/0.4.0-dev.1/Yuejian-Setup-0.4.0-dev.1.exe`；安装包无需 Node.js。`release` 是本地构建目录，源码仓库或源码压缩包可能不包含安装包。
 
-Mac 只面向 Apple Silicon（M 系列、arm64），要求 macOS 13 或更新版本，不提供 Intel 或通用包。上一版 0.4.0-dev.0 已通过云端 Mac 构建和包内程序启动检查，并生成试用 DMG；它采用 ad-hoc 签名、未公证。正式 `release` 模式尚未运行，DMG 安装、Keychain 和真实阅读体验尚未人工验收。
+Mac 只面向 Apple Silicon（M 系列、arm64），要求 macOS 13 或更新版本，不提供 Intel 或通用包。本版已通过云端构建、包内程序启动及六主题等自动化检查，试用 DMG 采用 ad-hoc 签名、未公证。正式 Developer ID 签名和公证尚未配置；Windows 安装向导、Mac DMG 安装、真实 Keychain 和原生菜单等人工验收尚未完成。
 
-源码已上传到 [GitHub 仓库](https://github.com/liuhua303/library)。登录 GitHub 后可下载 [历史 Mac 试用包 artifact](https://github.com/liuhua303/library/actions/runs/46033067492/artifacts/15215362014)，解压取得 `Yuejian-0.4.0-dev.0-mac-arm64-local.dmg`；artifact 保留至 2026-12-12（北京时间）。上一版 [成功运行记录](https://github.com/liuhua303/library/actions/runs/46033067492)可查看构建过程。后续构建和手动发布步骤见 [GitHub Actions 构建流程](./docs/development.md#通过-github-actions-构建)，源码 ZIP 不是软件安装包。
+源码已上传到 [GitHub 仓库](https://github.com/liuhua303/library)。登录 GitHub 后下载 [当前 Mac 试用包 artifact](https://github.com/liuhua303/library/actions/runs/46111866028/artifacts/15250640003)，解压取得 `Yuejian-0.4.0-dev.1-mac-arm64-local.dmg`，可转发 DMG；artifact 保留至北京时间 2026-12-12 13:25。本版 [成功运行记录](https://github.com/liuhua303/library/actions/runs/46111866028)可查看构建过程。后续构建和手动发布步骤见 [GitHub Actions 构建流程](./docs/development.md#通过-github-actions-构建)，源码 ZIP 不是软件安装包。
 
 导入自己的 EPUB，或先使用 [自编测试读物](./samples/reading-demo.epub)。在书架的“设置”中填写自己的 DeepSeek API 密钥；未配置密钥或离线时仍可阅读和收录，解析任务等待配置与联网后继续。个人书架、书签、阅读设置、单词本和密钥保存在本机应用用户数据目录，卸载默认保留数据。
 
@@ -47,7 +47,7 @@ npm run dev
 | [更新记录](./CHANGELOG.md) | 各版本的用户可感知变化 |
 | [0.4.0-dev.1 验证报告](./docs/verification/0.4.0-dev.1.md) | 本轮单词本主题修复的实际检查与交付状态 |
 | [0.4.0-dev.0 记录](./docs/verification/0.4.0-dev.0.md) | 上一版 Mac 云端试用包构建、启动检查及未验证范围 |
-| [0.3.3 验证报告](./docs/verification/0.3.3.md) | 最后已交付 Windows 版的验证结果与产物 |
+| [0.3.3 验证报告](./docs/verification/0.3.3.md) | 旧版 Windows 的历史验证结果与产物 |
 | [0.3.2 验证报告](./docs/verification/0.3.2.md) | 旧版历史验证结果、产物与限制 |
 | [0.3.1 验证报告](./docs/verification/0.3.1.md) | 旧版历史验证结果、产物与限制 |
 | [0.3.0 验证报告](./docs/verification/0.3.0.md) | 书架、书签与六主题的历史验证结果 |
@@ -57,13 +57,12 @@ npm run dev
 
 文档维护的四条规则统一写在 [开发说明](./docs/development.md#文档维护规则)，[AGENTS.md](./AGENTS.md) 为后续项目协作提供入口。当前规范持续更新；归档原稿只用于追溯。
 
-## 历史交付
+## 当前交付
 
-本轮交付更新前，以下保留的历史产物均不含 0.4.0-dev.1 主题修复：
+以下均为包含主题配色修复的 0.4.0-dev.1 试用包：
 
-- 安装包：`release/Yuejian-Setup-0.3.3.exe`。
-- 已解包程序：`release/0.3.3/win-unpacked/阅间.exe`，运行时需要保留同目录其他文件。
-- Mac 试用包：[下载 artifact](https://github.com/liuhua303/library/actions/runs/46033067492/artifacts/15215362014)，登录后下载并解压为 `Yuejian-0.4.0-dev.0-mac-arm64-local.dmg`；ad-hoc 签名、未公证。
-- GitHub 构建用源码包：`release/Yuejian-0.4.0-dev.0-github-source.zip`，用于分享或重新构建，不是安装包。
+- Windows 安装包：`release/0.4.0-dev.1/Yuejian-Setup-0.4.0-dev.1.exe`。
+- Windows 已解包程序：`release/0.4.0-dev.1/win-unpacked/阅间.exe`，运行时需要保留同目录其他文件。
+- Mac 试用包：[下载 artifact](https://github.com/liuhua303/library/actions/runs/46111866028/artifacts/15250640003)，登录后下载并解压为 `Yuejian-0.4.0-dev.1-mac-arm64-local.dmg`；ad-hoc 签名、未公证。
 
 安装包哈希和当次打包命令集中记录在对应版本的验证报告中。

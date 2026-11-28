@@ -1,6 +1,6 @@
 # 功能需求
 
-状态：当前规范；源码预备版本 0.4.0-dev.1。已有历史产物为 Windows 0.3.3 和 Mac 0.4.0-dev.0 试用包。更新日期：2026-11-28。
+状态：当前规范；Windows 和 Mac 当前试用版本均为 0.4.0-dev.1。更新日期：2026-11-28。
 
 本文统一维护当前功能和使用边界。用户已确认首版阅读功能、后续书架与书签、六主题、沉浸阅读、M 系列 Mac 目标，以及本轮单词本跟随主题且清晰可读的要求；原来未单独确认的默认规则单列为实现基线，继续保留调整空间。实现与验证分别记录，本轮结果见 [0.4.0-dev.1 验证报告](./verification/0.4.0-dev.1.md)，上一版 Mac 云端结果见 [0.4.0-dev.0 历史记录](./verification/0.4.0-dev.0.md)，原始讨论见 [首版归档](./archive/initial-requirements.md)。
 
@@ -20,11 +20,11 @@
 
 - 用户明确选择只支持 M 系列 Mac（Apple Silicon、arm64），不制作 Intel x64 或 universal 通用包。
 - 当前 Electron 45 的 Mac 运行目标为 macOS 13 或更新版本，依据 [Electron 移除 macOS 12 支持说明](https://www.electronjs.org/docs/latest/breaking-changes/#removed-macos-12-support)。
-- 历史版本 0.4.0-dev.0 已在云端 Mac arm64 完成试用 DMG 构建及包内程序启动检查；试用包采用 ad-hoc 签名、未公证。正式 `release` 模式尚未运行，DMG 安装、Keychain 与真实阅读体验仍待人工验收。已有 Windows 历史安装包为 0.3.3，本轮新产物以新报告为准。
+- 当前 0.4.0-dev.1 已提供 Windows 和 Mac 修复试用包；Mac arm64 云端构建、包内启动和六主题等自动化检查已完成。Mac 采用 ad-hoc 签名、未公证，正式 Developer ID 签名和公证尚未配置；Windows 安装向导、Mac DMG 安装、真实 Keychain、原生菜单及阅读体验仍待人工验收。
 - Mac 实现约定采用系统应用与编辑菜单、Cmd 编辑/退出快捷键；关闭窗口先保存，程序保留在 Dock，可重新打开；真正退出时完成阅读位置保存。它们需经 Mac 实机验收，不以 Windows 结果替代。
 - 提供 Mac 本机试用与正式分发两种构建入口；本机试用包采用 ad-hoc 签名且不公证，正式包要求 Developer ID 签名和公证。具体前置条件集中在 [开发说明](./development.md#mac-准备与打包)。
-- 用户没有 Mac 环境，本轮新增手动 GitHub Actions 构建入口：完整源码进入仓库默认分支后，由维护者选择 `trial` 或 `release`，复用对应 Mac 构建命令，成功完成包内程序检查才提供 DMG artifact。工作流不自动发布 Release，也不把源码 ZIP 当作安装包；操作、下载权限与费用条件见 [开发说明](./development.md#通过-github-actions-构建)。
-- 此前源码已上传到 [library 公开仓库](https://github.com/liuhua303/library)，0.4.0-dev.0 的 Mac 试用包云端构建和隔离启动检查已通过，属于上一版结果。云端自动化与真实 Mac 上的安装、Keychain 和阅读体验人工验收分别记录，不将构建通过改记为用户已逐项确认。
+- 已有手动 GitHub Actions 构建入口：完整源码进入仓库默认分支后，由维护者选择 `trial` 或 `release`，复用对应 Mac 构建命令，成功完成打包程序检查才提供 DMG artifact。工作流不自动发布 Release，也不把源码 ZIP 当作安装包；操作、下载权限与费用条件见 [开发说明](./development.md#通过-github-actions-构建)。
+- 源码已上传到 [library 公开仓库](https://github.com/liuhua303/library)，本版实际结果集中在版本报告。云端自动化与真实 Mac 上的安装、Keychain 和阅读体验人工验收分别记录，不将实现或检查通过改记为用户已逐项确认。
 
 ## 已确认的阅读与收录行为
 
@@ -118,6 +118,6 @@
 
 - 上述默认规则是否符合实际阅读习惯；具体尺寸、主题近似色值与键盘细节是否需要调整，见 [界面规范](./ui-design.md)。
 - 至少两本实际 EPUB 的兼容性，以及预选 20 条内容样本（10 个单词、5 个短语场景、5 个句子，包含跨页句子）的人工释义验收。
-- Mac 源码交互试运行、DMG 安装、Keychain 和真实阅读体验的人工验收；正式签名公证构建也尚未运行。现有云端试用包构建与启动检查结果不能替代这些项目。
+- Windows 安装向导，以及 Mac DMG 安装、真实 Keychain、原生菜单和阅读体验的人工验收；正式 Developer ID 签名与公证也尚未配置。现有打包程序自动化结果不能替代这些项目。
 
 模拟模型链路与真实模型内容质量分别验收。本轮实际完成的检查只写入 [0.4.0-dev.1 验证报告](./verification/0.4.0-dev.1.md)；旧版的真实 API 和人工验收范围见 [0.2.0 历史报告](./verification/0.2.0.md)，不得根据模拟响应测试推定真实释义已通过。
