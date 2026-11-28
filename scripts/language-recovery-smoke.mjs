@@ -96,7 +96,7 @@ try {
   bookId = (await books())[0].id;
   await openTools(page);
   await page.getByRole('button', { name: '主题与设置', exact: true }).click();
-  await page.getByLabel('书籍语言', { exact: true }).selectOption('en');
+  await page.getByLabel('LANGUAGE', { exact: true }).selectOption('en');
   await waitFor(async () => (await books())[0].language === 'en');
   await page.waitForFunction(() => document.querySelector('#book-language')?.value === 'en' && !document.querySelector('#book-language').disabled);
   await page.getByRole('button', { name: '关闭阅读设置', exact: true }).click();

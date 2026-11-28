@@ -281,7 +281,7 @@ try {
   await waitSaved({ fontSize: initialFont + 2 });
   await (await readingFrame()).waitForFunction(size => getComputedStyle(document.body).fontSize === size + 'px', initialFont + 2);
   assert.equal(await dialog.getByRole('button').count(), 9, '阅读设置仅包含关闭、两个字号按钮和六种主题');
-  assert.equal(await dialog.getByLabel('书籍语言', { exact: true }).inputValue(), 'en');
+  assert.equal(await dialog.getByLabel('LANGUAGE', { exact: true }).inputValue(), 'en');
   await page.screenshot({ path: join(artifacts, 'preferences-settings.png'), animations: 'disabled' });
   await dialog.screenshot({ path: join(artifacts, 'preferences-settings-panel.png'), animations: 'disabled' });
   checks.push('阅读设置提供小/大 A、六种主题和每书语言选择，不显示字号数值和 API 配置；字号按步长保存');

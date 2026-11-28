@@ -1,0 +1,1683 @@
+{
+  "passed": true,
+  "version": "0.5.0-dev.1",
+  "runtimeAppVersion": "45.5.0",
+  "startedAt": "2026-11-28T08:03:37.161Z",
+  "recordedAt": "2026-11-28T08:03:47.140Z",
+  "timeZone": "Asia/Shanghai",
+  "mode": "development-build",
+  "executablePath": "D:\\Users\\ASUS\\Documents\\ChatGPT\\enlish\\node_modules\\electron\\dist\\electron.exe",
+  "checks": [
+    "阅读设置提供小/大 A、六种主题和每书语言选择，不显示字号数值和 API 配置；字号按步长保存",
+    "六种主题的页面背景、正文颜色与选择状态正确；覆盖原书 inline !important，暗色正文与下划线可见",
+    "六主题非空单词本底色与文字跟随主题，词条、释义、原文与次要信息实际对比度≥4.5:1；边界/滚动条可见且无透明淡化或模糊滤镜",
+    "工具栏添加当前页书签，目录/书签分段导航、书签回跳及调整字号后回跳正确",
+    "阅读菜单与书架显示相同真实进度，书架采用书本外观且进度在左下；书签和阅读偏好按书隔离",
+    "重启后主题、字号与书签保留；列表删除后再次重启书签不复现"
+  ],
+  "measurements": [
+    {
+      "theme": "original",
+      "paper": "rgb(255, 255, 255)",
+      "htmlInk": "rgb(0, 0, 0)",
+      "bodyInk": "rgb(0, 0, 0)",
+      "bodyPaper": "rgba(0, 0, 0, 0)",
+      "fontSize": "22px",
+      "probes": [
+        {
+          "name": "paragraph",
+          "color": "rgb(0, 0, 0)",
+          "textFill": "rgb(0, 0, 0)",
+          "background": "rgba(0, 0, 0, 0)",
+          "fontFamily": "Georgia, \"Times New Roman\", serif",
+          "fontWeight": "400"
+        },
+        {
+          "name": "inline",
+          "color": "rgb(0, 0, 0)",
+          "textFill": "rgb(0, 0, 0)",
+          "background": "rgba(0, 0, 0, 0)",
+          "fontFamily": "Georgia, \"Times New Roman\", serif",
+          "fontWeight": "400"
+        }
+      ]
+    },
+    {
+      "theme": "quiet",
+      "paper": "rgb(65, 65, 68)",
+      "htmlInk": "rgb(229, 228, 225)",
+      "bodyInk": "rgb(229, 228, 225)",
+      "bodyPaper": "rgba(0, 0, 0, 0)",
+      "fontSize": "22px",
+      "probes": [
+        {
+          "name": "paragraph",
+          "color": "rgb(229, 228, 225)",
+          "textFill": "rgb(229, 228, 225)",
+          "background": "rgba(0, 0, 0, 0)",
+          "fontFamily": "Georgia, \"Times New Roman\", serif",
+          "fontWeight": "400"
+        },
+        {
+          "name": "inline",
+          "color": "rgb(229, 228, 225)",
+          "textFill": "rgb(229, 228, 225)",
+          "background": "rgba(0, 0, 0, 0)",
+          "fontFamily": "Georgia, \"Times New Roman\", serif",
+          "fontWeight": "400"
+        }
+      ]
+    },
+    {
+      "theme": "paper",
+      "paper": "rgb(238, 237, 233)",
+      "htmlInk": "rgb(41, 40, 36)",
+      "bodyInk": "rgb(41, 40, 36)",
+      "bodyPaper": "rgba(0, 0, 0, 0)",
+      "fontSize": "22px",
+      "probes": [
+        {
+          "name": "paragraph",
+          "color": "rgb(41, 40, 36)",
+          "textFill": "rgb(41, 40, 36)",
+          "background": "rgba(0, 0, 0, 0)",
+          "fontFamily": "Georgia, \"Times New Roman\", serif",
+          "fontWeight": "400"
+        },
+        {
+          "name": "inline",
+          "color": "rgb(41, 40, 36)",
+          "textFill": "rgb(41, 40, 36)",
+          "background": "rgba(0, 0, 0, 0)",
+          "fontFamily": "Georgia, \"Times New Roman\", serif",
+          "fontWeight": "400"
+        }
+      ]
+    },
+    {
+      "theme": "bold",
+      "paper": "rgb(255, 255, 255)",
+      "htmlInk": "rgb(18, 18, 18)",
+      "bodyInk": "rgb(18, 18, 18)",
+      "bodyPaper": "rgba(0, 0, 0, 0)",
+      "fontSize": "22px",
+      "probes": [
+        {
+          "name": "paragraph",
+          "color": "rgb(18, 18, 18)",
+          "textFill": "rgb(18, 18, 18)",
+          "background": "rgba(0, 0, 0, 0)",
+          "fontFamily": "\"Segoe UI\", \"Microsoft YaHei\", sans-serif",
+          "fontWeight": "600"
+        },
+        {
+          "name": "inline",
+          "color": "rgb(18, 18, 18)",
+          "textFill": "rgb(18, 18, 18)",
+          "background": "rgba(0, 0, 0, 0)",
+          "fontFamily": "\"Segoe UI\", \"Microsoft YaHei\", sans-serif",
+          "fontWeight": "600"
+        }
+      ]
+    },
+    {
+      "theme": "calm",
+      "paper": "rgb(242, 228, 200)",
+      "htmlInk": "rgb(62, 52, 37)",
+      "bodyInk": "rgb(62, 52, 37)",
+      "bodyPaper": "rgba(0, 0, 0, 0)",
+      "fontSize": "22px",
+      "probes": [
+        {
+          "name": "paragraph",
+          "color": "rgb(62, 52, 37)",
+          "textFill": "rgb(62, 52, 37)",
+          "background": "rgba(0, 0, 0, 0)",
+          "fontFamily": "Georgia, \"Times New Roman\", serif",
+          "fontWeight": "400"
+        },
+        {
+          "name": "inline",
+          "color": "rgb(62, 52, 37)",
+          "textFill": "rgb(62, 52, 37)",
+          "background": "rgba(0, 0, 0, 0)",
+          "fontFamily": "Georgia, \"Times New Roman\", serif",
+          "fontWeight": "400"
+        }
+      ]
+    },
+    {
+      "theme": "focus",
+      "paper": "rgb(255, 251, 242)",
+      "htmlInk": "rgb(41, 40, 32)",
+      "bodyInk": "rgb(41, 40, 32)",
+      "bodyPaper": "rgba(0, 0, 0, 0)",
+      "fontSize": "22px",
+      "probes": [
+        {
+          "name": "paragraph",
+          "color": "rgb(41, 40, 32)",
+          "textFill": "rgb(41, 40, 32)",
+          "background": "rgba(0, 0, 0, 0)",
+          "fontFamily": "\"Segoe UI\", \"Microsoft YaHei\", sans-serif",
+          "fontWeight": "400"
+        },
+        {
+          "name": "inline",
+          "color": "rgb(41, 40, 32)",
+          "textFill": "rgb(41, 40, 32)",
+          "background": "rgba(0, 0, 0, 0)",
+          "fontFamily": "\"Segoe UI\", \"Microsoft YaHei\", sans-serif",
+          "fontWeight": "400"
+        }
+      ]
+    },
+    {
+      "theme": "quiet",
+      "paper": "rgb(65, 65, 68)",
+      "htmlInk": "rgb(229, 228, 225)",
+      "bodyInk": "rgb(229, 228, 225)",
+      "bodyPaper": "rgba(0, 0, 0, 0)",
+      "fontSize": "22px",
+      "probes": [
+        {
+          "name": "paragraph",
+          "color": "rgb(229, 228, 225)",
+          "textFill": "rgb(229, 228, 225)",
+          "background": "rgba(0, 0, 0, 0)",
+          "fontFamily": "Georgia, \"Times New Roman\", serif",
+          "fontWeight": "400"
+        },
+        {
+          "name": "inline",
+          "color": "rgb(229, 228, 225)",
+          "textFill": "rgb(229, 228, 225)",
+          "background": "rgba(0, 0, 0, 0)",
+          "fontFamily": "Georgia, \"Times New Roman\", serif",
+          "fontWeight": "400"
+        }
+      ]
+    },
+    {
+      "darkMark": {
+        "color": "rgb(229, 228, 225)",
+        "width": 78.6875,
+        "height": 2,
+        "blend": "screen"
+      }
+    },
+    {
+      "notebookTheme": "quiet",
+      "stage": "Quiet 首次打开",
+      "background": "rgb(75, 75, 78)",
+      "color": "rgb(229, 228, 225)",
+      "border": "rgba(255, 255, 255, 0.15)",
+      "borderWidth": "1px",
+      "shadow": "rgba(0, 0, 0, 0.12) 0px 12px 56px 0px",
+      "scrollbar": {
+        "color": "rgb(229, 228, 225)",
+        "width": "6px",
+        "clientHeight": 806,
+        "scrollHeight": 806,
+        "contrast": 6.837274007523595
+      },
+      "sourceBorder": "rgb(229, 228, 225)",
+      "text": [
+        {
+          "selector": ".vocabulary-header h2",
+          "color": "rgb(229, 228, 225)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 57,
+          "height": 26,
+          "contrast": 6.837274007523595
+        },
+        {
+          "selector": ".configure-notice",
+          "color": "rgb(229, 228, 225)",
+          "textShadow": "none",
+          "display": "flex",
+          "visibility": "visible",
+          "width": 334,
+          "height": 44,
+          "contrast": 6.837274007523595
+        },
+        {
+          "selector": ".entry-term",
+          "color": "rgb(229, 228, 225)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 303,
+          "height": 35.09375,
+          "contrast": 6.837274007523595
+        },
+        {
+          "selector": ".meaning-zh",
+          "color": "rgb(229, 228, 225)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 334,
+          "height": 61.1875,
+          "contrast": 6.837274007523595
+        },
+        {
+          "selector": ".definition-en",
+          "color": "rgb(229, 228, 225)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 334,
+          "height": 26.25,
+          "contrast": 6.837274007523595
+        },
+        {
+          "selector": ".analysis-details summary",
+          "color": "rgb(229, 228, 225)",
+          "textShadow": "none",
+          "display": "list-item",
+          "visibility": "visible",
+          "width": 84.828125,
+          "height": 29.796875,
+          "contrast": 6.837274007523595
+        },
+        {
+          "selector": ".analysis-field > span",
+          "color": "rgb(197, 196, 192)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 334,
+          "height": 20.390625,
+          "contrast": 4.980593143275425
+        },
+        {
+          "selector": ".analysis-field > p",
+          "color": "rgb(229, 228, 225)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 334,
+          "height": 25.5,
+          "contrast": 6.837274007523595
+        },
+        {
+          "selector": ".source-details summary",
+          "color": "rgb(229, 228, 225)",
+          "textShadow": "none",
+          "display": "list-item",
+          "visibility": "visible",
+          "width": 42.828125,
+          "height": 29.796875,
+          "contrast": 6.837274007523595
+        },
+        {
+          "selector": ".source-caption",
+          "color": "rgb(197, 196, 192)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 334,
+          "height": 22.09375,
+          "contrast": 4.980593143275425
+        },
+        {
+          "selector": ".source-context",
+          "color": "rgb(229, 228, 225)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 334,
+          "height": 190.3125,
+          "contrast": 6.837274007523595
+        },
+        {
+          "selector": ".source-context mark",
+          "color": "rgb(229, 228, 225)",
+          "textShadow": "none",
+          "display": "inline",
+          "visibility": "visible",
+          "width": 57.234375,
+          "height": 19,
+          "contrast": 6.837274007523595
+        },
+        {
+          "selector": ".source-jump",
+          "color": "rgb(229, 228, 225)",
+          "textShadow": "none",
+          "display": "flex",
+          "visibility": "visible",
+          "width": 71,
+          "height": 31,
+          "contrast": 6.837274007523595
+        },
+        {
+          "selector": ".occurrence-footer",
+          "color": "rgb(197, 196, 192)",
+          "textShadow": "none",
+          "display": "flex",
+          "visibility": "visible",
+          "width": 334,
+          "height": 19.1875,
+          "contrast": 4.980593143275425
+        },
+        {
+          "selector": ".vocabulary-header .icon-button",
+          "color": "rgb(229, 228, 225)",
+          "textShadow": "none",
+          "display": "flex",
+          "visibility": "visible",
+          "width": 40,
+          "height": 40,
+          "contrast": 6.837274007523595
+        },
+        {
+          "selector": ".remove-occurrence",
+          "color": "rgb(229, 228, 225)",
+          "textShadow": "none",
+          "display": "flex",
+          "visibility": "visible",
+          "width": 34,
+          "height": 34,
+          "contrast": 6.837274007523595
+        }
+      ]
+    },
+    {
+      "theme": "original",
+      "paper": "rgb(255, 255, 255)",
+      "htmlInk": "rgb(0, 0, 0)",
+      "bodyInk": "rgb(0, 0, 0)",
+      "bodyPaper": "rgba(0, 0, 0, 0)",
+      "fontSize": "22px",
+      "probes": [
+        {
+          "name": "paragraph",
+          "color": "rgb(0, 0, 0)",
+          "textFill": "rgb(0, 0, 0)",
+          "background": "rgba(0, 0, 0, 0)",
+          "fontFamily": "Georgia, \"Times New Roman\", serif",
+          "fontWeight": "400"
+        },
+        {
+          "name": "inline",
+          "color": "rgb(0, 0, 0)",
+          "textFill": "rgb(0, 0, 0)",
+          "background": "rgba(0, 0, 0, 0)",
+          "fontFamily": "Georgia, \"Times New Roman\", serif",
+          "fontWeight": "400"
+        }
+      ]
+    },
+    {
+      "notebookTheme": "original",
+      "stage": "切换后重开",
+      "background": "rgb(255, 255, 255)",
+      "color": "rgb(0, 0, 0)",
+      "border": "rgba(0, 0, 0, 0.12)",
+      "borderWidth": "1px",
+      "shadow": "rgba(0, 0, 0, 0.12) 0px 12px 56px 0px",
+      "scrollbar": {
+        "color": "rgb(0, 0, 0)",
+        "width": "6px",
+        "clientHeight": 806,
+        "scrollHeight": 806,
+        "contrast": 21
+      },
+      "sourceBorder": "rgb(0, 0, 0)",
+      "text": [
+        {
+          "selector": ".vocabulary-header h2",
+          "color": "rgb(0, 0, 0)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 57,
+          "height": 26,
+          "contrast": 21
+        },
+        {
+          "selector": ".configure-notice",
+          "color": "rgb(0, 0, 0)",
+          "textShadow": "none",
+          "display": "flex",
+          "visibility": "visible",
+          "width": 334,
+          "height": 44,
+          "contrast": 21
+        },
+        {
+          "selector": ".entry-term",
+          "color": "rgb(0, 0, 0)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 303,
+          "height": 35.09375,
+          "contrast": 21
+        },
+        {
+          "selector": ".meaning-zh",
+          "color": "rgb(0, 0, 0)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 334,
+          "height": 61.1875,
+          "contrast": 21
+        },
+        {
+          "selector": ".definition-en",
+          "color": "rgb(0, 0, 0)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 334,
+          "height": 26.25,
+          "contrast": 21
+        },
+        {
+          "selector": ".analysis-details summary",
+          "color": "rgb(0, 0, 0)",
+          "textShadow": "none",
+          "display": "list-item",
+          "visibility": "visible",
+          "width": 84.828125,
+          "height": 29.796875,
+          "contrast": 21
+        },
+        {
+          "selector": ".analysis-field > span",
+          "color": "rgb(102, 102, 106)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 334,
+          "height": 20.390625,
+          "contrast": 5.716422821633999
+        },
+        {
+          "selector": ".analysis-field > p",
+          "color": "rgb(0, 0, 0)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 334,
+          "height": 25.5,
+          "contrast": 21
+        },
+        {
+          "selector": ".source-details summary",
+          "color": "rgb(0, 0, 0)",
+          "textShadow": "none",
+          "display": "list-item",
+          "visibility": "visible",
+          "width": 42.828125,
+          "height": 29.796875,
+          "contrast": 21
+        },
+        {
+          "selector": ".source-caption",
+          "color": "rgb(102, 102, 106)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 334,
+          "height": 22.09375,
+          "contrast": 5.716422821633999
+        },
+        {
+          "selector": ".source-context",
+          "color": "rgb(0, 0, 0)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 334,
+          "height": 190.3125,
+          "contrast": 21
+        },
+        {
+          "selector": ".source-context mark",
+          "color": "rgb(0, 0, 0)",
+          "textShadow": "none",
+          "display": "inline",
+          "visibility": "visible",
+          "width": 57.234375,
+          "height": 19,
+          "contrast": 21
+        },
+        {
+          "selector": ".source-jump",
+          "color": "rgb(0, 0, 0)",
+          "textShadow": "none",
+          "display": "flex",
+          "visibility": "visible",
+          "width": 71,
+          "height": 31,
+          "contrast": 21
+        },
+        {
+          "selector": ".occurrence-footer",
+          "color": "rgb(102, 102, 106)",
+          "textShadow": "none",
+          "display": "flex",
+          "visibility": "visible",
+          "width": 334,
+          "height": 19.1875,
+          "contrast": 5.716422821633999
+        },
+        {
+          "selector": ".vocabulary-header .icon-button",
+          "color": "rgb(0, 0, 0)",
+          "textShadow": "none",
+          "display": "flex",
+          "visibility": "visible",
+          "width": 40,
+          "height": 40,
+          "contrast": 21
+        },
+        {
+          "selector": ".remove-occurrence",
+          "color": "rgb(0, 0, 0)",
+          "textShadow": "none",
+          "display": "flex",
+          "visibility": "visible",
+          "width": 34,
+          "height": 34,
+          "contrast": 21
+        }
+      ]
+    },
+    {
+      "theme": "quiet",
+      "paper": "rgb(65, 65, 68)",
+      "htmlInk": "rgb(229, 228, 225)",
+      "bodyInk": "rgb(229, 228, 225)",
+      "bodyPaper": "rgba(0, 0, 0, 0)",
+      "fontSize": "22px",
+      "probes": [
+        {
+          "name": "paragraph",
+          "color": "rgb(229, 228, 225)",
+          "textFill": "rgb(229, 228, 225)",
+          "background": "rgba(0, 0, 0, 0)",
+          "fontFamily": "Georgia, \"Times New Roman\", serif",
+          "fontWeight": "400"
+        },
+        {
+          "name": "inline",
+          "color": "rgb(229, 228, 225)",
+          "textFill": "rgb(229, 228, 225)",
+          "background": "rgba(0, 0, 0, 0)",
+          "fontFamily": "Georgia, \"Times New Roman\", serif",
+          "fontWeight": "400"
+        }
+      ]
+    },
+    {
+      "notebookTheme": "quiet",
+      "stage": "切换后重开",
+      "background": "rgb(75, 75, 78)",
+      "color": "rgb(229, 228, 225)",
+      "border": "rgba(255, 255, 255, 0.15)",
+      "borderWidth": "1px",
+      "shadow": "rgba(0, 0, 0, 0.12) 0px 12px 56px 0px",
+      "scrollbar": {
+        "color": "rgb(229, 228, 225)",
+        "width": "6px",
+        "clientHeight": 806,
+        "scrollHeight": 806,
+        "contrast": 6.837274007523595
+      },
+      "sourceBorder": "rgb(229, 228, 225)",
+      "text": [
+        {
+          "selector": ".vocabulary-header h2",
+          "color": "rgb(229, 228, 225)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 57,
+          "height": 26,
+          "contrast": 6.837274007523595
+        },
+        {
+          "selector": ".configure-notice",
+          "color": "rgb(229, 228, 225)",
+          "textShadow": "none",
+          "display": "flex",
+          "visibility": "visible",
+          "width": 334,
+          "height": 44,
+          "contrast": 6.837274007523595
+        },
+        {
+          "selector": ".entry-term",
+          "color": "rgb(229, 228, 225)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 303,
+          "height": 35.09375,
+          "contrast": 6.837274007523595
+        },
+        {
+          "selector": ".meaning-zh",
+          "color": "rgb(229, 228, 225)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 334,
+          "height": 61.1875,
+          "contrast": 6.837274007523595
+        },
+        {
+          "selector": ".definition-en",
+          "color": "rgb(229, 228, 225)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 334,
+          "height": 26.25,
+          "contrast": 6.837274007523595
+        },
+        {
+          "selector": ".analysis-details summary",
+          "color": "rgb(229, 228, 225)",
+          "textShadow": "none",
+          "display": "list-item",
+          "visibility": "visible",
+          "width": 84.828125,
+          "height": 29.796875,
+          "contrast": 6.837274007523595
+        },
+        {
+          "selector": ".analysis-field > span",
+          "color": "rgb(197, 196, 192)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 334,
+          "height": 20.390625,
+          "contrast": 4.980593143275425
+        },
+        {
+          "selector": ".analysis-field > p",
+          "color": "rgb(229, 228, 225)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 334,
+          "height": 25.5,
+          "contrast": 6.837274007523595
+        },
+        {
+          "selector": ".source-details summary",
+          "color": "rgb(229, 228, 225)",
+          "textShadow": "none",
+          "display": "list-item",
+          "visibility": "visible",
+          "width": 42.828125,
+          "height": 29.796875,
+          "contrast": 6.837274007523595
+        },
+        {
+          "selector": ".source-caption",
+          "color": "rgb(197, 196, 192)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 334,
+          "height": 22.09375,
+          "contrast": 4.980593143275425
+        },
+        {
+          "selector": ".source-context",
+          "color": "rgb(229, 228, 225)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 334,
+          "height": 190.3125,
+          "contrast": 6.837274007523595
+        },
+        {
+          "selector": ".source-context mark",
+          "color": "rgb(229, 228, 225)",
+          "textShadow": "none",
+          "display": "inline",
+          "visibility": "visible",
+          "width": 57.234375,
+          "height": 19,
+          "contrast": 6.837274007523595
+        },
+        {
+          "selector": ".source-jump",
+          "color": "rgb(229, 228, 225)",
+          "textShadow": "none",
+          "display": "flex",
+          "visibility": "visible",
+          "width": 71,
+          "height": 31,
+          "contrast": 6.837274007523595
+        },
+        {
+          "selector": ".occurrence-footer",
+          "color": "rgb(197, 196, 192)",
+          "textShadow": "none",
+          "display": "flex",
+          "visibility": "visible",
+          "width": 334,
+          "height": 19.1875,
+          "contrast": 4.980593143275425
+        },
+        {
+          "selector": ".vocabulary-header .icon-button",
+          "color": "rgb(229, 228, 225)",
+          "textShadow": "none",
+          "display": "flex",
+          "visibility": "visible",
+          "width": 40,
+          "height": 40,
+          "contrast": 6.837274007523595
+        },
+        {
+          "selector": ".remove-occurrence",
+          "color": "rgb(229, 228, 225)",
+          "textShadow": "none",
+          "display": "flex",
+          "visibility": "visible",
+          "width": 34,
+          "height": 34,
+          "contrast": 6.837274007523595
+        }
+      ]
+    },
+    {
+      "theme": "paper",
+      "paper": "rgb(238, 237, 233)",
+      "htmlInk": "rgb(41, 40, 36)",
+      "bodyInk": "rgb(41, 40, 36)",
+      "bodyPaper": "rgba(0, 0, 0, 0)",
+      "fontSize": "22px",
+      "probes": [
+        {
+          "name": "paragraph",
+          "color": "rgb(41, 40, 36)",
+          "textFill": "rgb(41, 40, 36)",
+          "background": "rgba(0, 0, 0, 0)",
+          "fontFamily": "Georgia, \"Times New Roman\", serif",
+          "fontWeight": "400"
+        },
+        {
+          "name": "inline",
+          "color": "rgb(41, 40, 36)",
+          "textFill": "rgb(41, 40, 36)",
+          "background": "rgba(0, 0, 0, 0)",
+          "fontFamily": "Georgia, \"Times New Roman\", serif",
+          "fontWeight": "400"
+        }
+      ]
+    },
+    {
+      "notebookTheme": "paper",
+      "stage": "切换后重开",
+      "background": "rgb(246, 245, 241)",
+      "color": "rgb(41, 40, 36)",
+      "border": "rgba(0, 0, 0, 0.12)",
+      "borderWidth": "1px",
+      "shadow": "rgba(0, 0, 0, 0.12) 0px 12px 56px 0px",
+      "scrollbar": {
+        "color": "rgb(41, 40, 36)",
+        "width": "6px",
+        "clientHeight": 806,
+        "scrollHeight": 806,
+        "contrast": 13.524935822155884
+      },
+      "sourceBorder": "rgb(41, 40, 36)",
+      "text": [
+        {
+          "selector": ".vocabulary-header h2",
+          "color": "rgb(41, 40, 36)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 57,
+          "height": 26,
+          "contrast": 13.524935822155884
+        },
+        {
+          "selector": ".configure-notice",
+          "color": "rgb(41, 40, 36)",
+          "textShadow": "none",
+          "display": "flex",
+          "visibility": "visible",
+          "width": 334,
+          "height": 44,
+          "contrast": 13.524935822155884
+        },
+        {
+          "selector": ".entry-term",
+          "color": "rgb(41, 40, 36)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 303,
+          "height": 35.09375,
+          "contrast": 13.524935822155884
+        },
+        {
+          "selector": ".meaning-zh",
+          "color": "rgb(41, 40, 36)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 334,
+          "height": 61.1875,
+          "contrast": 13.524935822155884
+        },
+        {
+          "selector": ".definition-en",
+          "color": "rgb(41, 40, 36)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 334,
+          "height": 26.25,
+          "contrast": 13.524935822155884
+        },
+        {
+          "selector": ".analysis-details summary",
+          "color": "rgb(41, 40, 36)",
+          "textShadow": "none",
+          "display": "list-item",
+          "visibility": "visible",
+          "width": 84.828125,
+          "height": 29.796875,
+          "contrast": 13.524935822155884
+        },
+        {
+          "selector": ".analysis-field > span",
+          "color": "rgb(102, 102, 106)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 334,
+          "height": 20.390625,
+          "contrast": 5.239973654120704
+        },
+        {
+          "selector": ".analysis-field > p",
+          "color": "rgb(41, 40, 36)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 334,
+          "height": 25.5,
+          "contrast": 13.524935822155884
+        },
+        {
+          "selector": ".source-details summary",
+          "color": "rgb(41, 40, 36)",
+          "textShadow": "none",
+          "display": "list-item",
+          "visibility": "visible",
+          "width": 42.828125,
+          "height": 29.796875,
+          "contrast": 13.524935822155884
+        },
+        {
+          "selector": ".source-caption",
+          "color": "rgb(102, 102, 106)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 334,
+          "height": 22.09375,
+          "contrast": 5.239973654120704
+        },
+        {
+          "selector": ".source-context",
+          "color": "rgb(41, 40, 36)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 334,
+          "height": 190.3125,
+          "contrast": 13.524935822155884
+        },
+        {
+          "selector": ".source-context mark",
+          "color": "rgb(41, 40, 36)",
+          "textShadow": "none",
+          "display": "inline",
+          "visibility": "visible",
+          "width": 57.234375,
+          "height": 19,
+          "contrast": 13.524935822155884
+        },
+        {
+          "selector": ".source-jump",
+          "color": "rgb(41, 40, 36)",
+          "textShadow": "none",
+          "display": "flex",
+          "visibility": "visible",
+          "width": 71,
+          "height": 31,
+          "contrast": 13.524935822155884
+        },
+        {
+          "selector": ".occurrence-footer",
+          "color": "rgb(102, 102, 106)",
+          "textShadow": "none",
+          "display": "flex",
+          "visibility": "visible",
+          "width": 334,
+          "height": 19.1875,
+          "contrast": 5.239973654120704
+        },
+        {
+          "selector": ".vocabulary-header .icon-button",
+          "color": "rgb(41, 40, 36)",
+          "textShadow": "none",
+          "display": "flex",
+          "visibility": "visible",
+          "width": 40,
+          "height": 40,
+          "contrast": 13.524935822155884
+        },
+        {
+          "selector": ".remove-occurrence",
+          "color": "rgb(41, 40, 36)",
+          "textShadow": "none",
+          "display": "flex",
+          "visibility": "visible",
+          "width": 34,
+          "height": 34,
+          "contrast": 13.524935822155884
+        }
+      ]
+    },
+    {
+      "theme": "bold",
+      "paper": "rgb(255, 255, 255)",
+      "htmlInk": "rgb(18, 18, 18)",
+      "bodyInk": "rgb(18, 18, 18)",
+      "bodyPaper": "rgba(0, 0, 0, 0)",
+      "fontSize": "22px",
+      "probes": [
+        {
+          "name": "paragraph",
+          "color": "rgb(18, 18, 18)",
+          "textFill": "rgb(18, 18, 18)",
+          "background": "rgba(0, 0, 0, 0)",
+          "fontFamily": "\"Segoe UI\", \"Microsoft YaHei\", sans-serif",
+          "fontWeight": "600"
+        },
+        {
+          "name": "inline",
+          "color": "rgb(18, 18, 18)",
+          "textFill": "rgb(18, 18, 18)",
+          "background": "rgba(0, 0, 0, 0)",
+          "fontFamily": "\"Segoe UI\", \"Microsoft YaHei\", sans-serif",
+          "fontWeight": "600"
+        }
+      ]
+    },
+    {
+      "notebookTheme": "bold",
+      "stage": "切换后重开",
+      "background": "rgb(255, 255, 255)",
+      "color": "rgb(18, 18, 18)",
+      "border": "rgba(0, 0, 0, 0.12)",
+      "borderWidth": "1px",
+      "shadow": "rgba(0, 0, 0, 0.12) 0px 12px 56px 0px",
+      "scrollbar": {
+        "color": "rgb(18, 18, 18)",
+        "width": "6px",
+        "clientHeight": 806,
+        "scrollHeight": 806,
+        "contrast": 18.733663902900595
+      },
+      "sourceBorder": "rgb(18, 18, 18)",
+      "text": [
+        {
+          "selector": ".vocabulary-header h2",
+          "color": "rgb(18, 18, 18)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 57,
+          "height": 26,
+          "contrast": 18.733663902900595
+        },
+        {
+          "selector": ".configure-notice",
+          "color": "rgb(18, 18, 18)",
+          "textShadow": "none",
+          "display": "flex",
+          "visibility": "visible",
+          "width": 334,
+          "height": 44,
+          "contrast": 18.733663902900595
+        },
+        {
+          "selector": ".entry-term",
+          "color": "rgb(18, 18, 18)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 303,
+          "height": 35.09375,
+          "contrast": 18.733663902900595
+        },
+        {
+          "selector": ".meaning-zh",
+          "color": "rgb(18, 18, 18)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 334,
+          "height": 61.1875,
+          "contrast": 18.733663902900595
+        },
+        {
+          "selector": ".definition-en",
+          "color": "rgb(18, 18, 18)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 334,
+          "height": 26.25,
+          "contrast": 18.733663902900595
+        },
+        {
+          "selector": ".analysis-details summary",
+          "color": "rgb(18, 18, 18)",
+          "textShadow": "none",
+          "display": "list-item",
+          "visibility": "visible",
+          "width": 84.828125,
+          "height": 29.796875,
+          "contrast": 18.733663902900595
+        },
+        {
+          "selector": ".analysis-field > span",
+          "color": "rgb(102, 102, 106)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 334,
+          "height": 20.390625,
+          "contrast": 5.716422821633999
+        },
+        {
+          "selector": ".analysis-field > p",
+          "color": "rgb(18, 18, 18)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 334,
+          "height": 25.5,
+          "contrast": 18.733663902900595
+        },
+        {
+          "selector": ".source-details summary",
+          "color": "rgb(18, 18, 18)",
+          "textShadow": "none",
+          "display": "list-item",
+          "visibility": "visible",
+          "width": 42.828125,
+          "height": 29.796875,
+          "contrast": 18.733663902900595
+        },
+        {
+          "selector": ".source-caption",
+          "color": "rgb(102, 102, 106)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 334,
+          "height": 22.09375,
+          "contrast": 5.716422821633999
+        },
+        {
+          "selector": ".source-context",
+          "color": "rgb(18, 18, 18)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 334,
+          "height": 190.3125,
+          "contrast": 18.733663902900595
+        },
+        {
+          "selector": ".source-context mark",
+          "color": "rgb(18, 18, 18)",
+          "textShadow": "none",
+          "display": "inline",
+          "visibility": "visible",
+          "width": 57.234375,
+          "height": 19,
+          "contrast": 18.733663902900595
+        },
+        {
+          "selector": ".source-jump",
+          "color": "rgb(18, 18, 18)",
+          "textShadow": "none",
+          "display": "flex",
+          "visibility": "visible",
+          "width": 71,
+          "height": 31,
+          "contrast": 18.733663902900595
+        },
+        {
+          "selector": ".occurrence-footer",
+          "color": "rgb(102, 102, 106)",
+          "textShadow": "none",
+          "display": "flex",
+          "visibility": "visible",
+          "width": 334,
+          "height": 19.1875,
+          "contrast": 5.716422821633999
+        },
+        {
+          "selector": ".vocabulary-header .icon-button",
+          "color": "rgb(18, 18, 18)",
+          "textShadow": "none",
+          "display": "flex",
+          "visibility": "visible",
+          "width": 40,
+          "height": 40,
+          "contrast": 18.733663902900595
+        },
+        {
+          "selector": ".remove-occurrence",
+          "color": "rgb(18, 18, 18)",
+          "textShadow": "none",
+          "display": "flex",
+          "visibility": "visible",
+          "width": 34,
+          "height": 34,
+          "contrast": 18.733663902900595
+        }
+      ]
+    },
+    {
+      "theme": "calm",
+      "paper": "rgb(242, 228, 200)",
+      "htmlInk": "rgb(62, 52, 37)",
+      "bodyInk": "rgb(62, 52, 37)",
+      "bodyPaper": "rgba(0, 0, 0, 0)",
+      "fontSize": "22px",
+      "probes": [
+        {
+          "name": "paragraph",
+          "color": "rgb(62, 52, 37)",
+          "textFill": "rgb(62, 52, 37)",
+          "background": "rgba(0, 0, 0, 0)",
+          "fontFamily": "Georgia, \"Times New Roman\", serif",
+          "fontWeight": "400"
+        },
+        {
+          "name": "inline",
+          "color": "rgb(62, 52, 37)",
+          "textFill": "rgb(62, 52, 37)",
+          "background": "rgba(0, 0, 0, 0)",
+          "fontFamily": "Georgia, \"Times New Roman\", serif",
+          "fontWeight": "400"
+        }
+      ]
+    },
+    {
+      "notebookTheme": "calm",
+      "stage": "切换后重开",
+      "background": "rgb(249, 239, 217)",
+      "color": "rgb(62, 52, 37)",
+      "border": "rgba(0, 0, 0, 0.12)",
+      "borderWidth": "1px",
+      "shadow": "rgba(0, 0, 0, 0.12) 0px 12px 56px 0px",
+      "scrollbar": {
+        "color": "rgb(62, 52, 37)",
+        "width": "6px",
+        "clientHeight": 806,
+        "scrollHeight": 806,
+        "contrast": 10.667033648866358
+      },
+      "sourceBorder": "rgb(62, 52, 37)",
+      "text": [
+        {
+          "selector": ".vocabulary-header h2",
+          "color": "rgb(62, 52, 37)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 57,
+          "height": 26,
+          "contrast": 10.667033648866358
+        },
+        {
+          "selector": ".configure-notice",
+          "color": "rgb(62, 52, 37)",
+          "textShadow": "none",
+          "display": "flex",
+          "visibility": "visible",
+          "width": 334,
+          "height": 44,
+          "contrast": 10.667033648866358
+        },
+        {
+          "selector": ".entry-term",
+          "color": "rgb(62, 52, 37)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 303,
+          "height": 35.09375,
+          "contrast": 10.667033648866358
+        },
+        {
+          "selector": ".meaning-zh",
+          "color": "rgb(62, 52, 37)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 334,
+          "height": 61.1875,
+          "contrast": 10.667033648866358
+        },
+        {
+          "selector": ".definition-en",
+          "color": "rgb(62, 52, 37)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 334,
+          "height": 26.25,
+          "contrast": 10.667033648866358
+        },
+        {
+          "selector": ".analysis-details summary",
+          "color": "rgb(62, 52, 37)",
+          "textShadow": "none",
+          "display": "list-item",
+          "visibility": "visible",
+          "width": 84.828125,
+          "height": 29.796875,
+          "contrast": 10.667033648866358
+        },
+        {
+          "selector": ".analysis-field > span",
+          "color": "rgb(102, 102, 106)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 334,
+          "height": 20.390625,
+          "contrast": 5.002278012292713
+        },
+        {
+          "selector": ".analysis-field > p",
+          "color": "rgb(62, 52, 37)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 334,
+          "height": 25.5,
+          "contrast": 10.667033648866358
+        },
+        {
+          "selector": ".source-details summary",
+          "color": "rgb(62, 52, 37)",
+          "textShadow": "none",
+          "display": "list-item",
+          "visibility": "visible",
+          "width": 42.828125,
+          "height": 29.796875,
+          "contrast": 10.667033648866358
+        },
+        {
+          "selector": ".source-caption",
+          "color": "rgb(102, 102, 106)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 334,
+          "height": 22.09375,
+          "contrast": 5.002278012292713
+        },
+        {
+          "selector": ".source-context",
+          "color": "rgb(62, 52, 37)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 334,
+          "height": 190.3125,
+          "contrast": 10.667033648866358
+        },
+        {
+          "selector": ".source-context mark",
+          "color": "rgb(62, 52, 37)",
+          "textShadow": "none",
+          "display": "inline",
+          "visibility": "visible",
+          "width": 57.234375,
+          "height": 19,
+          "contrast": 10.667033648866358
+        },
+        {
+          "selector": ".source-jump",
+          "color": "rgb(62, 52, 37)",
+          "textShadow": "none",
+          "display": "flex",
+          "visibility": "visible",
+          "width": 71,
+          "height": 31,
+          "contrast": 10.667033648866358
+        },
+        {
+          "selector": ".occurrence-footer",
+          "color": "rgb(102, 102, 106)",
+          "textShadow": "none",
+          "display": "flex",
+          "visibility": "visible",
+          "width": 334,
+          "height": 19.1875,
+          "contrast": 5.002278012292713
+        },
+        {
+          "selector": ".vocabulary-header .icon-button",
+          "color": "rgb(62, 52, 37)",
+          "textShadow": "none",
+          "display": "flex",
+          "visibility": "visible",
+          "width": 40,
+          "height": 40,
+          "contrast": 10.667033648866358
+        },
+        {
+          "selector": ".remove-occurrence",
+          "color": "rgb(62, 52, 37)",
+          "textShadow": "none",
+          "display": "flex",
+          "visibility": "visible",
+          "width": 34,
+          "height": 34,
+          "contrast": 10.667033648866358
+        }
+      ]
+    },
+    {
+      "theme": "focus",
+      "paper": "rgb(255, 251, 242)",
+      "htmlInk": "rgb(41, 40, 32)",
+      "bodyInk": "rgb(41, 40, 32)",
+      "bodyPaper": "rgba(0, 0, 0, 0)",
+      "fontSize": "22px",
+      "probes": [
+        {
+          "name": "paragraph",
+          "color": "rgb(41, 40, 32)",
+          "textFill": "rgb(41, 40, 32)",
+          "background": "rgba(0, 0, 0, 0)",
+          "fontFamily": "\"Segoe UI\", \"Microsoft YaHei\", sans-serif",
+          "fontWeight": "400"
+        },
+        {
+          "name": "inline",
+          "color": "rgb(41, 40, 32)",
+          "textFill": "rgb(41, 40, 32)",
+          "background": "rgba(0, 0, 0, 0)",
+          "fontFamily": "\"Segoe UI\", \"Microsoft YaHei\", sans-serif",
+          "fontWeight": "400"
+        }
+      ]
+    },
+    {
+      "notebookTheme": "focus",
+      "stage": "切换后重开",
+      "background": "rgb(255, 253, 247)",
+      "color": "rgb(41, 40, 32)",
+      "border": "rgba(0, 0, 0, 0.12)",
+      "borderWidth": "1px",
+      "shadow": "rgba(0, 0, 0, 0.12) 0px 12px 56px 0px",
+      "scrollbar": {
+        "color": "rgb(41, 40, 32)",
+        "width": "6px",
+        "clientHeight": 806,
+        "scrollHeight": 806,
+        "contrast": 14.552631155740906
+      },
+      "sourceBorder": "rgb(41, 40, 32)",
+      "text": [
+        {
+          "selector": ".vocabulary-header h2",
+          "color": "rgb(41, 40, 32)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 57,
+          "height": 26,
+          "contrast": 14.552631155740906
+        },
+        {
+          "selector": ".configure-notice",
+          "color": "rgb(41, 40, 32)",
+          "textShadow": "none",
+          "display": "flex",
+          "visibility": "visible",
+          "width": 334,
+          "height": 44,
+          "contrast": 14.552631155740906
+        },
+        {
+          "selector": ".entry-term",
+          "color": "rgb(41, 40, 32)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 303,
+          "height": 35.09375,
+          "contrast": 14.552631155740906
+        },
+        {
+          "selector": ".meaning-zh",
+          "color": "rgb(41, 40, 32)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 334,
+          "height": 61.1875,
+          "contrast": 14.552631155740906
+        },
+        {
+          "selector": ".definition-en",
+          "color": "rgb(41, 40, 32)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 334,
+          "height": 26.25,
+          "contrast": 14.552631155740906
+        },
+        {
+          "selector": ".analysis-details summary",
+          "color": "rgb(41, 40, 32)",
+          "textShadow": "none",
+          "display": "list-item",
+          "visibility": "visible",
+          "width": 84.828125,
+          "height": 29.796875,
+          "contrast": 14.552631155740906
+        },
+        {
+          "selector": ".analysis-field > span",
+          "color": "rgb(102, 102, 106)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 334,
+          "height": 20.390625,
+          "contrast": 5.619840306111185
+        },
+        {
+          "selector": ".analysis-field > p",
+          "color": "rgb(41, 40, 32)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 334,
+          "height": 25.5,
+          "contrast": 14.552631155740906
+        },
+        {
+          "selector": ".source-details summary",
+          "color": "rgb(41, 40, 32)",
+          "textShadow": "none",
+          "display": "list-item",
+          "visibility": "visible",
+          "width": 42.828125,
+          "height": 29.796875,
+          "contrast": 14.552631155740906
+        },
+        {
+          "selector": ".source-caption",
+          "color": "rgb(102, 102, 106)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 334,
+          "height": 22.09375,
+          "contrast": 5.619840306111185
+        },
+        {
+          "selector": ".source-context",
+          "color": "rgb(41, 40, 32)",
+          "textShadow": "none",
+          "display": "block",
+          "visibility": "visible",
+          "width": 334,
+          "height": 190.3125,
+          "contrast": 14.552631155740906
+        },
+        {
+          "selector": ".source-context mark",
+          "color": "rgb(41, 40, 32)",
+          "textShadow": "none",
+          "display": "inline",
+          "visibility": "visible",
+          "width": 57.234375,
+          "height": 19,
+          "contrast": 14.552631155740906
+        },
+        {
+          "selector": ".source-jump",
+          "color": "rgb(41, 40, 32)",
+          "textShadow": "none",
+          "display": "flex",
+          "visibility": "visible",
+          "width": 71,
+          "height": 31,
+          "contrast": 14.552631155740906
+        },
+        {
+          "selector": ".occurrence-footer",
+          "color": "rgb(102, 102, 106)",
+          "textShadow": "none",
+          "display": "flex",
+          "visibility": "visible",
+          "width": 334,
+          "height": 19.1875,
+          "contrast": 5.619840306111185
+        },
+        {
+          "selector": ".vocabulary-header .icon-button",
+          "color": "rgb(41, 40, 32)",
+          "textShadow": "none",
+          "display": "flex",
+          "visibility": "visible",
+          "width": 40,
+          "height": 40,
+          "contrast": 14.552631155740906
+        },
+        {
+          "selector": ".remove-occurrence",
+          "color": "rgb(41, 40, 32)",
+          "textShadow": "none",
+          "display": "flex",
+          "visibility": "visible",
+          "width": 34,
+          "height": 34,
+          "contrast": 14.552631155740906
+        }
+      ]
+    },
+    {
+      "theme": "quiet",
+      "paper": "rgb(65, 65, 68)",
+      "htmlInk": "rgb(229, 228, 225)",
+      "bodyInk": "rgb(229, 228, 225)",
+      "bodyPaper": "rgba(0, 0, 0, 0)",
+      "fontSize": "22px",
+      "probes": [
+        {
+          "name": "paragraph",
+          "color": "rgb(229, 228, 225)",
+          "textFill": "rgb(229, 228, 225)",
+          "background": "rgba(0, 0, 0, 0)",
+          "fontFamily": "Georgia, \"Times New Roman\", serif",
+          "fontWeight": "400"
+        },
+        {
+          "name": "inline",
+          "color": "rgb(229, 228, 225)",
+          "textFill": "rgb(229, 228, 225)",
+          "background": "rgba(0, 0, 0, 0)",
+          "fontFamily": "Georgia, \"Times New Roman\", serif",
+          "fontWeight": "400"
+        }
+      ]
+    },
+    {
+      "readerPercentage": 3,
+      "shelfGeometry": {
+        "coverLeft": 160,
+        "progressLeft": 160,
+        "coverBottom": 384,
+        "progressTop": 397,
+        "shadow": "rgba(0, 0, 0, 0.12) 1px 2px 3px 0px, rgba(0, 0, 0, 0.16) 5px 8px 12px 0px, rgba(0, 0, 0, 0.28) 9px 18px 24px -14px"
+      }
+    },
+    {
+      "theme": "quiet",
+      "paper": "rgb(65, 65, 68)",
+      "htmlInk": "rgb(229, 228, 225)",
+      "bodyInk": "rgb(229, 228, 225)",
+      "bodyPaper": "rgba(0, 0, 0, 0)",
+      "fontSize": "24px",
+      "probes": [
+        {
+          "name": "paragraph",
+          "color": "rgb(229, 228, 225)",
+          "textFill": "rgb(229, 228, 225)",
+          "background": "rgba(0, 0, 0, 0)",
+          "fontFamily": "Georgia, \"Times New Roman\", serif",
+          "fontWeight": "400"
+        },
+        {
+          "name": "inline",
+          "color": "rgb(229, 228, 225)",
+          "textFill": "rgb(229, 228, 225)",
+          "background": "rgba(0, 0, 0, 0)",
+          "fontFamily": "Georgia, \"Times New Roman\", serif",
+          "fontWeight": "400"
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "userData": "C:\\Users\\ASUS\\AppData\\Local\\Temp\\yuejian-preferences-LOZdYx"
+}

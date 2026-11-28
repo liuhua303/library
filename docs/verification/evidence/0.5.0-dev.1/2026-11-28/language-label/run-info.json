@@ -1,0 +1,27 @@
+{
+  "version": "0.5.0-dev.1",
+  "baseCommit": "066176956046de66ad8ce517dc261babeef69577",
+  "uncommittedChanges": true,
+  "branch": "codex/japanese-support",
+  "recordedAt": "2026-11-28T08:04:30.658Z",
+  "timeZone": "Asia/Shanghai",
+  "platform": "win32",
+  "arch": "x64",
+  "node": "v24.12.0",
+  "checks": [
+    "npm.cmd run build",
+    "node scripts/reading-preferences-smoke.mjs",
+    "node scripts/japanese-smoke.mjs"
+  ],
+  "notRun": [
+    "unit tests",
+    "packaging",
+    "Mac"
+  ],
+  "sources": {
+    "src/renderer/components/EpubReader.tsx": "e45a758d57842605ce6c76491f364a5eb29d98c062baffedf63c5bcf2c676d1a",
+    "src/renderer/reader/reader.css": "3ba9762b29a2a94cac5f0c7031d6811e0d41414b1ba59ee6b0c6a09f45c713fa",
+    "scripts/reading-preferences-smoke.mjs": "4903364233cf80ad2d90484b088958a87fc1c1cb6f45072cd8ba292a09b55c79",
+    "scripts/language-recovery-smoke.mjs": "1fe58ca522ab70d22fa17ef17c0aa4ca186b8db444258fadeda1c892184445cf"
+  }
+}

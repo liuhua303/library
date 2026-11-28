@@ -1091,13 +1091,12 @@ export function EpubReader(props: EpubReaderProps) {
           </button>)}
         </div>
         <div className="reader-language-setting">
-          <label htmlFor="book-language">书籍语言</label>
+          <label htmlFor="book-language">LANGUAGE</label>
           <select id="book-language" value={props.book.language ?? 'en'} disabled={languageSaving} onChange={event => {
             const language = event.target.value as SourceLanguage;
             setLanguageSaving(true);
             void props.onLanguageChange(language).finally(() => setLanguageSaving(false));
           }}><option value="en">英语</option><option value="ja">日语</option></select>
-          <p>{props.book.languageSource === 'unknown' ? '未能确定书籍语言，请选择。' : '按书保存，已有释义保留。'}</p>
         </div>
       </div>}
       <div className="reader-viewport" data-testid="epub-viewport" ref={viewportRef} tabIndex={-1}
