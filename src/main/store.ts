@@ -2,7 +2,7 @@ import { randomUUID, createHash } from 'node:crypto';
 import { mkdirSync, readFileSync, writeFileSync, renameSync, existsSync } from 'node:fs';
 import path from 'node:path';
 import { DatabaseSync } from 'node:sqlite';
-import type { AnalysisResult, BookmarkInput, BookmarkRecord, BookRecord, CollectInput, Occurrence, TaskStatus, TextAnchor, VocabularyEntry } from '../shared/types';
+import type { AnalysisResult, BookLanguageSource, BookmarkInput, BookmarkRecord, BookRecord, CollectInput, Occurrence, SourceLanguage, TaskStatus, TextAnchor, VocabularyEntry } from '../shared/types';
 
 type OccurrenceRow = { id: string; book_id: string; data: string; status: TaskStatus; attempts: number; next_attempt_at: number };
 type BookRow = { id: string; hash: string; data: string };
@@ -37,12 +37,40 @@ export class ReaderStore {
       );
       CREATE INDEX IF NOT EXISTS bookmarks_book_progress ON bookmarks(book_id, progress);
     `);
+    try { this.migrateLanguages(); }
+    catch (error) { this.db.close(); throw error; }
     // A process exit interrupts a request, not a durable collection.
     for (const row of this.rows("status = 'processing'")) {
       const occurrence = JSON.parse(row.data) as Occurrence;
       occurrence.status = 'pending';
       occurrence.error = null;
       this.writeOccurrence(occurrence, { attempts: Math.max(0, row.attempts - 1), nextAttemptAt: 0 });
+    }
+  }
+
+  private migrateLanguages(): void {
+    // Existing collections were produced by the English pipeline. Snapshot that
+    // fact independently of later manual changes to a book's language.
+    this.db.exec('BEGIN IMMEDIATE');
+    try {
+      for (const row of this.db.prepare('SELECT * FROM books').all() as unknown as BookRow[]) {
+        const book = JSON.parse(row.data) as BookRecord;
+        let changed = false;
+        if (book.language !== 'en' && book.language !== 'ja') { book.language = 'en'; changed = true; }
+        if (!book.languageSource) { book.languageSource = 'legacy'; changed = true; }
+        if (changed) this.db.prepare('UPDATE books SET data = ? WHERE id = ?').run(JSON.stringify(book), row.id);
+      }
+      for (const row of this.rows()) {
+        const occurrence = JSON.parse(row.data) as Occurrence;
+        if (occurrence.language !== 'en' && occurrence.language !== 'ja') {
+          occurrence.language = 'en';
+          this.db.prepare('UPDATE occurrences SET data = ? WHERE id = ?').run(JSON.stringify(occurrence), row.id);
+        }
+      }
+      this.db.exec('COMMIT');
+    } catch (error) {
+      this.db.exec('ROLLBACK');
+      throw error;
     }
   }
 
@@ -64,12 +92,12 @@ export class ReaderStore {
     return JSON.parse(row.data) as BookRecord;
   }
 
-  addBook(bytes: Uint8Array, metadata: { title: string; author: string; fileName: string }): BookRecord {
+  addBook(bytes: Uint8Array, metadata: { title: string; author: string; fileName: string; language?: SourceLanguage; languageSource?: BookLanguageSource }): BookRecord {
     const hash = createHash('sha256').update(bytes).digest('hex');
     const existing = this.db.prepare('SELECT * FROM books WHERE hash = ?').get(hash) as unknown as BookRow | undefined;
     if (existing) return JSON.parse(existing.data) as BookRecord;
     const id = randomUUID();
-    const book: BookRecord = { id, ...metadata, importedAt: new Date().toISOString(), lastLocation: null, progress: 0, fontSize: 20 };
+    const book: BookRecord = { id, ...metadata, language: metadata.language ?? 'en', languageSource: metadata.languageSource ?? (metadata.language ? 'unknown' : 'legacy'), importedAt: new Date().toISOString(), lastLocation: null, progress: 0, fontSize: 20 };
     const filePath = this.bookPath(id);
     writeFileSync(`${filePath}.tmp`, bytes);
     renameSync(`${filePath}.tmp`, filePath);
@@ -86,8 +114,8 @@ export class ReaderStore {
     return new Uint8Array(readFileSync(filePath));
   }
 
-  updateBook(id: string, patch: Partial<Pick<BookRecord, 'lastLocation' | 'progress' | 'fontSize' | 'theme'>>): BookRecord {
-    const book = { ...this.getBook(id), ...patch };
+  updateBook(id: string, patch: Partial<Pick<BookRecord, 'lastLocation' | 'progress' | 'fontSize' | 'theme' | 'language'>>): BookRecord {
+    const book = { ...this.getBook(id), ...patch, ...('language' in patch ? { languageSource: 'manual' as const } : {}) };
     this.db.prepare('UPDATE books SET data = ? WHERE id = ?').run(JSON.stringify(book), id);
     return book;
   }
@@ -116,7 +144,7 @@ export class ReaderStore {
   }
 
   collect(input: CollectInput): Occurrence {
-    this.getBook(input.bookId);
+    const book = this.getBook(input.bookId);
     const existing = this.db.prepare('SELECT * FROM occurrences WHERE book_id = ? AND source_cfi = ?').get(input.bookId, input.anchor.cfi) as unknown as OccurrenceRow | undefined;
     if (existing) {
       const occurrence = JSON.parse(existing.data) as Occurrence;
@@ -128,6 +156,7 @@ export class ReaderStore {
       id: randomUUID(), bookId: input.bookId, selectedText: input.text, targetText: input.text,
       kind: input.kind, anchor: { ...input.anchor }, originalAnchor: { ...input.anchor },
       context: input.context, chapterTitle: input.chapterTitle, collectedAt: new Date().toISOString(),
+      language: book.language === 'ja' ? 'ja' : 'en',
       status: 'pending', error: null, analysis: null,
     };
     this.db.prepare('INSERT INTO occurrences (id, book_id, source_cfi, data, status) VALUES (?, ?, ?, ?, ?)')
@@ -148,10 +177,12 @@ export class ReaderStore {
     this.getBook(bookId);
     const groups = new Map<string, VocabularyEntry>();
     for (const occurrence of this.listOccurrences(bookId)) {
-      const key = `${occurrence.kind}:${occurrence.targetText.trim().replace(/\s+/g, ' ').toLocaleLowerCase('en')}`;
+      const language: SourceLanguage = occurrence.language === 'ja' ? 'ja' : 'en';
+      const originalKey = `${occurrence.kind}:${occurrence.targetText.trim().replace(/\s+/g, ' ').toLocaleLowerCase('en')}`;
+      const key = language === 'en' ? originalKey : `ja:${originalKey}`;
       let entry = groups.get(key);
       if (!entry) {
-        entry = { id: key, term: occurrence.targetText, kind: occurrence.kind, latestCollectedAt: occurrence.collectedAt, occurrences: [] };
+        entry = { id: key, term: occurrence.targetText, kind: occurrence.kind, language, latestCollectedAt: occurrence.collectedAt, occurrences: [] };
         groups.set(key, entry);
       }
       entry.occurrences.push(occurrence);

@@ -1,8 +1,8 @@
 # 开发说明
 
-状态：当前开发与维护约定；Windows 和 Mac 当前试用版本均为 0.4.0-dev.1。更新日期：2026-11-28。
+状态：当前开发与维护约定；`codex/japanese-support` 分支源码为 0.5.0-dev.0，尚未合并进 `main`。已交付 Windows 和 Mac 试用版仍为 0.4.0-dev.1。更新日期：2026-11-28。
 
-源码已上传到 [liuhua303/library](https://github.com/liuhua303/library)，本版 Windows 和 Mac 试用包均已生成，并完成打包程序自动化检查，具体结果见 [0.4.0-dev.1 验证报告](./verification/0.4.0-dev.1.md)。Mac 为 ad-hoc 签名、未公证；正式 Developer ID 签名和公证尚未配置，Windows 安装向导、Mac DMG 安装、真实 Keychain 和原生菜单等人工验收仍未完成。
+源码仓库为 [liuhua303/library](https://github.com/liuhua303/library)。用户已确认日语适配流程，当前在独立分支实现，待本轮验证与试用，实际状态见 [0.5.0-dev.0 验证报告](./verification/0.5.0-dev.0.md)。`main` 和标签 `v0.4.0-dev.1` 保留用户已检查的版本；已生成的 Windows 与 Mac 0.4.0-dev.1 包及其检查见 [历史报告](./verification/0.4.0-dev.1.md)，不作为日语分支交付。Mac 试用包为 ad-hoc 签名、未公证；正式 Developer ID 签名和公证尚未配置，安装及原生交互的人工验收仍未完成。
 
 ## 文档维护规则
 
@@ -46,15 +46,17 @@ docs/
 | 位置 | 职责 |
 | --- | --- |
 | [src/main/index.ts](../src/main/index.ts) | 桌面窗口、应用生命周期、IPC 注册及关闭保存流程 |
-| [src/main/preload.ts](../src/main/preload.ts)、[book-write-buffer.ts](../src/main/book-write-buffer.ts) | 向界面暴露受控 API，合并书籍位置、字号与主题写入 |
-| [src/main/store.ts](../src/main/store.ts) | 使用 Node 内置 SQLite 保存书籍、阅读位置、每书字号与主题、书签、语境和持久任务状态 |
+| [src/main/preload.ts](../src/main/preload.ts)、[book-write-buffer.ts](../src/main/book-write-buffer.ts) | 向界面暴露受控 API，合并书籍位置、字号、主题与语言写入 |
+| [src/main/store.ts](../src/main/store.ts) | 使用 Node 内置 SQLite 保存书籍、每书设置、书签、语境及语言快照和持久任务状态 |
 | [src/main/queue.ts](../src/main/queue.ts)、[analysis.ts](../src/main/analysis.ts) | 后台队列、超时重试、DeepSeek 请求、字段和原文匹配校验 |
 | [src/main/vault.ts](../src/main/vault.ts) | 使用 Electron safeStorage 保护本机 API 密钥 |
 | [src/main/epub.ts](../src/main/epub.ts)、[validation.ts](../src/main/validation.ts) | EPUB 元数据与封面提取、IPC 输入校验 |
-| [src/shared/types.ts](../src/shared/types.ts) | 前后端共享数据结构、主题标识、书签及 ReaderApi 接口 |
+| [src/main/book-language.ts](../src/main/book-language.ts) | EPUB 语言标记解析、正文抽样、英语/日语探测及未确定来源 |
+| [src/shared/types.ts](../src/shared/types.ts) | 前后端共享数据结构、主题与语言标识、书签及 ReaderApi 接口 |
 | [src/renderer/App.tsx](../src/renderer/App.tsx) | 书架、书架 API 设置、单词本和每书阅读设置状态 |
 | [src/renderer/components/EpubReader.tsx](../src/renderer/components/EpubReader.tsx)、[reader](../src/renderer/reader) | EPUB 阅读、目录/书签导航、阅读设置、选区、内容定位、标记几何与主题样式 |
 | [src/renderer/reader/themes.ts](../src/renderer/reader/themes.ts)、[styles.ts](../src/renderer/reader/styles.ts) | 六主题的名称、近似配色及正文字体，以及应用到 EPUB iframe 的阅读样式 |
+| [src/renderer/reader/text.ts](../src/renderer/reader/text.ts) | 文本偏移与选区索引、语言分词、句子判断及短语定位 |
 | [tests](../tests)、[scripts](../scripts) | 单元测试、构建、桌面回归、打包验证及自编样本工具 |
 | [package.json](../package.json)、[build/entitlements.mac.plist](../build/entitlements.mac.plist) | 平台构建入口与配置，以及 Mac JIT 签名所需权限声明 |
 | [src/main/platform.ts](../src/main/platform.ts) | Mac 系统菜单、按窗口保存握手、Dock 重开及真正退出的生命周期 |
@@ -70,7 +72,17 @@ docs/
 
 单词本主题样式统一归组件的 `src/renderer/styles.css`，`reader.css` 不重复声明其背景，避免依赖导入顺序；面板使用已有 `--reader-panel` 不透明色，文字与次要文案使用对应主题前景和实色 `--reader-muted`。
 
-当前请求默认使用 `deepseek-flash`，非思考、非流式 JSON 输出；模型与密钥只在书架 API 设置中配置，阅读设置仅提供字号和主题。阅读中的配置问题保留简短状态与返回书架的引导，不直接打开 API 表单。每次请求进行字段完整性及原文匹配校验，技术失败有限重试；密钥错误和余额不足暂停相关请求，等待配置或用户处理。具体参数以队列和解析模块为准。历史选型理由和当时的费用估算见 [首版讨论归档](./archive/initial-requirements.md)，归档价格不作为当前报价。
+当前请求默认使用 `deepseek-flash`，非思考、非流式 JSON 输出；模型与密钥只在书架 API 设置中配置，阅读设置提供字号、主题和每书语言。阅读中的配置问题保留简短状态与返回书架的引导，不直接打开 API 表单。每次请求进行字段完整性及原文匹配校验，技术失败有限重试；密钥错误和余额不足暂停相关请求，等待配置或用户处理。具体参数以队列和解析模块为准。历史选型理由和当时的费用估算见 [首版讨论归档](./archive/initial-requirements.md)，归档价格不作为当前报价。
+
+### 语言识别与解析隔离
+
+`SourceLanguage` 当前只含 `en` 与 `ja`。导入从 OPF 主语言及正文抽样判断，识别 `en` / `eng`、`ja` / `jpn` 及其区域标签；只有正文证据充分且与元数据冲突时采用正文，否则保留主语言声明。日语覆盖英语声明需在抽样中明显占优，英语覆盖日语声明需至少两份充分的英语正文样本。无可用主语言时再按正文及章节语言标记判断。正文探测结合假名、汉字、拉丁字母及英语常见词，不凭汉字或拉丁字母单独断言语言。抽样排除脚本、样式、导航、ruby 注音和可识别的封面、标题、版权等非正文；目前最多取四个有效正文样本，缺失或损坏的样本不阻断导入。仍无法判断时保存 `languageSource: 'unknown'` 并暂用 `en`，由阅读设置提示用户选择。
+
+语言与来源按书保存；手动变更来源记为 `manual`。语言变更只随当前请求发送，等待主进程保存成功后才切换界面；失败时继续使用原语言，不能被后续位置保存或关闭重试偷偷应用。位置、字号、主题保留原有写入缓冲与失败重试机制，语言字段不进入其待重试快照。每次收录由主进程根据已保存书籍语言生成 `Occurrence.language` 快照，后台任务按此快照处理，词条归并加入语言维度。旧记录缺失语言时迁移为 `en`，旧书来源记为 `legacy`；迁移不重译已有结果，不改写已有位置。书籍语言切换不回写旧语境及任务，迟到的书籍响应也不能覆盖已确认的本地状态。
+
+英文 system prompt、请求 payload 和字段校验继续使用原路径；仅 `Occurrence.language === 'ja'` 进入独立日文 prompt，并在数据中声明 `sourceLanguage: 'ja'`。两者仍各用一次完整模型请求，技术重试沿用队列，不增加第二轮模型审查。日语词语/短语必须返回 `meaningZh`、`reading`、`usage`、`example`，不要求 `definitionEn`；不确定读音允许明确返回“读音待确认”。整句只保留原始选文和中文翻译。字段校验不能证明翻译或读音正确，真实模型质量单独验收。
+
+日语 `targetText` 必须在上下文中逐字匹配并覆盖原选偏移，保留原文活用与字符形态；不套用英文空格词界，也不能跳到重复词的另一处。DOM 与后台均使用 UTF-16 偏移。日语文本索引排除 `rt` / `rp`，显示层保留 ruby；英文索引规则不变。日语单击通过 `Intl.Segmenter('ja')` 取词界，拖选分类支持日文句末标点，正文主题使用日文字体回退。固定版式、中文收录及竖排专门适配不属于本轮范围，复杂注音与竖排实际兼容性列入待核对。
 
 ### 本机数据与隔离运行
 
@@ -129,7 +141,7 @@ npm run dist
 | `npm run dist:mac` | 仅在 macOS 上构建固定 arm64 的正式包，要求 Developer ID 签名和公证凭据 |
 | `npm run dist:mac:local` | 仅在 macOS 上构建固定 arm64 的本机 ad-hoc 试用包，不公证 |
 
-`test:e2e` 的具体脚本以 [package.json](../package.json) 为准。阅读或主题改动除相关单元检查外，还应覆盖书架进度、目录/书签切换与持久化、每书字号与六主题、非空单词本的面板及内容可读性、API 入口分工，以及原有选区、收录和回跳。本轮实际运行范围与结果只写入 [0.4.0-dev.1 验证报告](./verification/0.4.0-dev.1.md)，不因本文列出检查场景就视为已通过。Windows 结果不替代 Mac 验证。
+`test:e2e` 的具体脚本以 [package.json](../package.json) 为准。阅读或主题改动除相关单元检查外，还应覆盖书架进度、目录/书签切换与持久化、每书字号与六主题、非空单词本的面板及内容可读性、API 入口分工，以及原有选区、收录和回跳。语言改动还应覆盖元数据与正文探测、未确定提示、手动切换持久化、旧数据迁移、任务语言快照、英日词条隔离、日语分词与 ruby 偏移、日文输出校验，以及英文请求和输出的回归。本轮实际运行范围与结果只写入 [0.5.0-dev.0 验证报告](./verification/0.5.0-dev.0.md)，不因本文列出检查场景就视为已通过。Windows 结果不替代 Mac 验证。
 
 xmldom 的覆盖按使用方区分：EPUB.js 使用 0.9 安全修补分支，Mac 构建链的 plist 使用兼容的 0.8 安全修补分支，准确版本以锁文件为准；不要将构建链强制覆盖到不兼容 API。更新依赖后需保留其他平台可选包的完整锁记录，并通过干净的 `npm ci` 检查，不能只验证已有 `node_modules`。Mac 构建入口在发生错误或缺少实际 DMG 时必须失败。
 
@@ -148,7 +160,7 @@ node scripts/check-package.mjs "release/win-unpacked/阅间.exe"
 
 ## Mac 准备与打包
 
-当前 Mac 构建目标固定 Apple Silicon arm64，不扩展 Intel 或 universal。以下命令需在 macOS 上执行，可使用本地 Mac 或下述 GitHub macOS runner，不能直接在 Windows 主机执行。版本号以 [package.json](../package.json) 为准，当前试用版本为 `0.4.0-dev.1`，已生成本版试用 DMG。
+当前 Mac 构建目标固定 Apple Silicon arm64，不扩展 Intel 或 universal。以下命令需在 macOS 上执行，可使用本地 Mac 或下述 GitHub macOS runner，不能直接在 Windows 主机执行。版本号以 [package.json](../package.json) 为准，当前分支源码为 `0.5.0-dev.0`；已交付 DMG 仍是 `0.4.0-dev.1`，其结果不能视为本轮日语版本构建完成。
 
 ### 本机试用包
 
@@ -198,9 +210,9 @@ node scripts/check-package.mjs "release/mac-arm64-local/mac-arm64/阅间.app"
 
 ### 通过 GitHub Actions 构建
 
-没有本地 Mac 时，可将完整源码托管到 GitHub，手动使用 [.github/workflows/build-mac.yml](../.github/workflows/build-mac.yml)。该配置仅支持 `workflow_dispatch`，不会因推送自动构建，也不会创建 Release 或自动发布。源码和工作流已进入 [liuhua303/library](https://github.com/liuhua303/library)，入口为 [Build Mac arm64](https://github.com/liuhua303/library/actions/workflows/build-mac.yml)。本版 [0.4.0-dev.1 trial 运行已成功](https://github.com/liuhua303/library/actions/runs/46111866028)，实际结果集中在 [版本报告](./verification/0.4.0-dev.1.md)。
+没有本地 Mac 时，可将完整源码托管到 GitHub，手动使用 [.github/workflows/build-mac.yml](../.github/workflows/build-mac.yml)。该配置仅支持 `workflow_dispatch`，不会因推送自动构建，也不会创建 Release 或自动发布。源码和工作流已进入 [liuhua303/library](https://github.com/liuhua303/library)，入口为 [Build Mac arm64](https://github.com/liuhua303/library/actions/workflows/build-mac.yml)。已交付的 [0.4.0-dev.1 trial 运行已成功](https://github.com/liuhua303/library/actions/runs/46111866028)，实际结果集中在 [历史报告](./verification/0.4.0-dev.1.md)，不表示 0.5.0-dev.0 已有 Mac 包。
 
-1. 将完整源码提交并推送到目标仓库的默认分支 `main`，包含 `.github/`、`build/`、`scripts/`、`src/`、锁文件及其他源码文件。若在其他仓库使用，先创建仓库并确认其默认分支。工作流配置必须先存在于默认分支，Actions 页面才可手动触发；操作人需有仓库写权限。[GitHub 手动运行说明](https://docs.github.com/en/actions/how-tos/manage-workflow-runs/manually-run-a-workflow)
+1. 确保默认分支 `main` 已有工作流配置，目标构建分支含完整源码、`.github/`、`build/`、`scripts/`、`src/`、锁文件及其他必要文件；在运行菜单选择实际需要构建的分支。日语开发使用 `codex/japanese-support`，完成验证并决定合并前保留 `main` 的已检查版本，不为试构建提前合并。若在其他仓库使用，先创建仓库并确认其默认分支。工作流配置必须先存在于默认分支，Actions 页面才可手动触发；操作人需有仓库写权限。[GitHub 手动运行说明](https://docs.github.com/en/actions/how-tos/manage-workflow-runs/manually-run-a-workflow)
 2. 需要正式包时，先按下表配置仓库 Secrets；首次尝试可直接使用不需要 Apple 分发凭据的 `trial`。
 3. 打开仓库 **Actions → Build Mac arm64 → Run workflow**，选择包含完整配置的分支和 `mode`，再点击 **Run workflow**。
 4. 等待构建及检查成功。在本次运行页面的 **Artifacts** 下载 `Yuejian-mac-arm64-<mode>-<运行号>`，解压后取得 `.dmg`、`SHA256SUMS.txt` 和 `build-info.json`。`Mac-check-results-...` 是检查证据，不是安装包。下载 Actions artifact 需要登录 GitHub 并拥有仓库读取权限，公开仓库也不能将此入口当作免登录的安装下载页。[GitHub artifact 下载说明](https://docs.github.com/en/actions/how-tos/manage-workflow-runs/download-workflow-artifacts)
@@ -223,9 +235,9 @@ node scripts/check-package.mjs "release/mac-arm64-local/mac-arm64/阅间.app"
 
 本地构建还支持上一节的其他公证配置；当前云端工作流使用此固定的 Secrets 组合。DeepSeek API 密钥属于应用使用者，不需要放到构建 Secrets。
 
-工作流使用 `macos-26` runner 和 Node.js 24，先断言实际环境为 `darwin/arm64`，再执行 `npm ci`、`npm test`、对应构建命令、`check-package.mjs` 隔离启动，以及针对打包程序的 `reading-preferences-smoke.mjs` 六主题、非空单词本、书签和重启回归。准确步骤以工作流正文为准。当前 GitHub 标准 runner 的该标签为 Apple Silicon；标签和供应情况以 [GitHub runner 官方说明](https://docs.github.com/en/actions/reference/runners/github-hosted-runners) 为准。只有所有检查成功才上传 DMG artifact；`Mac-check-results-...` 同时保留主题回归结果及 `preferences-notebook-*.png` 截图等已有证据，两类 artifact 均保留 14 天。失败时通过运行日志及已有证据定位问题，不把失败产物作为交付。过期前需要自行下载保留，artifact 不是永久发布地址。
+工作流使用 `macos-26` runner 和 Node.js 24，先断言实际环境为 `darwin/arm64`，再执行 `npm ci`、`npm test`、对应构建命令、`check-package.mjs` 隔离启动，以及针对打包程序的 `reading-preferences-smoke.mjs` 六主题、非空单词本、书签和重启回归；日语分支新增 `japanese-smoke.mjs` 打包程序检查。准确步骤以工作流正文为准，新增步骤不表示已在 Mac 跑通。当前 GitHub 标准 runner 的该标签为 Apple Silicon；标签和供应情况以 [GitHub runner 官方说明](https://docs.github.com/en/actions/reference/runners/github-hosted-runners) 为准。只有所有检查成功才上传 DMG artifact；`Mac-check-results-...` 保留启动、主题与日语回归结果及 `preferences-notebook-*.png`、`japanese-*.png` 等当次证据，两类 artifact 均保留 14 天。失败时通过运行日志及已有证据定位问题，不把失败产物作为交付。过期前需要自行下载保留，artifact 不是永久发布地址。
 
-当前产物为 [Yuejian-mac-arm64-trial-5](https://github.com/liuhua303/library/actions/runs/46111866028/artifacts/15250640003)，包含 `Yuejian-0.4.0-dev.1-mac-arm64-local.dmg`，保留至北京时间 2026-12-12 13:25。登录并具备仓库读取权限后，按上述步骤下载、解压并转发 DMG。
+当前已交付产物为 [Yuejian-mac-arm64-trial-5](https://github.com/liuhua303/library/actions/runs/46111866028/artifacts/15250640003)，包含 `Yuejian-0.4.0-dev.1-mac-arm64-local.dmg`，保留至北京时间 2026-12-12 13:25。登录并具备仓库读取权限后，按上述步骤下载、解压并转发 DMG；该包不含本轮日语适配。
 
 云端成功仅证明该次 runner 环境中实际完成的检查，不替代 DMG 安装、真实 Keychain、原生菜单和阅读体验人工验收。运行环境、提交、实际结果与未验证项见 [版本报告](./verification/0.4.0-dev.1.md)；正式 Developer ID 签名和公证尚未配置。
 

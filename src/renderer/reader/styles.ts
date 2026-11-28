@@ -1,4 +1,4 @@
-import type { ReaderTheme } from '../../shared/types';
+import type { ReaderTheme, SourceLanguage } from '../../shared/types';
 import { readerTheme } from './themes';
 
 const HTML_NAMESPACE = 'http://www.w3.org/1999/xhtml';
@@ -15,8 +15,16 @@ export function setReaderCursorHidden(doc: Document, hidden: boolean): void {
 
 // The first cascade layer gives reader !important rules priority over book stylesheets.
 // Only presentation changes: body text and element positions remain stable for saved CFIs.
-function readerStyles(themeId: ReaderTheme): string {
+function readingFont(themeId: ReaderTheme, language: SourceLanguage): string {
+  if (language !== 'ja') return readerTheme(themeId).fontFamily;
+  return themeId === 'bold' || themeId === 'focus'
+    ? '"Yu Gothic", "Hiragino Kaku Gothic ProN", "Noto Sans JP", Meiryo, sans-serif'
+    : '"Yu Mincho", "Hiragino Mincho ProN", "Noto Serif JP", "Yu Gothic", Meiryo, serif';
+}
+
+function readerStyles(themeId: ReaderTheme, language: SourceLanguage): string {
   const theme = readerTheme(themeId);
+  const fontFamily = readingFont(themeId, language);
   return `
 @layer yuejian-reader {
   html, body { background: ${theme.paper} !important; color-scheme: ${themeId === 'quiet' ? 'dark' : 'light'}; }
@@ -24,10 +32,10 @@ function readerStyles(themeId: ReaderTheme): string {
     color: ${theme.ink} !important;
     background-color: transparent !important;
     -webkit-text-fill-color: currentColor !important;
-    font-family: ${theme.fontFamily} !important;
+    font-family: ${fontFamily} !important;
   }
   body {
-    font-family: ${theme.fontFamily} !important;
+    font-family: ${fontFamily} !important;
     font-weight: ${theme.weight} !important;
     line-height: 1.75 !important;
     user-select: none !important;
@@ -41,9 +49,10 @@ function readerStyles(themeId: ReaderTheme): string {
 }`;
 }
 
-export function applyReaderStyles(doc: Document, themeId: ReaderTheme = 'original'): void {
+export function applyReaderStyles(doc: Document, themeId: ReaderTheme = 'original', language: SourceLanguage = 'en'): void {
   const theme = readerTheme(themeId);
-  const styles = readerStyles(themeId);
+  const fontFamily = readingFont(themeId, language);
+  const styles = readerStyles(themeId, language);
   const head = doc.head ?? doc.querySelector('head');
   if (!head) return;
   let style = head.querySelector<HTMLStyleElement>('style[data-yuejian-reader-styles]');
@@ -64,7 +73,7 @@ export function applyReaderStyles(doc: Document, themeId: ReaderTheme = 'origina
     if (element.style.getPropertyPriority('-webkit-text-fill-color') === 'important') {
       element.style.setProperty('-webkit-text-fill-color', 'currentColor', 'important');
     }
-    if (element.style.getPropertyPriority('font-family') === 'important') element.style.setProperty('font-family', theme.fontFamily, 'important');
+    if (element.style.getPropertyPriority('font-family') === 'important') element.style.setProperty('font-family', fontFamily, 'important');
     if (element.style.getPropertyPriority('font-weight') === 'important') {
       if (!originalFontWeights.has(element)) originalFontWeights.set(element, { value: element.style.getPropertyValue('font-weight'), priority: 'important' });
       if (themeId === 'bold') element.style.setProperty('font-weight', element.closest('strong, b, h1, h2, h3, h4, h5, h6') ? '700' : '600', 'important');

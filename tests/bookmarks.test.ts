@@ -74,15 +74,17 @@ describe('durable bookmarks', () => {
     } finally { database.close(); }
 
     const store = openStore(directory);
-    expect(store.getBook(legacyBook.id)).toEqual(legacyBook);
-    expect(store.listBooks()).toEqual([legacyBook]);
-    expect(store.getOccurrence(legacyOccurrence.id)).toEqual(legacyOccurrence);
+    const migratedBook = { ...legacyBook, language: 'en', languageSource: 'legacy' };
+    const migratedOccurrence = { ...legacyOccurrence, language: 'en' };
+    expect(store.getBook(legacyBook.id)).toEqual(migratedBook);
+    expect(store.listBooks()).toEqual([migratedBook]);
+    expect(store.getOccurrence(legacyOccurrence.id)).toEqual(migratedOccurrence);
     expect(store.getSetting('model')).toBe('legacy-model');
     expect(store.listBookmarks(legacyBook.id)).toEqual([]);
     const bookmark = store.addBookmark(bookmarkInput(legacyBook.id));
     expect(store.listBookmarks(legacyBook.id)).toEqual([bookmark]);
     expect(store.updateBook(legacyBook.id, validBookPatch({ theme: 'calm' }))).toMatchObject({ ...legacyBook, theme: 'calm' });
-    expect(store.getOccurrence(legacyOccurrence.id)).toEqual(legacyOccurrence);
+    expect(store.getOccurrence(legacyOccurrence.id)).toEqual(migratedOccurrence);
   });
 
   it('persists bookmarks and per-book themes across reopen, deduplicates CFIs per book, and sorts by progress', () => {

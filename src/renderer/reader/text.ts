@@ -1,4 +1,4 @@
-import type { SelectionKind } from '../../shared/types';
+import type { SelectionKind, SourceLanguage } from '../../shared/types';
 
 export interface TextRun {
   node: Text;
@@ -10,6 +10,7 @@ export interface TextIndex {
   root: Element;
   text: string;
   runs: TextRun[];
+  language?: SourceLanguage;
 }
 
 export interface TextBounds {
@@ -18,22 +19,26 @@ export interface TextBounds {
 }
 
 /** Offsets deliberately include original whitespace and use UTF-16, like DOM Range. */
-export function indexText(root: Element): TextIndex {
+export function indexText(root: Element, language: SourceLanguage = 'en'): TextIndex {
   const walker = root.ownerDocument.createTreeWalker(root, 4);
   const runs: TextRun[] = [];
   let text = '';
   let current: Node | null;
   while ((current = walker.nextNode())) {
     const node = current as Text;
+    // Ruby readings annotate their base text; they are not a second occurrence
+    // of the prose. Existing English indexes retain their original offset rules.
+    if (language === 'ja' && node.parentElement?.closest('rt, rp')) continue;
     const start = text.length;
     text += node.data;
     runs.push({ node, start, end: text.length });
   }
-  return { root, text, runs };
+  return language === 'ja' ? { root, text, runs, language } : { root, text, runs };
 }
 
 export function offsetOfPoint(index: TextIndex, node: Node, offset: number): number | null {
   if (node !== index.root && !index.root.contains(node)) return null;
+  if (index.language === 'ja' && node.nodeType === 1 && (node as Element).closest('rt, rp')) return null;
   if (node.nodeType === 3) {
     const run = index.runs.find((item) => item.node === node);
     return run ? run.start + Math.max(0, Math.min(offset, run.end - run.start)) : null;
@@ -42,6 +47,16 @@ export function offsetOfPoint(index: TextIndex, node: Node, offset: number): num
   range.selectNodeContents(index.root);
   try {
     range.setEnd(node, offset);
+    if (index.language === 'ja') {
+      // An element boundary lies between complete text runs. DOM Range's string
+      // also contains ruby annotations, so count only the indexed prose runs.
+      let end = 0;
+      for (const run of index.runs) {
+        if (range.comparePoint(run.node, run.node.data.length) > 0) break;
+        end = run.end;
+      }
+      return end;
+    }
     return range.toString().length;
   } catch {
     return null;
@@ -77,7 +92,15 @@ export function rangeFromOffsets(index: TextIndex, start: number, end: number): 
   return range;
 }
 
-export function wordAtOffset(text: string, offset: number): TextBounds | null {
+const japaneseWords = new Intl.Segmenter('ja', { granularity: 'word' });
+const japaneseGraphemes = new Intl.Segmenter('ja', { granularity: 'grapheme' });
+
+export function wordAtOffset(text: string, offset: number, language: SourceLanguage = 'en'): TextBounds | null {
+  if (language === 'ja') {
+    if (!Number.isInteger(offset) || offset < 0 || offset >= text.length) return null;
+    const segment = japaneseWords.segment(text).containing(offset);
+    return segment?.isWordLike ? { start: segment.index, end: segment.index + segment.segment.length } : null;
+  }
   const words = text.matchAll(/[\p{L}\p{M}]+(?:['’\-][\p{L}\p{M}]+)*/gu);
   for (const match of words) {
     const start = match.index;
@@ -88,7 +111,12 @@ export function wordAtOffset(text: string, offset: number): TextBounds | null {
   return null;
 }
 
-export function inferSelectionKind(text: string): SelectionKind {
+export function inferSelectionKind(text: string, language: SourceLanguage = 'en'): SelectionKind {
+  if (language === 'ja') {
+    const words = [...japaneseWords.segment(text)].filter(segment => segment.isWordLike);
+    if (/[。！？.!?][\s」』”"'）)\]】〉》〕〗〙〛]*$/u.test(text) || words.length >= 8) return 'sentence';
+    return words.length <= 1 ? 'word' : 'phrase';
+  }
   const words = text.match(/[\p{L}\p{M}]+(?:['’\-][\p{L}\p{M}]+)*/gu) ?? [];
   if (words.length <= 1) return 'word';
   return /[.!?][”"')\]]*\s*$/.test(text) || words.length >= 8 ? 'sentence' : 'phrase';
@@ -104,19 +132,24 @@ export function findPhraseBounds(
   text: string,
   phrase: string,
   original: TextBounds,
+  language: SourceLanguage = 'en',
 ): TextBounds | null {
   const parts = phrase.trim().split(/\s+/).filter(Boolean);
   if (!parts.length) return null;
   const escaped = parts.map((part) => part.replace(/[.*+?^$()|[\]\\{}]/g, '\\$&'));
   const expression = new RegExp(escaped.join('\\s+'), 'giu');
+  const graphemes = language === 'ja' ? japaneseGraphemes.segment(text) : null;
   for (const match of text.matchAll(expression)) {
     const start = match.index;
     const end = start + match[0].length;
     if (start > original.start || end < original.end) continue;
+    if (graphemes && (graphemes.containing(start)?.index !== start
+      || (end < text.length && graphemes.containing(end)?.index !== end))) continue;
     const before = text[start - 1] ?? '';
     const after = text[end] ?? '';
-    if (/[\p{L}\p{M}]/u.test(match[0][0] ?? '') && /[\p{L}\p{M}]/u.test(before)) continue;
-    if (/[\p{L}\p{M}]/u.test(match[0].at(-1) ?? '') && /[\p{L}\p{M}]/u.test(after)) continue;
+    const boundaryLetters = language === 'ja' ? /\p{Script=Latin}/u : /[\p{L}\p{M}]/u;
+    if (boundaryLetters.test(match[0][0] ?? '') && boundaryLetters.test(before)) continue;
+    if (boundaryLetters.test(match[0].at(-1) ?? '') && boundaryLetters.test(after)) continue;
     return { start, end };
   }
   return null;

@@ -110,6 +110,26 @@ afterEach(async () => {
 });
 
 describe('bookshelf navigation with asynchronous book updates', () => {
+  it('keeps a saved language correction when an earlier library snapshot arrives', async () => {
+    await openFromShelf();
+    const stale = await requestStaleSnapshot();
+    await act(async () => { await reader.props!.onLanguageChange('ja'); });
+    expect(api.updateBook).toHaveBeenCalledWith(initialBook.id, { language: 'ja' });
+    await act(async () => { stale.resolve([{ ...initialBook }]); });
+    await reopenFromShelf();
+    expect(reader.props!.book).toMatchObject({ language: 'ja', languageSource: 'manual', lastLocation: initialBook.lastLocation });
+  });
+
+  it('continues using the saved language when a language correction fails', async () => {
+    await openFromShelf();
+    vi.mocked(api.updateBook).mockRejectedValueOnce(new Error('Language save failed'));
+    await act(async () => { await reader.props!.onLanguageChange('ja'); });
+    expect(reader.props!.book.language ?? 'en').toBe('en');
+    expect(host.querySelector('.app-error')?.textContent).toContain('Language save failed');
+    await reopenFromShelf();
+    expect(reader.props!.book.language ?? 'en').toBe('en');
+  });
+
   it('resumes the newest saved location after an older library snapshot returns', async () => {
     await openFromShelf();
     const stale = await requestStaleSnapshot();

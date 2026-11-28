@@ -99,6 +99,11 @@ jobs:
           MAC_OUTPUT: ${{ steps.output.outputs.directory }}
         run: node scripts/reading-preferences-smoke.mjs "$MAC_OUTPUT/mac-arm64/阅间.app/Contents/MacOS/阅间"
 
+      - name: Check Japanese and English in packaged application
+        env:
+          MAC_OUTPUT: ${{ steps.output.outputs.directory }}
+        run: node scripts/japanese-smoke.mjs "$MAC_OUTPUT/mac-arm64/阅间.app/Contents/MacOS/阅间"
+
       - name: Record checksums and build identity
         env:
           MAC_OUTPUT: ${{ steps.output.outputs.directory }}
@@ -148,5 +153,7 @@ jobs:
             artifacts/packaged-startup.png
             artifacts/reading-preferences-result.json
             artifacts/preferences-notebook-*.png
+            artifacts/japanese-result.json
+            artifacts/japanese-*.png
           if-no-files-found: ignore
           retention-days: 14

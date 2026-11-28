@@ -1,0 +1,64 @@
+{
+  "passed": true,
+  "checks": [
+    "嵌套行内元素、缩进、显式换行和跨段选中不重复绘制高亮",
+    "调整选区终点后高亮仍只覆盖文字且不叠加",
+    "字号变化后跨段选择无旧高亮残留或重复绘制",
+    "跨页保留并扩展选区后可见高亮不叠加"
+  ],
+  "measurements": [
+    {
+      "stage": "跨段选中",
+      "overlayCount": 9,
+      "leafRectCount": 9,
+      "overlapCount": 0,
+      "overlapExamples": [],
+      "extraArea": 0,
+      "missingArea": 0,
+      "maximumTextHeight": 38,
+      "tooTall": [],
+      "handleCount": 2,
+      "nativeEmpty": true
+    },
+    {
+      "stage": "调整终点后",
+      "overlayCount": 10,
+      "leafRectCount": 10,
+      "overlapCount": 0,
+      "overlapExamples": [],
+      "extraArea": 0,
+      "missingArea": 0,
+      "maximumTextHeight": 38,
+      "tooTall": [],
+      "handleCount": 2,
+      "nativeEmpty": true
+    },
+    {
+      "stage": "字号变化后",
+      "overlayCount": 10,
+      "leafRectCount": 10,
+      "overlapCount": 0,
+      "overlapExamples": [],
+      "extraArea": 0,
+      "missingArea": 0,
+      "maximumTextHeight": 36,
+      "tooTall": [],
+      "handleCount": 2,
+      "nativeEmpty": true
+    },
+    {
+      "stage": "跨页扩展后",
+      "overlayCount": 2,
+      "leafRectCount": 2,
+      "overlapCount": 0,
+      "overlapExamples": [],
+      "extraArea": 0,
+      "missingArea": 0,
+      "maximumTextHeight": 36,
+      "tooTall": [],
+      "handleCount": 2,
+      "nativeEmpty": true
+    }
+  ],
+  "errors": []
+}

@@ -1,6 +1,7 @@
 import JSZip from 'jszip';
 import { XMLParser, XMLValidator } from 'fast-xml-parser';
 import path from 'node:path';
+import { chapterLanguageSample, detectBookLanguage, type BookLanguageDetection } from './book-language';
 
 const parser = new XMLParser({ ignoreAttributes: false, removeNSPrefix: true, processEntities: false });
 const array = <T>(value: T | T[] | undefined): T[] => value === undefined ? [] : Array.isArray(value) ? value : [value];
@@ -10,7 +11,7 @@ const asText = (value: unknown): string => {
   return '';
 };
 
-export async function inspectEpub(bytes: Uint8Array): Promise<{ title: string; author: string }> {
+export async function inspectEpub(bytes: Uint8Array): Promise<{ title: string; author: string } & BookLanguageDetection> {
   if (bytes.length > 100 * 1024 * 1024) throw new Error('首版支持 100 MB 以内的 EPUB，请选择较小的文件。');
   let archive: JSZip;
   try { archive = await JSZip.loadAsync(bytes); } catch { throw new Error('这个文件不是可读取的 EPUB，或文件已损坏。'); }
@@ -54,8 +55,23 @@ export async function inspectEpub(bytes: Uint8Array): Promise<{ title: string; a
   const manifest = array(packageData.manifest.item) as Record<string, unknown>[];
   const hasText = manifest.some(item => item['@_media-type'] === 'application/xhtml+xml' || item['@_media-type'] === 'text/html');
   if (!hasText) throw new Error('这本 EPUB 中没有可以选择的正文文本。');
+  const samples = [];
+  const resources = new Map(manifest.map(item => [item['@_id'], item]));
+  let inspected = 0;
+  for (const item of spineItems) {
+    if (samples.length >= 4 || inspected >= 8) break;
+    if (item['@_linear'] === 'no') continue;
+    const resource = resources.get(item['@_idref']);
+    if (!resource || !['application/xhtml+xml', 'text/html'].includes(String(resource['@_media-type'])) || String(resource['@_properties'] ?? '').split(/\s+/u).includes('nav')) continue;
+    inspected++;
+    const chapterPath = archiveReference(packagePath, resource['@_href']);
+    const chapterSource = chapterPath ? await archiveText(archive, chapterPath, 512 * 1024) : null;
+    const sample = chapterSource ? chapterLanguageSample(chapterSource) : undefined;
+    if (sample) samples.push(sample);
+  }
+  const language = detectBookLanguage(array(packageData.metadata?.language).map(asText), samples);
   // Do not extract archive paths to disk. Only the original archive is saved.
-  return { title: asText(array(packageData.metadata?.title)[0]), author: array(packageData.metadata?.creator).map(asText).filter(Boolean).join('、') };
+  return { title: asText(array(packageData.metadata?.title)[0]), author: array(packageData.metadata?.creator).map(asText).filter(Boolean).join('、'), ...language };
 }
 
 const MAX_COVER_BYTES = 12 * 1024 * 1024;

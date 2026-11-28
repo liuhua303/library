@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { ArrowUpRight, Check, ChevronDown, CircleAlert, Clock3, Eye, EyeOff, KeyRound, LoaderCircle, Plus, Settings, Trash2, WifiOff, X } from 'lucide-react';
-import type { AppSettings, BookRecord, CollectInput, DataChange, Occurrence, ReaderTheme, TaskStatus, VocabularyEntry } from '../shared/types';
+import type { AppSettings, BookRecord, CollectInput, DataChange, Occurrence, ReaderTheme, SourceLanguage, TaskStatus, VocabularyEntry } from '../shared/types';
 import { EpubReader } from './components/EpubReader';
 import { findPhraseBounds } from './reader/text';
 
@@ -62,10 +62,11 @@ export function sourceExcerpt(occurrence: Occurrence): { text: string; markStart
     start: anchor.startOffset - contextOrigin,
     end: anchor.endOffset - contextOrigin,
   });
+  const normalize = (value: string) => occurrence.language === 'ja' ? value : normalizedSource(value);
   const valid = (bounds: { start: number; end: number }, expected: string) =>
     Number.isInteger(bounds.start) && Number.isInteger(bounds.end)
     && bounds.start >= 0 && bounds.end > bounds.start && bounds.end <= context.length
-    && normalizedSource(context.slice(bounds.start, bounds.end)) === normalizedSource(expected);
+    && normalize(context.slice(bounds.start, bounds.end)) === normalize(expected);
 
   const original = relative(occurrence.originalAnchor);
   const resolved = relative(occurrence.anchor);
@@ -73,7 +74,7 @@ export function sourceExcerpt(occurrence: Occurrence): { text: string; markStart
   const resolvedValid = valid(resolved, target)
     && (!originalValid || (resolved.start <= original.start && resolved.end >= original.end));
   const bounds = resolvedValid ? resolved : originalValid
-    ? findPhraseBounds(context, target, original) || original
+    ? findPhraseBounds(context, target, original, occurrence.language ?? 'en') || original
     : null;
 
   // A stale or unavailable anchor must not highlight an unrelated occurrence in the paragraph.
@@ -105,12 +106,12 @@ function SourceText({ occurrence }: { occurrence: Occurrence }) {
 function mergeOccurrence(entries: VocabularyEntry[], occurrence: Occurrence) {
   const normalized = occurrence.targetText.trim().toLocaleLowerCase();
   const without = entries.map(entry => ({ ...entry, occurrences: entry.occurrences.filter(item => item.id !== occurrence.id) })).filter(entry => entry.occurrences.length);
-  const existing = without.find(entry => entry.kind === occurrence.kind && entry.term.trim().toLocaleLowerCase() === normalized);
+  const existing = without.find(entry => (entry.language ?? 'en') === (occurrence.language ?? 'en') && entry.kind === occurrence.kind && entry.term.trim().toLocaleLowerCase() === normalized);
   if (existing) {
     existing.occurrences = [occurrence, ...existing.occurrences];
     existing.latestCollectedAt = [existing.latestCollectedAt, occurrence.collectedAt].sort().at(-1)!;
   } else {
-    without.push({ id: `local:${occurrence.id}`, term: occurrence.targetText, kind: occurrence.kind, latestCollectedAt: occurrence.collectedAt, occurrences: [occurrence] });
+    without.push({ id: `local:${occurrence.id}`, term: occurrence.targetText, kind: occurrence.kind, language: occurrence.language ?? 'en', latestCollectedAt: occurrence.collectedAt, occurrences: [occurrence] });
   }
   return without.sort((a, b) => b.latestCollectedAt.localeCompare(a.latestCollectedAt));
 }
@@ -198,7 +199,7 @@ export function App() {
   const notebookRef = useRef<HTMLElement>(null);
   // All book writes originate here. Keep the latest local fields authoritative over
   // older list/write responses, including while the reader is temporarily unmounted.
-  const localBookUpdates = useRef(new Map<string, Partial<Pick<BookRecord, 'lastLocation' | 'progress' | 'fontSize' | 'theme'>>>());
+  const localBookUpdates = useRef(new Map<string, Partial<Pick<BookRecord, 'lastLocation' | 'progress' | 'fontSize' | 'theme' | 'language' | 'languageSource'>>>());
   const themeSaveStates = useRef(new Map<string, ThemeSaveState>());
   const mergeBookSnapshot = useCallback((book: BookRecord): BookRecord => ({ ...book, ...localBookUpdates.current.get(book.id) }), []);
   const activeBook = books.find(book => book.id === selectedBookId) || null;
@@ -280,7 +281,7 @@ export function App() {
     }
   }, [selectedBookId, refreshEntries]);
 
-  useEffect(() => { document.title = activeBook ? `${activeBook.title} · 阅间` : '阅间 · 英语阅读器'; }, [activeBook?.title]);
+  useEffect(() => { document.title = activeBook ? `${activeBook.title} · 阅间` : '阅间 · 阅读器'; }, [activeBook?.title]);
 
   useEffect(() => {
     if (!sidebarOpen || !viewRequest || viewRequest.nonce === scrolledView.current) return;
@@ -415,6 +416,17 @@ export function App() {
     finally { setRetryingIds(previous => { const next = new Set(previous); next.delete(id); return next; }); }
   }
 
+  async function changeLanguage(language: SourceLanguage) {
+    if (!activeBook) return;
+    const bookId = activeBook.id;
+    try {
+      const saved = await window.readerApi.updateBook(bookId, { language });
+      const patch = { language: saved.language ?? language, languageSource: saved.languageSource ?? 'manual' as const };
+      localBookUpdates.current.set(bookId, { ...localBookUpdates.current.get(bookId), ...patch });
+      if (alive.current) setBooks(current => current.map(book => book.id === bookId ? { ...book, ...patch } : book));
+    } catch (reason) { if (alive.current) setError(errorMessage(reason)); }
+  }
+
   function toggleEntry(id: string) {
     setExpandedEntries(previous => { const next = new Set(previous); if (next.has(id)) next.delete(id); else next.add(id); return next; });
   }
@@ -433,7 +445,7 @@ export function App() {
         <section className="reading-space" aria-label="阅读区">
           <EpubReader book={activeBook} occurrences={occurrences} focusOccurrenceId={readerFocus?.id} focusNonce={readerFocus?.nonce}
             onCollect={handleCollect} onView={handleView} onRemove={handleRemove} onLocationChange={handleLocation} onError={setError}
-            onBack={returnToShelf} onFontSizeChange={delta => void changeFontSize(delta)} onThemeChange={theme => void changeTheme(theme)}
+            onBack={returnToShelf} onFontSizeChange={delta => void changeFontSize(delta)} onThemeChange={theme => void changeTheme(theme)} onLanguageChange={changeLanguage}
             onToggleNotebook={toggleNotebook} notebookOpen={sidebarOpen} shortcutsDisabled={settingsOpen} />
         </section>
         {sidebarOpen && <aside className="vocabulary-sidebar" ref={notebookRef} data-testid="vocabulary-sidebar" aria-label="本书单词本">
@@ -448,7 +460,7 @@ export function App() {
               const latest = entry.occurrences[0];
               return <article key={entry.id} className={`vocabulary-entry${expanded ? ' vocabulary-entry--expanded' : ''}`} data-testid={`entry-${entry.id}`}>
                 <button className="entry-heading" aria-expanded={expanded} aria-controls={`entry-body-${entry.id}`} onClick={() => toggleEntry(entry.id)}>
-                  <span className="entry-heading-main"><span className={`entry-term${entry.kind === 'sentence' ? ' entry-term--sentence' : ''}`} lang="en">{entry.term}</span>
+                  <span className="entry-heading-main"><span className={`entry-term${entry.kind === 'sentence' ? ' entry-term--sentence' : ''}`} lang={entry.language ?? 'en'}>{entry.term}</span>
                     {!expanded && latest?.analysis && latest.status === 'completed' && <span className="entry-preview">{latest.analysis.meaningZh}</span>}
                     {!expanded && latest && latest.status !== 'completed' && <span className="entry-pending">{latest.status === 'processing' ? '正在解析' : latest.status === 'failed' ? '解析未完成' : latest.status === 'needs_key' ? '等待配置密钥' : latest.status === 'waiting_network' ? '等待联网' : '等待解析'}</span>}
                   </span><ChevronDown size={17} className="entry-chevron" />
@@ -457,17 +469,18 @@ export function App() {
                   {entry.occurrences.length > 1 && <span className="context-number">语境 {index + 1}</span>}
                   {occurrence.analysis && occurrence.status === 'completed' ? <div className="analysis-content">
                     <p className="meaning-zh">{occurrence.analysis.meaningZh}</p>
+                    {occurrence.language === 'ja' && occurrence.kind !== 'sentence' && occurrence.analysis.reading && <p className="entry-reading" lang="ja"><span lang="zh-CN">读音</span>{occurrence.analysis.reading}</p>}
                     {occurrence.kind !== 'sentence' && <>
                       {occurrence.analysis.definitionEn && <p className="definition-en" lang="en">{occurrence.analysis.definitionEn}</p>}
                       {(occurrence.analysis.usage || occurrence.analysis.example) && <details className="analysis-details"><summary>用法与例句</summary>
                         {occurrence.analysis.usage && <div className="analysis-field"><span>用法</span><p>{occurrence.analysis.usage}</p></div>}
-                        {occurrence.analysis.example && <div className="analysis-field"><span>例句</span><p lang="en">{occurrence.analysis.example}</p></div>}
+                        {occurrence.analysis.example && <div className="analysis-field"><span>例句</span><p lang={occurrence.language ?? 'en'}>{occurrence.analysis.example}</p></div>}
                       </details>}
                     </>}
                   </div> : <div className="pending-analysis"><Status status={occurrence.status} error={occurrence.error} />
                     {occurrence.status === 'failed' && <button className="small-button" onClick={() => void retry(occurrence.id)} disabled={retryingIds.has(occurrence.id)}>{retryingIds.has(occurrence.id) ? '正在重试' : '重新解析'}</button>}
                   </div>}
-                  <details className="source-details"><summary>原文</summary><p className="source-caption">{occurrence.chapterTitle || activeBook.title}</p><blockquote className="source-context" lang="en"><SourceText occurrence={occurrence} /></blockquote></details>
+                  <details className="source-details"><summary>原文</summary><p className="source-caption">{occurrence.chapterTitle || activeBook.title}</p><blockquote className="source-context" lang={occurrence.language ?? 'en'}><SourceText occurrence={occurrence} /></blockquote></details>
                   <div className="occurrence-actions"><button className="source-jump" aria-label="返回原文" onClick={() => { setSidebarOpen(false); setReaderFocus({ id: occurrence.id, nonce: Date.now() }); }}>返回原文<ArrowUpRight size={14} /></button>
                     <button className="remove-occurrence icon-button" aria-label="取消收录" title={`取消这处收录：${occurrence.targetText}`} onClick={() => void handleRemove(occurrence.id).catch(reason => setError(errorMessage(reason)))}><Trash2 size={15} /></button>
                   </div>

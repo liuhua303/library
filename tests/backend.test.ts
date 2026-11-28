@@ -313,7 +313,7 @@ async function epub(options: { fixed?: boolean; encrypted?: boolean; fontOnly?: 
 
 describe('book compatibility and input validation', () => {
   it('reads ordinary EPUB metadata and permits font obfuscation', async () => {
-    expect(await inspectEpub(await epub({ fontOnly: true }))).toEqual({ title: 'Sample & Test', author: 'Author' });
+    expect(await inspectEpub(await epub({ fontOnly: true }))).toEqual({ title: 'Sample & Test', author: 'Author', language: 'en', languageSource: 'unknown' });
   });
   it('distinguishes protected content and fixed layout from ordinary EPUB', async () => {
     await expect(inspectEpub(await epub({ encrypted: true }))).rejects.toThrow('受保护');

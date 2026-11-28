@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import ePub, { EpubCFI, type Book, type Contents, type Location, type NavItem, type Rendition } from 'epubjs';
 import { ArrowLeft, Bookmark, BookmarkCheck, BookMarked, Check, Copy, List, LoaderCircle, SlidersHorizontal, Trash2, X } from 'lucide-react';
-import type { BookmarkRecord, BookRecord, CollectInput, Occurrence, ReaderTheme, TextAnchor } from '../../shared/types';
+import type { BookmarkRecord, BookRecord, CollectInput, Occurrence, ReaderTheme, SourceLanguage, TextAnchor } from '../../shared/types';
 import { applyReaderStyles, setReaderCursorHidden } from '../reader/styles';
 import { READER_THEMES } from '../reader/themes';
 import { textClientRects, unionRects, type TextRect } from '../reader/geometry';
@@ -26,6 +26,7 @@ export interface EpubReaderProps {
   onFontSizeChange: (delta: number) => void;
   onSettings?: () => void;
   onThemeChange: (theme: ReaderTheme) => void;
+  onLanguageChange: (language: SourceLanguage) => Promise<void>;
   onToggleNotebook: () => void;
   notebookOpen: boolean;
   shortcutsDisabled: boolean;
@@ -132,6 +133,7 @@ export function EpubReader(props: EpubReaderProps) {
   const [tocOpen, setTocOpen] = useState(false);
   const [toolsOpen, setToolsOpen] = useState(false);
   const [appearanceOpen, setAppearanceOpen] = useState(false);
+  const [languageSaving, setLanguageSaving] = useState(false);
   const [navigationTab, setNavigationTab] = useState<'chapters' | 'bookmarks'>('chapters');
   const [bookmarks, setBookmarks] = useState<BookmarkRecord[]>([]);
   const [bookmarkBusy, setBookmarkBusy] = useState(false);
@@ -252,7 +254,7 @@ export function EpubReader(props: EpubReaderProps) {
     if (!contents) return null;
     const root = rootFor(contents.document);
     if (!root) return null;
-    const index = indexText(root);
+    const index = indexText(root, propsRef.current.book.language ?? 'en');
     const bounds = trimBounds(index.text, selection);
     if (!bounds) return null;
     const range = rangeFromOffsets(index, bounds.start, bounds.end);
@@ -262,7 +264,7 @@ export function EpubReader(props: EpubReaderProps) {
     return {
       bookId: propsRef.current.book.id,
       text,
-      kind: inferSelectionKind(text),
+      kind: inferSelectionKind(text, propsRef.current.book.language ?? 'en'),
       context: context.text,
       chapterTitle: selection.chapterTitle,
       anchor: {
@@ -285,6 +287,7 @@ export function EpubReader(props: EpubReaderProps) {
       selectedText: input.text,
       targetText: input.text,
       kind: input.kind,
+      language: propsRef.current.book.language ?? 'en',
       anchor: input.anchor,
       originalAnchor: input.anchor,
       context: input.context,
@@ -315,7 +318,7 @@ export function EpubReader(props: EpubReaderProps) {
     if (!root) return;
     const href = chapterOf(currentBook, contents);
     const loadedBookId = loadedBookIdRef.current;
-    applyReaderStyles(doc, propsRef.current.book.theme ?? 'original');
+    applyReaderStyles(doc, propsRef.current.book.theme ?? 'original', propsRef.current.book.language ?? 'en');
     setReaderCursorHidden(doc, readingFocusedRef.current);
     let down: { x: number; y: number; offset: number | null; hadInteraction: boolean } | null = null;
     const onDown = (event: PointerEvent) => {
@@ -334,7 +337,7 @@ export function EpubReader(props: EpubReaderProps) {
       pointerActiveRef.current = true;
       event.preventDefault();
       doc.getSelection()?.removeAllRanges();
-      const index = indexText(root);
+      const index = indexText(root, propsRef.current.book.language ?? 'en');
       down = { x: event.clientX, y: event.clientY,
         offset: caretOffsetAtPoint(doc, index, event.clientX, event.clientY),
         hadInteraction: panelsRef.current || Boolean(draftRef.current || menuRef.current) };
@@ -348,7 +351,7 @@ export function EpubReader(props: EpubReaderProps) {
       if (Math.hypot(event.clientX - down.x, event.clientY - down.y) <= 4) return;
       if (propsRef.current.book.id !== loadedBookId || bookRef.current !== currentBook) return;
       event.preventDefault();
-      const index = indexText(root);
+      const index = indexText(root, propsRef.current.book.language ?? 'en');
       const offset = caretOffsetAtPoint(doc, index, event.clientX, event.clientY);
       if (offset === null) return;
       const bounds = trimBounds(index.text, {
@@ -370,7 +373,7 @@ export function EpubReader(props: EpubReaderProps) {
       const frame = frameFor(contents)?.getBoundingClientRect();
       if (!frame) return;
       const point = menuPoint(event.clientX + frame.left, event.clientY + frame.top);
-      const index = indexText(root);
+      const index = indexText(root, propsRef.current.book.language ?? 'en');
       const offset = caretOffsetAtPoint(doc, index, event.clientX, event.clientY);
       const moved = Math.hypot(event.clientX - pointerDown.x, event.clientY - pointerDown.y) > 4;
       const nativeSelection = doc.getSelection();
@@ -385,7 +388,7 @@ export function EpubReader(props: EpubReaderProps) {
       };
 
       if (edge && currentDraft && sameChapter(currentDraft.chapterHref, href) && offset !== null) {
-        const word = wordAtOffset(index.text, offset);
+        const word = wordAtOffset(index.text, offset, propsRef.current.book.language ?? 'en');
         const changed = edge === 'start'
           ? { start: Math.min(word?.start ?? offset, currentDraft.end - 1), end: currentDraft.end }
           : { start: currentDraft.start, end: Math.max(word?.end ?? offset, currentDraft.start + 1) };
@@ -429,33 +432,38 @@ export function EpubReader(props: EpubReaderProps) {
       if (offset !== null) {
         const saved = [...propsRef.current.occurrences, ...optimisticRef.current].find((occurrence) => {
           const anchor = anchorsRef.current.get(occurrence.id) ?? occurrence.anchor;
-          return sameChapter(anchor.chapterHref, href)
-            && offset >= anchor.startOffset && offset <= anchor.endOffset;
-        });
-        if (saved) {
-          const range = rangeFromOffsets(index, (anchorsRef.current.get(saved.id) ?? saved.anchor).startOffset,
-            (anchorsRef.current.get(saved.id) ?? saved.anchor).endOffset);
-          const actualHit = range && Array.from(range.getClientRects()).some((rect) =>
+          if (!sameChapter(anchor.chapterHref, href)) return false;
+          const sourceIndex = (occurrence.language ?? 'en') === (propsRef.current.book.language ?? 'en')
+            ? index : indexText(root, occurrence.language ?? 'en');
+          const sourceOffset = sourceIndex === index ? offset : caretOffsetAtPoint(doc, sourceIndex, event.clientX, event.clientY);
+          if (sourceOffset === null || sourceOffset < anchor.startOffset || sourceOffset > anchor.endOffset) return false;
+          const range = rangeFromOffsets(sourceIndex, anchor.startOffset, anchor.endOffset);
+          return range && Array.from(range.getClientRects()).some(rect =>
             event.clientX >= rect.left - 2 && event.clientX <= rect.right + 2
             && event.clientY >= rect.top && event.clientY <= rect.bottom);
-          if (actualHit) {
-            clearSelection();
-            setMenu({ type: 'saved', id: saved.id, ...point });
-            return;
-          }
+        });
+        if (saved) {
+          clearSelection();
+          setMenu({ type: 'saved', id: saved.id, ...point });
+          return;
         }
       }
       if (currentDraft) { clearSelection(); return; }
       const target = event.target as Element | null;
       if (target?.closest?.('a[href]')) { clearSelection(); return; }
       if (offset === null) { onBlank(); return; }
-      const word = wordAtOffset(index.text, offset);
-      const wordRange = word ? rangeFromOffsets(index, word.start, word.end) : null;
-      if (!word || !wordRange) { onBlank(); return; }
-      const hit = Array.from(wordRange.getClientRects()).some((rect) =>
-        event.clientX >= rect.left - 1 && event.clientX <= rect.right + 1
-        && event.clientY >= rect.top && event.clientY <= rect.bottom);
-      if (!hit) { onBlank(); return; }
+      const language = propsRef.current.book.language ?? 'en';
+      const candidates = [wordAtOffset(index.text, offset, language)];
+      // A click on the right half of a final glyph can yield the caret after it.
+      // Check the previous Japanese segment against its actual geometry as well.
+      if (language === 'ja' && offset > 0) candidates.push(wordAtOffset(index.text, offset - 1, language));
+      const word = candidates.find(candidate => {
+        const range = candidate ? rangeFromOffsets(index, candidate.start, candidate.end) : null;
+        return range && Array.from(range.getClientRects()).some(rect =>
+          event.clientX >= rect.left - 1 && event.clientX <= rect.right + 1
+          && event.clientY >= rect.top && event.clientY <= rect.bottom);
+      });
+      if (!word) { onBlank(); return; }
       void collectDraftRef.current({
         ...word, chapterHref: href, chapterTitle: titleForRef.current(href),
         text: index.text.slice(word.start, word.end),
@@ -614,10 +622,12 @@ export function EpubReader(props: EpubReaderProps) {
     const rendition = renditionRef.current;
     if (!rendition || loading) return;
     const position = lastLocation.current;
-    for (const contents of visibleContents(rendition)) applyReaderStyles(contents.document, props.book.theme ?? 'original');
+    for (const contents of visibleContents(rendition)) applyReaderStyles(contents.document, props.book.theme ?? 'original', props.book.language ?? 'en');
     // Preserve the content anchor when a theme changes font family or weight.
     if (position) void rendition.display(position).then(redraw).catch(() => undefined);
-  }, [props.book.theme, loading, redraw]);
+  }, [props.book.theme, props.book.language, loading, redraw]);
+
+  useEffect(() => { clearSelection(); }, [props.book.language, clearSelection]);
 
   useEffect(() => {
     setOptimistic((items) => items.filter((item) => !props.occurrences.some((saved) => saved.id === item.id)));
@@ -639,11 +649,11 @@ export function EpubReader(props: EpubReaderProps) {
           const doc = sourceRange.startContainer.ownerDocument;
           const root = doc && rootFor(doc);
           if (!root) return;
-          const index = indexText(root);
+          const index = indexText(root, occurrence.language ?? 'en');
           const bounds = findPhraseBounds(index.text, occurrence.targetText, {
             start: occurrence.originalAnchor.startOffset,
             end: occurrence.originalAnchor.endOffset,
-          });
+          }, occurrence.language ?? 'en');
           if (!bounds) return;
           const range = rangeFromOffsets(index, bounds.start, bounds.end);
           const section = currentBook.spine.get(occurrence.originalAnchor.cfi);
@@ -697,11 +707,13 @@ export function EpubReader(props: EpubReaderProps) {
       const root = rootFor(contents.document);
       if (!frame || !root) continue;
       const href = chapterOf(currentBook, contents);
-      const index = indexText(root);
+      const index = indexText(root, propsRef.current.book.language ?? 'en');
       for (const occurrence of allOccurrences) {
         const anchor = anchorsRef.current.get(occurrence.id) ?? occurrence.anchor;
         if (!sameChapter(anchor.chapterHref, href)) continue;
-        const rects = textClientRects(index, anchor.startOffset, anchor.endOffset);
+        const sourceIndex = (occurrence.language ?? 'en') === (propsRef.current.book.language ?? 'en')
+          ? index : indexText(root, occurrence.language ?? 'en');
+        const rects = textClientRects(sourceIndex, anchor.startOffset, anchor.endOffset);
         nextMarks.push(...clippedRects(rects, frame, viewport).map((rect) => ({
           ...rect, id: occurrence.id, focus: occurrence.id === flashId,
         })));
@@ -953,7 +965,7 @@ export function EpubReader(props: EpubReaderProps) {
         const frame = frameFor(contents)?.getBoundingClientRect();
         const root = rootFor(contents.document);
         if (!frame || !root) continue;
-        const index = indexText(root);
+        const index = indexText(root, propsRef.current.book.language ?? 'en');
         const offset = caretOffsetAtPoint(contents.document, index, pointer.clientX - frame.left, pointer.clientY - frame.top);
         if (offset === null) continue;
         const bounds = edge === 'start'
@@ -1021,7 +1033,7 @@ export function EpubReader(props: EpubReaderProps) {
               <button className="reader-bookmark-jump" aria-label={`跳转书签 ${bookmark.chapterTitle || props.book.title}`} onClick={() => {
                 clearSelection(); setTocOpen(false);
                 void renditionRef.current?.display(bookmark.cfi).catch(() => propsRef.current.onError('无法跳转到该书签。'));
-              }}><span className="reader-bookmark-title">{bookmark.chapterTitle || props.book.title}<span>{Math.round(bookmark.progress * 100)}%</span></span>{bookmark.excerpt && <span className="reader-bookmark-excerpt" lang="en">{bookmark.excerpt}</span>}</button>
+              }}><span className="reader-bookmark-title">{bookmark.chapterTitle || props.book.title}<span>{Math.round(bookmark.progress * 100)}%</span></span>{bookmark.excerpt && <span className="reader-bookmark-excerpt" lang={props.book.language ?? 'en'}>{bookmark.excerpt}</span>}</button>
               <button className="reader-bookmark-remove" aria-label={`删除书签 ${bookmark.chapterTitle || props.book.title}`} title="删除书签" disabled={bookmarkBusy} onClick={() => void removeBookmark(bookmark)}><Trash2 size={16} /></button>
             </div>)}
             {!bookmarks.length && <div className="reader-panel-empty"><Bookmark size={27} strokeWidth={1.3} /><p>暂无书签</p><span>在阅读工具中添加书签</span></div>}
@@ -1039,6 +1051,15 @@ export function EpubReader(props: EpubReaderProps) {
             style={{ background: theme.paper, color: theme.ink, fontFamily: theme.fontFamily }} onClick={() => props.onThemeChange(theme.id)}>
             <span className="reader-theme-sample" style={{ fontWeight: theme.weight }}>Aa</span><span className="reader-theme-label">{theme.label}</span><span className="reader-theme-english">{theme.english}</span>
           </button>)}
+        </div>
+        <div className="reader-language-setting">
+          <label htmlFor="book-language">书籍语言</label>
+          <select id="book-language" value={props.book.language ?? 'en'} disabled={languageSaving} onChange={event => {
+            const language = event.target.value as SourceLanguage;
+            setLanguageSaving(true);
+            void props.onLanguageChange(language).finally(() => setLanguageSaving(false));
+          }}><option value="en">英语</option><option value="ja">日语</option></select>
+          <p>{props.book.languageSource === 'unknown' ? '未能确定书籍语言，请选择。' : '按书保存，已有释义保留。'}</p>
         </div>
       </div>}
       <div className="reader-viewport" data-testid="epub-viewport" ref={viewportRef} tabIndex={-1}

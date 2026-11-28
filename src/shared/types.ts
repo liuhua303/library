@@ -1,6 +1,8 @@
 export type SelectionKind = 'word' | 'phrase' | 'sentence';
 export type TaskStatus = 'pending' | 'processing' | 'waiting_network' | 'needs_key' | 'failed' | 'completed';
 export type ReaderTheme = 'original' | 'quiet' | 'paper' | 'bold' | 'calm' | 'focus';
+export type SourceLanguage = 'en' | 'ja';
+export type BookLanguageSource = 'metadata' | 'content' | 'manual' | 'legacy' | 'unknown';
 
 export interface BookRecord {
   id: string;
@@ -12,6 +14,8 @@ export interface BookRecord {
   progress: number;
   fontSize: number;
   theme?: ReaderTheme;
+  language?: SourceLanguage;
+  languageSource?: BookLanguageSource;
 }
 
 export interface BookmarkInput {
@@ -40,6 +44,7 @@ export interface AnalysisResult {
   targetText: string;
   meaningZh: string;
   definitionEn?: string;
+  reading?: string;
   usage?: string;
   example?: string;
 }
@@ -61,6 +66,7 @@ export interface Occurrence {
   kind: SelectionKind;
   anchor: TextAnchor;
   originalAnchor: TextAnchor;
+  language?: SourceLanguage;
   context: string;
   chapterTitle: string;
   collectedAt: string;
@@ -73,6 +79,7 @@ export interface VocabularyEntry {
   id: string;
   term: string;
   kind: SelectionKind;
+  language?: SourceLanguage;
   latestCollectedAt: string;
   occurrences: Occurrence[];
 }
@@ -93,7 +100,7 @@ export interface ReaderApi {
   copyText(text: string): Promise<void>;
   getBookData(bookId: string): Promise<Uint8Array>;
   getBookCover(bookId: string): Promise<string | null>;
-  updateBook(bookId: string, patch: Partial<Pick<BookRecord, 'lastLocation' | 'progress' | 'fontSize' | 'theme'>>): Promise<BookRecord>;
+  updateBook(bookId: string, patch: Partial<Pick<BookRecord, 'lastLocation' | 'progress' | 'fontSize' | 'theme' | 'language'>>): Promise<BookRecord>;
   listBookmarks(bookId: string): Promise<BookmarkRecord[]>;
   addBookmark(input: BookmarkInput): Promise<BookmarkRecord>;
   removeBookmark(id: string): Promise<void>;

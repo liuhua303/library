@@ -293,6 +293,10 @@
 }
 
 /* Reader themes are shared by the shell, EPUB iframe and reader overlays. */
+.reader-language-setting { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 10px 16px; margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--reader-line); font-size: 14px; }
+.reader-language-setting select { min-width: 100px; padding: 9px 12px; border: 1px solid var(--reader-line); border-radius: 10px; color: var(--reader-ink); background: var(--reader-surface); }
+.reader-language-setting p { grid-column: 1 / -1; margin: 0; color: var(--reader-muted); font-size: 12px; line-height: 1.6; }
+
 [data-reader-theme] {
   --reader-paper: #fff;
   --reader-ink: #000;

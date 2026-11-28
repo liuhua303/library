@@ -111,7 +111,7 @@ function registerIpc(): void {
     if (path.extname(filePath).toLowerCase() !== '.epub') throw new Error('请选择 EPUB 文件。');
     const bytes = await readFile(filePath);
     const metadata = await inspectEpub(bytes);
-    const book = store.addBook(bytes, { title: metadata.title || path.basename(filePath, path.extname(filePath)), author: metadata.author || '作者未知', fileName: path.basename(filePath) });
+    const book = store.addBook(bytes, { title: metadata.title || path.basename(filePath, path.extname(filePath)), author: metadata.author || '作者未知', fileName: path.basename(filePath), language: metadata.language, languageSource: metadata.languageSource });
     broadcast({ reason: 'books', bookId: book.id });
     return book;
   });
@@ -183,7 +183,7 @@ async function createWindow(): Promise<void> {
   const rendererUrl = !app.isPackaged ? process.env.ELECTRON_RENDERER_URL : undefined;
   mainWindow = new BrowserWindow({
     width: 1440, height: 960, minWidth: 1050, minHeight: 680,
-    title: '阅间 · 英语阅读器', backgroundColor: '#ffffff',
+    title: '阅间 · 阅读器', backgroundColor: '#ffffff',
     show: false, autoHideMenuBar: process.platform !== 'darwin',
     webPreferences: { preload: path.join(__dirname, 'preload.cjs'), contextIsolation: true, nodeIntegration: false, sandbox: true, webSecurity: true, offscreen: Boolean(process.env.APP_TEST_MODE), backgroundThrottling: false },
   });

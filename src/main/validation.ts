@@ -1,4 +1,4 @@
-import type { BookmarkInput, BookRecord, CollectInput, ReaderTheme, TextAnchor } from '../shared/types';
+import type { BookmarkInput, BookRecord, CollectInput, ReaderTheme, SourceLanguage, TextAnchor } from '../shared/types';
 
 export function assertObject(value: unknown): asserts value is Record<string, unknown> {
   if (!value || typeof value !== 'object' || Array.isArray(value)) throw new Error('操作参数无效。');
@@ -50,9 +50,9 @@ export function validBookmark(value: unknown): BookmarkInput {
   return { bookId, cfi, chapterTitle, excerpt, progress };
 }
 
-export function validBookPatch(value: unknown): Partial<Pick<BookRecord, 'lastLocation' | 'progress' | 'fontSize' | 'theme'>> {
+export function validBookPatch(value: unknown): Partial<Pick<BookRecord, 'lastLocation' | 'progress' | 'fontSize' | 'theme' | 'language'>> {
   assertObject(value);
-  const patch: Partial<Pick<BookRecord, 'lastLocation' | 'progress' | 'fontSize' | 'theme'>> = {};
+  const patch: Partial<Pick<BookRecord, 'lastLocation' | 'progress' | 'fontSize' | 'theme' | 'language'>> = {};
   if ('lastLocation' in value) {
     if (value.lastLocation !== null && (typeof value.lastLocation !== 'string' || !value.lastLocation.startsWith('epubcfi(') || value.lastLocation.length > 8000)) throw new Error('阅读位置无效。');
     patch.lastLocation = value.lastLocation as string | null;
@@ -68,6 +68,10 @@ export function validBookPatch(value: unknown): Partial<Pick<BookRecord, 'lastLo
   if ('theme' in value) {
     if (typeof value.theme !== 'string' || !['original', 'quiet', 'paper', 'bold', 'calm', 'focus'].includes(value.theme)) throw new Error('阅读主题无效。');
     patch.theme = value.theme as ReaderTheme;
+  }
+  if ('language' in value) {
+    if (value.language !== 'en' && value.language !== 'ja') throw new Error('书籍语言无效。');
+    patch.language = value.language as SourceLanguage;
   }
   return patch;
 }

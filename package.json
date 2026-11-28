@@ -1,8 +1,8 @@
 {
   "name": "yuejian-reader",
-  "version": "0.4.0-dev.1",
+  "version": "0.5.0-dev.0",
   "private": true,
-  "description": "阅间 · 本地英语阅读器",
+  "description": "阅间 · 本地英日阅读器",
   "author": "Yuejian",
   "type": "module",
   "main": "app/main.cjs",
@@ -10,7 +10,7 @@
     "dev": "node scripts/dev.mjs",
     "build": "tsc --noEmit && vite build && node scripts/build-main.mjs",
     "test": "vitest run",
-    "test:e2e": "node scripts/smoke.mjs && node scripts/reader-interactions.mjs && node scripts/reader-color-smoke.mjs && node scripts/reader-selection-smoke.mjs && node scripts/visual-redesign-smoke.mjs && node scripts/reading-preferences-smoke.mjs && node scripts/immersive-reading-smoke.mjs",
+    "test:e2e": "node scripts/smoke.mjs && node scripts/reader-interactions.mjs && node scripts/reader-color-smoke.mjs && node scripts/reader-selection-smoke.mjs && node scripts/visual-redesign-smoke.mjs && node scripts/reading-preferences-smoke.mjs && node scripts/immersive-reading-smoke.mjs && node scripts/japanese-smoke.mjs",
     "dist": "npm run build && electron-builder --win nsis --x64",
     "dist:mac": "node scripts/build-mac.mjs",
     "dist:mac:local": "node scripts/build-mac.mjs --local"
