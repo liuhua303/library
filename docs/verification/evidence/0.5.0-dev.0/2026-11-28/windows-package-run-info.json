@@ -1,0 +1,23 @@
+{
+  "version": "0.5.0-dev.0",
+  "commit": "a1b5b0afb5bb0207f009df8e8f1f20ea1645bd84",
+  "branch": "codex/japanese-support",
+  "uncommittedChanges": false,
+  "recordedAt": "2026-11-28T07:26:39.397Z",
+  "timeZone": "Asia/Shanghai",
+  "platform": "win32",
+  "arch": "x64",
+  "node": "v24.12.0",
+  "buildCommand": "node node_modules/electron-builder/cli.js --win nsis --x64 --config.electronDist=node_modules/electron/dist --config.directories.output=release/0.5.0-dev.0",
+  "packagedScripts": [
+    "check-package",
+    "japanese-smoke",
+    "reading-preferences-smoke",
+    "visual-redesign-smoke",
+    "immersive-reading-smoke"
+  ],
+  "artifacts": {
+    "release/0.5.0-dev.0/Yuejian-Setup-0.5.0-dev.0.exe": "8319dbb09cc06e9b5d53e50e9f0e7c3e5875f99df4d9ec3ab94d9fe7a6c92f1b",
+    "release/0.5.0-dev.0/win-unpacked/resources/app.asar": "618b1a3a510aec299d1fb5f948386333e2e1c8cbbdf50bc83eaf24c1e2185eef"
+  }
+}

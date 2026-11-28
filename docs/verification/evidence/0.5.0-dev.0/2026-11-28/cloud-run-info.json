@@ -1,0 +1,72 @@
+{
+  "version": "0.5.0-dev.0",
+  "commit": "a1b5b0afb5bb0207f009df8e8f1f20ea1645bd84",
+  "branch": "codex/japanese-support",
+  "runId": 46121112223,
+  "runUrl": "https://github.com/liuhua303/library/actions/runs/46121112223",
+  "platform": "darwin",
+  "arch": "arm64",
+  "node": "v24.22.3",
+  "recordedAt": "2026-11-28T07:28:17.597Z",
+  "artifacts": [
+    {
+      "id": 15253397529,
+      "name": "Yuejian-mac-arm64-trial-6",
+      "size_in_bytes": 128812058,
+      "url": "https://api.github.com/repos/liuhua303/library/actions/artifacts/15253397529",
+      "archive_download_url": "https://api.github.com/repos/liuhua303/library/actions/artifacts/15253397529/zip",
+      "expired": false,
+      "created_at": "2026-11-28T07:27:08Z",
+      "expires_at": "2026-12-12T07:27:05Z",
+      "updated_at": "2026-11-28T07:27:08Z",
+      "digest": "sha256:0578c25bf13ca9e7075fb179d67816f174050a19cdc88bfc380bcee603dba4b5",
+      "workflow_run": {
+        "id": 46121112223,
+        "repository_id": 1474635830,
+        "head_repository_id": 1474635830,
+        "head_branch": "codex/japanese-support",
+        "head_sha": "a1b5b0afb5bb0207f009df8e8f1f20ea1645bd84"
+      }
+    },
+    {
+      "id": 15253073423,
+      "name": "Mac-check-results-trial-6",
+      "size_in_bytes": 2378413,
+      "url": "https://api.github.com/repos/liuhua303/library/actions/artifacts/15253073423",
+      "archive_download_url": "https://api.github.com/repos/liuhua303/library/actions/artifacts/15253073423/zip",
+      "expired": false,
+      "created_at": "2026-11-28T07:27:10Z",
+      "expires_at": "2026-12-12T07:27:08Z",
+      "updated_at": "2026-11-28T07:27:10Z",
+      "digest": "sha256:241fadc5a961eee0499cea6dba754a6901d3370f67d6e04094930f49d7e874b7",
+      "workflow_run": {
+        "id": 46121112223,
+        "repository_id": 1474635830,
+        "head_repository_id": 1474635830,
+        "head_branch": "codex/japanese-support",
+        "head_sha": "a1b5b0afb5bb0207f009df8e8f1f20ea1645bd84"
+      }
+    }
+  ],
+  "downloadedEvidence": {
+    "artifactId": 15253073423,
+    "bytes": 2378413,
+    "sha256": "241fadc5a961eee0499cea6dba754a6901d3370f67d6e04094930f49d7e874b7",
+    "CRC32Verified": true,
+    "files": [
+      "japanese-language.png",
+      "japanese-restored.png",
+      "japanese-quiet.png",
+      "japanese-english-regression.png",
+      "japanese-result.json",
+      "japanese-sentence-source.png",
+      "japanese-word.png",
+      "package-result.json",
+      "packaged-startup.png",
+      "preferences-notebook-quiet.png",
+      "reading-preferences-result.json",
+      "unit-results.json"
+    ]
+  },
+  "downloadedDmg": false
+}

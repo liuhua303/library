@@ -1,0 +1,97 @@
+{
+  "passed": true,
+  "version": "0.5.0-dev.0",
+  "runtime": {
+    "version": "0.5.0-dev.0",
+    "platform": "win32",
+    "arch": "x64",
+    "versions": {
+      "node": "24.22.3",
+      "acorn": "8.18.0",
+      "ada": "4.0.0",
+      "amaro": "1.1.11",
+      "ares": "1.34.9",
+      "brotli": "1.2.0",
+      "cldr": "48.0",
+      "icu": "78.2",
+      "llhttp": "9.4.4",
+      "merve": "1.2.2",
+      "modules": "150",
+      "napi": "10",
+      "nbytes": "0.1.4",
+      "ncrypto": "0.0.1",
+      "nghttp2": "1.70.0",
+      "nghttp3": "",
+      "ngtcp2": "",
+      "openssl": "0.0.0",
+      "simdjson": "4.6.11",
+      "simdutf": "7.7.0",
+      "sqlite": "3.54.1",
+      "tz": "2026e",
+      "undici": "7.30.2",
+      "unicode": "17.0",
+      "uv": "1.52.1",
+      "uvwasi": "0.0.23",
+      "v8": "15.6.75.63-electron.46fec525e2404bf6",
+      "zlib": "1.3.2.1-motley",
+      "zstd": "1.6.0",
+      "electron": "45.5.0",
+      "chrome": "156.0.8078.109"
+    }
+  },
+  "startedAt": "2026-11-28T07:25:22.499Z",
+  "recordedAt": "2026-11-28T07:25:29.837Z",
+  "timeZone": "Asia/Shanghai",
+  "mode": "packaged",
+  "executablePath": "D:\\Users\\ASUS\\Documents\\ChatGPT\\enlish\\release\\0.5.0-dev.0\\win-unpacked\\阅间.exe",
+  "userData": "C:\\Users\\ASUS\\AppData\\Local\\Temp\\yuejian-japanese-exd02G\\data",
+  "checks": [
+    "ja-JP 元数据自动识别日语；设置中切换英语、重开保留，再切回日语",
+    "真实点击无空格日语词末字右半侧，按 ja 收录；展示中文义、假名、日文例句，无英文解释",
+    "日语读音在 Quiet 单词本使用对应深色面板和清晰的实色文字，无模糊滤镜或文字阴影",
+    "跨 ruby 拖选整句不混入 rt/rp，整句只显示中文翻译；标记可查看并返回原文",
+    "切换书籍语言保留已有释义；重启恢复日语字段、语言和阅读位置，原文仍可回跳",
+    "英文书仍按 en 收录并保留 definitionEn；日语和英语请求分流，已有日语释义保持"
+  ],
+  "errors": [],
+  "requests": [
+    {
+      "selection": "物語",
+      "kind": "word",
+      "sourceLanguage": "ja",
+      "context": "静かな朝今日は図書館で本を読みました。私は静かな部屋で物語を読みます。「明日も来ます！」と彼女は言いました。窓の外では小鳥が歌っています。読書の記録1。朝の光が机の上に広がっています。ページをゆっくりめくると、知らなかった町や人々の姿が見えてきます。私は気になった言葉を書き留め、物語の続きを楽しみにしています。本を閉じた後も、登場人物の声が心に残っています。読書の記録2。朝の光が机の上に広がっています。ページをゆっくりめくると、知らなかった町や人々の姿が見えてきます。私は気になった言葉を書き留め、物語の続きを楽しみにしています。本を閉じた後も、登場人物の声が心に残っています。読書の記録3。朝の光が机の上に広がっています。ページをゆっくりめくると、知らなかった町や人々の姿が見えてきます。私は気になった言葉を書き留め、物語の続きを楽しみにしています。本を閉じた後も、登場人物の声が心に残っています。読書の記録4。朝の光が机の上に広がっています。ページをゆっくりめくると、知らなかった町や人々の姿が見えてきます。私は気になった言葉を書き留め、物語の続きを楽しみにしています。本を閉じた後も、登場人物の声が心に残っています。読書の記録5。朝の光が机の上に広がっています。ページをゆっくりめくると、知らなかった町や人々の姿が見えてきます。私は気になった言葉を書き留め、物語の続きを楽しみにしています。本を閉じた後も、登場人物の声が心に残っています。読書の記録6。朝の光が机の上に広がっています。ページをゆっくりめくると、知らなかった町や人々の姿が見えてきます。私は気になった言葉を書き留め、物語の続きを楽しみにしています。本を閉じた後も、登場人物の声が心に残っています。読書の記録7。朝の光が机の上に広がっています。ページをゆっくりめくると、知らなかった町や人々の姿が見えてきます。私は気になった言葉を書き留め、物語の続きを楽しみにしています。本を閉じた後も、登場人物の声が心に残っています。読書の記録8。朝の光が机の上に広がっています。ページをゆっくりめく",
+      "selectedOffset": 27
+    },
+    {
+      "selection": "今日は図書館で本を読みました。",
+      "kind": "sentence",
+      "sourceLanguage": "ja",
+      "context": "静かな朝今日は図書館で本を読みました。私は静かな部屋で物語を読みます。「明日も来ます！」と彼女は言いました。窓の外では小鳥が歌っています。読書の記録1。朝の光が机の上に広がっています。ページをゆっくりめくると、知らなかった町や人々の姿が見えてきます。私は気になった言葉を書き留め、物語の続きを楽しみにしています。本を閉じた後も、登場人物の声が心に残っています。読書の記録2。朝の光が机の上に広がっています。ページをゆっくりめくると、知らなかった町や人々の姿が見えてきます。私は気になった言葉を書き留め、物語の続きを楽しみにしています。本を閉じた後も、登場人物の声が心に残っています。読書の記録3。朝の光が机の上に広がっています。ページをゆっくりめくると、知らなかった町や人々の姿が見えてきます。私は気になった言葉を書き留め、物語の続きを楽しみにしています。本を閉じた後も、登場人物の声が心に残っています。読書の記録4。朝の光が机の上に広がっています。ページをゆっくりめくると、知らなかった町や人々の姿が見えてきます。私は気になった言葉を書き留め、物語の続きを楽しみにしています。本を閉じた後も、登場人物の声が心に残っています。読書の記録5。朝の光が机の上に広がっています。ページをゆっくりめくると、知らなかった町や人々の姿が見えてきます。私は気になった言葉を書き留め、物語の続きを楽しみにしています。本を閉じた後も、登場人物の声が心に残っています。読書の記録6。朝の光が机の上に広がっています。ページをゆっくりめくると、知らなかった町や人々の姿が見えてきます。私は気になった言葉を書き留め、物語の続きを楽しみにしています。本を閉じた後も、登場人物の声が心に残っています。読書の記録7。朝の光が机の上に広がっています。ページをゆっくりめくると、知らなかった町や人々の姿が見えてきます。私は気になった言葉を書き留め、物語の続きを楽しみにしています。本を閉じた後も、登場人物の声が心に残っています。読書の記録8。朝の光が机の上に広がっています。",
+      "selectedOffset": 4
+    },
+    {
+      "selection": "peculiar",
+      "kind": "word",
+      "sourceLanguage": "en",
+      "context": "A quiet beginningWhen Clara opened the little bookshop, a peculiar silence filled the room. She placed a notebook beside the window and began to read.She decided to give up the search before sunset. It was a difficult decision, but there were other stories waiting for her.The words in a book can lead us through unfamiliar places. A single expression may mean something quite different when it appears in a new sentence.As the afternoon continued, Clara remembered the quiet garden where she had once stopped to read, and Clara remembered the distant station where she had once stopped to read, and Clara remembered the old letter where she had once stopped to read, and Clara remembered the small library where she had once stopped to read, and Clara remembered the quiet garden where she had once stopped to read, and Clara remembered the distant station where she had once stopped to read, and Clara remembered t",
+      "selectedOffset": 58
+    }
+  ],
+  "measurements": [
+    {
+      "japaneseReadingQuiet": {
+        "background": "rgb(75, 75, 78)",
+        "color": "rgb(197, 196, 192)",
+        "opacity": "1",
+        "filter": "none",
+        "textShadow": "none"
+      }
+    },
+    {
+      "savedLocation": "epubcfi(/6/2!/4/16/1:0)",
+      "savedProgress": 0.045454545454545456,
+      "japaneseWord": "物語",
+      "japaneseSentence": "今日は図書館で本を読みました。"
+    }
+  ]
+}

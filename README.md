@@ -2,7 +2,9 @@
 
 本地阅读器，提供 Windows 版和 M 系列 Mac 试用包。阅读时快速收录词句，后台结合原文生成释义，按书籍保存在单词本中。
 
-当前源码在 `codex/japanese-support` 分支开发 0.5.0-dev.0 日语适配，尚未合并进 `main`；用户已确认适配流程，新增实现仍待本轮验证与试用。检查与交付状态见 [0.5.0-dev.0 验证报告](./docs/verification/0.5.0-dev.0.md)。`main` 和标签 `v0.4.0-dev.1` 保留用户已检查的版本；下方安装包仍是 0.4.0-dev.1，不含本轮日语适配。
+当前源码在 `codex/japanese-support` 分支实现 0.5.0-dev.0 日语适配，尚未合并进 `main`。用户已确认适配流程，新增实现已完成本轮 Windows 和 Mac 自动检查，仍待真实模型质量和用户试用；检查与交付状态见 [0.5.0-dev.0 验证报告](./docs/verification/0.5.0-dev.0.md)。`main` 和标签 `v0.4.0-dev.1` 保留用户已检查的版本。
+
+日语分支 Windows 试用包位于 `release/0.5.0-dev.0/Yuejian-Setup-0.5.0-dev.0.exe`；Mac 下载[日语分支试用包 artifact](https://github.com/liuhua303/library/actions/runs/46121112223/artifacts/15253397529)，解压取得 `Yuejian-0.5.0-dev.0-mac-arm64-local.dmg`，ad-hoc 签名、未公证，登录 GitHub 后可下载，保留至北京时间 2026-12-12 15:27。两平台均已检查打包程序。下方“安装使用”和“当前交付”保留 0.4.0-dev.1 稳定试用包入口，旧包不含日语适配。导入日文 EPUB 后自动识别语言；已有书籍或误判时，在阅读工具的“主题与设置 → 书籍语言”选择日语，旧释义保留。
 
 ## 安装使用
 

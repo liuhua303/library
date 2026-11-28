@@ -1,0 +1,822 @@
+{
+  "passed": true,
+  "version": "0.5.0-dev.0",
+  "runtimeAppVersion": "0.5.0-dev.0",
+  "startedAt": "2026-11-28T07:25:48.249Z",
+  "recordedAt": "2026-11-28T07:25:58.741Z",
+  "timeZone": "Asia/Shanghai",
+  "mode": "packaged",
+  "executablePath": "D:\\Users\\ASUS\\Documents\\ChatGPT\\enlish\\release\\0.5.0-dev.0\\win-unpacked\\阅间.exe",
+  "checks": [
+    "使用隔离数据与自编 EPUB，底部上一页/下一页箭头已从 DOM 移除",
+    "真实键盘模式下阅读区与正文容器匹配 focus-visible，root/viewport/iframe 及 J 返回正文均无边框轮廓，阅读工具仍保留 2px 焦点提示",
+    "正文 iframe 留白单击进入纯阅读，内外层无鼠标，正文、书名、页数保留且布局位置不变",
+    "外层页边同样可进入纯阅读；真实鼠标移动与 Esc 均恢复控件和指针",
+    "工具、目录、阅读设置或单词本打开时，留白单击只收起面板，本次不进入纯阅读、不误收录",
+    "已有选区先取消而不进入纯阅读；单词点击、真实拖选和菜单收录均保留，产生真实本机记录与下划线",
+    "通过真实收录生成可滚动单词本；浮层内部滚轮只滚动词条，不改变正文页码或内容位置",
+    "左右方向键、PageDown/PageUp 与正文真实滚轮均可翻页，并保存新的内容位置",
+    "第二本自编书及返回书架后重新打开，都在真实 focus-visible 状态下保持正文无边框轮廓",
+    "书架 API 输入仍接收 J 与光标移动并保留 2px 焦点提示；未保存测试密钥、未调用付费模型"
+  ],
+  "measurements": [
+    {
+      "stage": "键盘焦点进入阅读区",
+      "selector": ".epub-reader",
+      "keyboardFocus": {
+        "active": true,
+        "focused": true,
+        "focusVisible": true
+      }
+    },
+    {
+      "stage": "键盘焦点进入阅读区",
+      "readerFocusStyles": [
+        {
+          "tag": "SECTION",
+          "className": "epub-reader",
+          "active": true,
+          "focused": true,
+          "focusVisible": true,
+          "outlineStyle": "none",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "borders": [
+            "0px",
+            "0px",
+            "0px",
+            "0px"
+          ]
+        },
+        {
+          "tag": "DIV",
+          "className": "reader-viewport",
+          "active": false,
+          "focused": false,
+          "focusVisible": false,
+          "outlineStyle": "none",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "borders": [
+            "0px",
+            "0px",
+            "0px",
+            "0px"
+          ]
+        },
+        {
+          "tag": "IFRAME",
+          "className": "",
+          "active": false,
+          "focused": false,
+          "focusVisible": false,
+          "outlineStyle": "none",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "borders": [
+            "0px",
+            "0px",
+            "0px",
+            "0px"
+          ]
+        }
+      ]
+    },
+    {
+      "stage": "键盘焦点进入正文容器",
+      "selector": ".reader-viewport",
+      "keyboardFocus": {
+        "active": true,
+        "focused": true,
+        "focusVisible": true
+      }
+    },
+    {
+      "stage": "键盘焦点进入正文容器",
+      "readerFocusStyles": [
+        {
+          "tag": "SECTION",
+          "className": "epub-reader",
+          "active": false,
+          "focused": false,
+          "focusVisible": false,
+          "outlineStyle": "none",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "borders": [
+            "0px",
+            "0px",
+            "0px",
+            "0px"
+          ]
+        },
+        {
+          "tag": "DIV",
+          "className": "reader-viewport",
+          "active": true,
+          "focused": true,
+          "focusVisible": true,
+          "outlineStyle": "none",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "borders": [
+            "0px",
+            "0px",
+            "0px",
+            "0px"
+          ]
+        },
+        {
+          "tag": "IFRAME",
+          "className": "",
+          "active": false,
+          "focused": false,
+          "focusVisible": false,
+          "outlineStyle": "none",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "borders": [
+            "0px",
+            "0px",
+            "0px",
+            "0px"
+          ]
+        }
+      ]
+    },
+    {
+      "stage": "键盘焦点进入正文 iframe",
+      "selector": ".reader-canvas iframe",
+      "keyboardFocus": {
+        "active": true,
+        "focused": false,
+        "focusVisible": false
+      }
+    },
+    {
+      "stage": "键盘焦点进入正文 iframe",
+      "readerFocusStyles": [
+        {
+          "tag": "SECTION",
+          "className": "epub-reader",
+          "active": false,
+          "focused": false,
+          "focusVisible": false,
+          "outlineStyle": "none",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "borders": [
+            "0px",
+            "0px",
+            "0px",
+            "0px"
+          ]
+        },
+        {
+          "tag": "DIV",
+          "className": "reader-viewport",
+          "active": false,
+          "focused": false,
+          "focusVisible": false,
+          "outlineStyle": "none",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "borders": [
+            "0px",
+            "0px",
+            "0px",
+            "0px"
+          ]
+        },
+        {
+          "tag": "IFRAME",
+          "className": "",
+          "active": true,
+          "focused": false,
+          "focusVisible": false,
+          "outlineStyle": "none",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "borders": [
+            "0px",
+            "0px",
+            "0px",
+            "0px"
+          ]
+        }
+      ]
+    },
+    {
+      "stage": "阅读工具按钮保留键盘焦点",
+      "controlFocusStyle": {
+        "active": true,
+        "focusVisible": true,
+        "outlineStyle": "solid",
+        "outlineWidth": "2px",
+        "outlineColor": "rgb(0, 0, 0)"
+      }
+    },
+    {
+      "stage": "正常阅读时正文容器有键盘焦点",
+      "selector": ".reader-viewport",
+      "keyboardFocus": {
+        "active": true,
+        "focused": true,
+        "focusVisible": true
+      }
+    },
+    {
+      "stage": "正常阅读时正文容器有键盘焦点",
+      "readerFocusStyles": [
+        {
+          "tag": "SECTION",
+          "className": "epub-reader",
+          "active": false,
+          "focused": false,
+          "focusVisible": false,
+          "outlineStyle": "none",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "borders": [
+            "0px",
+            "0px",
+            "0px",
+            "0px"
+          ]
+        },
+        {
+          "tag": "DIV",
+          "className": "reader-viewport",
+          "active": true,
+          "focused": true,
+          "focusVisible": true,
+          "outlineStyle": "none",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "borders": [
+            "0px",
+            "0px",
+            "0px",
+            "0px"
+          ]
+        },
+        {
+          "tag": "IFRAME",
+          "className": "",
+          "active": false,
+          "focused": false,
+          "focusVisible": false,
+          "outlineStyle": "none",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "borders": [
+            "0px",
+            "0px",
+            "0px",
+            "0px"
+          ]
+        }
+      ]
+    },
+    {
+      "stage": "J 关闭单词本后焦点回到正文 iframe",
+      "readerFocusStyles": [
+        {
+          "tag": "SECTION",
+          "className": "epub-reader",
+          "active": false,
+          "focused": false,
+          "focusVisible": false,
+          "outlineStyle": "none",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "borders": [
+            "0px",
+            "0px",
+            "0px",
+            "0px"
+          ]
+        },
+        {
+          "tag": "DIV",
+          "className": "reader-viewport",
+          "active": false,
+          "focused": false,
+          "focusVisible": false,
+          "outlineStyle": "none",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "borders": [
+            "0px",
+            "0px",
+            "0px",
+            "0px"
+          ]
+        },
+        {
+          "tag": "IFRAME",
+          "className": "",
+          "active": true,
+          "focused": false,
+          "focusVisible": false,
+          "outlineStyle": "none",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "borders": [
+            "0px",
+            "0px",
+            "0px",
+            "0px"
+          ]
+        }
+      ]
+    },
+    {
+      "stage": "正文留白",
+      "inside": {
+        "hiddenAttribute": true,
+        "html": "none",
+        "body": "none",
+        "paragraph": "none"
+      },
+      "outside": "none"
+    },
+    {
+      "stage": "正文留白",
+      "readerFocusStyles": [
+        {
+          "tag": "SECTION",
+          "className": "epub-reader",
+          "active": false,
+          "focused": false,
+          "focusVisible": false,
+          "outlineStyle": "none",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "borders": [
+            "0px",
+            "0px",
+            "0px",
+            "0px"
+          ]
+        },
+        {
+          "tag": "DIV",
+          "className": "reader-viewport",
+          "active": true,
+          "focused": true,
+          "focusVisible": true,
+          "outlineStyle": "none",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "borders": [
+            "0px",
+            "0px",
+            "0px",
+            "0px"
+          ]
+        },
+        {
+          "tag": "IFRAME",
+          "className": "",
+          "active": false,
+          "focused": false,
+          "focusVisible": false,
+          "outlineStyle": "none",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "borders": [
+            "0px",
+            "0px",
+            "0px",
+            "0px"
+          ]
+        }
+      ]
+    },
+    {
+      "stage": "真实鼠标移动",
+      "inside": {
+        "hiddenAttribute": false,
+        "html": "auto",
+        "body": "auto",
+        "paragraph": "auto"
+      },
+      "outside": "auto"
+    },
+    {
+      "stage": "真实鼠标移动",
+      "readerFocusStyles": [
+        {
+          "tag": "SECTION",
+          "className": "epub-reader",
+          "active": false,
+          "focused": false,
+          "focusVisible": false,
+          "outlineStyle": "none",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "borders": [
+            "0px",
+            "0px",
+            "0px",
+            "0px"
+          ]
+        },
+        {
+          "tag": "DIV",
+          "className": "reader-viewport",
+          "active": true,
+          "focused": true,
+          "focusVisible": true,
+          "outlineStyle": "none",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "borders": [
+            "0px",
+            "0px",
+            "0px",
+            "0px"
+          ]
+        },
+        {
+          "tag": "IFRAME",
+          "className": "",
+          "active": false,
+          "focused": false,
+          "focusVisible": false,
+          "outlineStyle": "none",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "borders": [
+            "0px",
+            "0px",
+            "0px",
+            "0px"
+          ]
+        }
+      ]
+    },
+    {
+      "stage": "外层页边留白",
+      "inside": {
+        "hiddenAttribute": true,
+        "html": "none",
+        "body": "none",
+        "paragraph": "none"
+      },
+      "outside": "none"
+    },
+    {
+      "stage": "外层页边留白",
+      "readerFocusStyles": [
+        {
+          "tag": "SECTION",
+          "className": "epub-reader",
+          "active": false,
+          "focused": false,
+          "focusVisible": false,
+          "outlineStyle": "none",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "borders": [
+            "0px",
+            "0px",
+            "0px",
+            "0px"
+          ]
+        },
+        {
+          "tag": "DIV",
+          "className": "reader-viewport",
+          "active": true,
+          "focused": true,
+          "focusVisible": false,
+          "outlineStyle": "none",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "borders": [
+            "0px",
+            "0px",
+            "0px",
+            "0px"
+          ]
+        },
+        {
+          "tag": "IFRAME",
+          "className": "",
+          "active": false,
+          "focused": false,
+          "focusVisible": false,
+          "outlineStyle": "none",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "borders": [
+            "0px",
+            "0px",
+            "0px",
+            "0px"
+          ]
+        }
+      ]
+    },
+    {
+      "stage": "Esc 恢复",
+      "inside": {
+        "hiddenAttribute": false,
+        "html": "auto",
+        "body": "auto",
+        "paragraph": "auto"
+      },
+      "outside": "auto"
+    },
+    {
+      "stage": "Esc 恢复",
+      "readerFocusStyles": [
+        {
+          "tag": "SECTION",
+          "className": "epub-reader",
+          "active": true,
+          "focused": true,
+          "focusVisible": true,
+          "outlineStyle": "none",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "borders": [
+            "0px",
+            "0px",
+            "0px",
+            "0px"
+          ]
+        },
+        {
+          "tag": "DIV",
+          "className": "reader-viewport",
+          "active": false,
+          "focused": false,
+          "focusVisible": false,
+          "outlineStyle": "none",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "borders": [
+            "0px",
+            "0px",
+            "0px",
+            "0px"
+          ]
+        },
+        {
+          "tag": "IFRAME",
+          "className": "",
+          "active": false,
+          "focused": false,
+          "focusVisible": false,
+          "outlineStyle": "none",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "borders": [
+            "0px",
+            "0px",
+            "0px",
+            "0px"
+          ]
+        }
+      ]
+    },
+    {
+      "stage": "点击单词后",
+      "inside": {
+        "hiddenAttribute": false,
+        "html": "auto",
+        "body": "auto",
+        "paragraph": "auto"
+      },
+      "outside": "auto"
+    },
+    {
+      "stage": "点击单词后",
+      "readerFocusStyles": [
+        {
+          "tag": "SECTION",
+          "className": "epub-reader",
+          "active": false,
+          "focused": false,
+          "focusVisible": false,
+          "outlineStyle": "none",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "borders": [
+            "0px",
+            "0px",
+            "0px",
+            "0px"
+          ]
+        },
+        {
+          "tag": "DIV",
+          "className": "reader-viewport",
+          "active": true,
+          "focused": true,
+          "focusVisible": false,
+          "outlineStyle": "none",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "borders": [
+            "0px",
+            "0px",
+            "0px",
+            "0px"
+          ]
+        },
+        {
+          "tag": "IFRAME",
+          "className": "",
+          "active": false,
+          "focused": false,
+          "focusVisible": false,
+          "outlineStyle": "none",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "borders": [
+            "0px",
+            "0px",
+            "0px",
+            "0px"
+          ]
+        }
+      ]
+    },
+    {
+      "stage": "ArrowRight",
+      "before": "1 / 13",
+      "after": "2 / 13",
+      "cfi": "epubcfi(/6/2!/4/10/1:754)"
+    },
+    {
+      "stage": "ArrowLeft",
+      "before": "2 / 13",
+      "after": "1 / 13",
+      "cfi": "epubcfi(/6/2!/4/2/1:0)"
+    },
+    {
+      "stage": "PageDown",
+      "before": "1 / 13",
+      "after": "2 / 13",
+      "cfi": "epubcfi(/6/2!/4/10/1:754)"
+    },
+    {
+      "stage": "PageUp",
+      "before": "2 / 13",
+      "after": "1 / 13",
+      "cfi": "epubcfi(/6/2!/4/2/1:0)"
+    },
+    {
+      "stage": "正文向下滚轮",
+      "before": "1 / 13",
+      "after": "2 / 13",
+      "cfi": "epubcfi(/6/2!/4/10/1:754)"
+    },
+    {
+      "stage": "正文向上滚轮",
+      "before": "2 / 13",
+      "after": "1 / 13",
+      "cfi": "epubcfi(/6/2!/4/2/1:0)"
+    },
+    {
+      "stage": "第二本书正文键盘焦点",
+      "selector": ".reader-viewport",
+      "keyboardFocus": {
+        "active": true,
+        "focused": true,
+        "focusVisible": true
+      }
+    },
+    {
+      "stage": "第二本书正文键盘焦点",
+      "readerFocusStyles": [
+        {
+          "tag": "SECTION",
+          "className": "epub-reader",
+          "active": false,
+          "focused": false,
+          "focusVisible": false,
+          "outlineStyle": "none",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "borders": [
+            "0px",
+            "0px",
+            "0px",
+            "0px"
+          ]
+        },
+        {
+          "tag": "DIV",
+          "className": "reader-viewport",
+          "active": true,
+          "focused": true,
+          "focusVisible": true,
+          "outlineStyle": "none",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "borders": [
+            "0px",
+            "0px",
+            "0px",
+            "0px"
+          ]
+        },
+        {
+          "tag": "IFRAME",
+          "className": "",
+          "active": false,
+          "focused": false,
+          "focusVisible": false,
+          "outlineStyle": "none",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "borders": [
+            "0px",
+            "0px",
+            "0px",
+            "0px"
+          ]
+        }
+      ]
+    },
+    {
+      "stage": "第二本书重开后正文键盘焦点",
+      "selector": ".reader-viewport",
+      "keyboardFocus": {
+        "active": true,
+        "focused": true,
+        "focusVisible": true
+      }
+    },
+    {
+      "stage": "第二本书重开后正文键盘焦点",
+      "readerFocusStyles": [
+        {
+          "tag": "SECTION",
+          "className": "epub-reader",
+          "active": false,
+          "focused": false,
+          "focusVisible": false,
+          "outlineStyle": "none",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "borders": [
+            "0px",
+            "0px",
+            "0px",
+            "0px"
+          ]
+        },
+        {
+          "tag": "DIV",
+          "className": "reader-viewport",
+          "active": true,
+          "focused": true,
+          "focusVisible": true,
+          "outlineStyle": "none",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "borders": [
+            "0px",
+            "0px",
+            "0px",
+            "0px"
+          ]
+        },
+        {
+          "tag": "IFRAME",
+          "className": "",
+          "active": false,
+          "focused": false,
+          "focusVisible": false,
+          "outlineStyle": "none",
+          "outlineWidth": "3px",
+          "outlineColor": "rgb(0, 0, 0)",
+          "borders": [
+            "0px",
+            "0px",
+            "0px",
+            "0px"
+          ]
+        }
+      ]
+    },
+    {
+      "stage": "书架 API 输入保留键盘焦点",
+      "controlFocusStyle": {
+        "active": true,
+        "focusVisible": true,
+        "outlineStyle": "solid",
+        "outlineWidth": "2px",
+        "outlineColor": "rgb(0, 0, 0)"
+      }
+    }
+  ],
+  "errors": [],
+  "userData": "C:\\Users\\ASUS\\AppData\\Local\\Temp\\yuejian-immersive-nm9zHj\\data"
+}
