@@ -1,0 +1,119 @@
+{
+  "version": "0.4.0-dev.1",
+  "recordedAt": "2026-11-28T05:21:53.823Z",
+  "timeZone": "Asia/Shanghai",
+  "baseCommit": "ef8eb6ac31125d3547ce70904b33ffd22a7cbb00",
+  "workspaceAtWindowsChecks": "Theme fix, test and documentation changes not yet committed; identified by hashes.",
+  "environment": {
+    "platform": "win32",
+    "arch": "x64",
+    "node": "v24.12.0",
+    "electron": "45.5.0"
+  },
+  "unit": {
+    "files": 8,
+    "tests": 115,
+    "passed": true,
+    "command": "npm.cmd test"
+  },
+  "build": {
+    "passed": true,
+    "command": "npm.cmd run build"
+  },
+  "windowsPackage": {
+    "passed": true,
+    "installer": "release/0.4.0-dev.1/Yuejian-Setup-0.4.0-dev.1.exe",
+    "sha256": "6F0A921EF8C5B104600FB9C69220296C65A4CC627742A476A8D2E7B6B648B76D"
+  },
+  "before": {
+    "theme": "quiet",
+    "background": "rgb(255, 255, 255)",
+    "color": "rgb(229, 228, 225)",
+    "themePanel": "#4b4b4e",
+    "opacity": "1",
+    "filter": "none",
+    "backdropFilter": "none",
+    "stylesheets": [
+      "file:///D:/Users/ASUS/Documents/ChatGPT/enlish/app/renderer/assets/index-P3gtK_R9.css"
+    ]
+  },
+  "notebookThemes": [
+    {
+      "theme": "quiet",
+      "background": "rgb(75, 75, 78)",
+      "color": "rgb(229, 228, 225)",
+      "minimumTextContrast": 4.980593143275425
+    },
+    {
+      "theme": "original",
+      "background": "rgb(255, 255, 255)",
+      "color": "rgb(0, 0, 0)",
+      "minimumTextContrast": 5.716422821633999
+    },
+    {
+      "theme": "quiet",
+      "background": "rgb(75, 75, 78)",
+      "color": "rgb(229, 228, 225)",
+      "minimumTextContrast": 4.980593143275425
+    },
+    {
+      "theme": "paper",
+      "background": "rgb(246, 245, 241)",
+      "color": "rgb(41, 40, 36)",
+      "minimumTextContrast": 5.239973654120704
+    },
+    {
+      "theme": "bold",
+      "background": "rgb(255, 255, 255)",
+      "color": "rgb(18, 18, 18)",
+      "minimumTextContrast": 5.716422821633999
+    },
+    {
+      "theme": "calm",
+      "background": "rgb(249, 239, 217)",
+      "color": "rgb(62, 52, 37)",
+      "minimumTextContrast": 5.002278012292713
+    },
+    {
+      "theme": "focus",
+      "background": "rgb(255, 253, 247)",
+      "color": "rgb(41, 40, 32)",
+      "minimumTextContrast": 5.619840306111185
+    }
+  ],
+  "desktopChecks": [
+    "reading-preferences-result.json",
+    "visual-redesign-result.json",
+    "immersive-reading-result.json"
+  ],
+  "files": [
+    {
+      "file": "src/renderer/styles.css",
+      "sha256": "857E230447BD5B7413314B6A4B5C0F4529696251A05F0EC66DD6B9A2A061C79E"
+    },
+    {
+      "file": "src/renderer/reader/reader.css",
+      "sha256": "AB3489EACC1CE1C924E9020D84A4FAB3DE004CD5212771FB9FE0D54963D26EF1"
+    },
+    {
+      "file": "scripts/reading-preferences-smoke.mjs",
+      "sha256": "09EE69890EFD5444A6F65E0C6E2E615174CC8F0F4158C07AC6274B3689A12CEA"
+    },
+    {
+      "file": ".github/workflows/build-mac.yml",
+      "sha256": "FA024706AE0EC710B4885F672FD4710DAEE6F93A1991F652EA87B634ABEC42D2"
+    },
+    {
+      "file": "package.json",
+      "sha256": "ED56DFF3637321AE9FDF4B5A31B15D6B13BF3B0D8698800A19E8CA3674B55226"
+    },
+    {
+      "file": "package-lock.json",
+      "sha256": "62566D281AA391882820CFF92C78B6421AC8EC5ADEB2ABB7DEF4A97127557E31"
+    },
+    {
+      "file": "release/0.4.0-dev.1/win-unpacked/resources/app.asar",
+      "sha256": "23EC24271143DBB9D33287A9797A16B25962D3CEE7E88D4041BB29727EE8656A"
+    }
+  ]
+}

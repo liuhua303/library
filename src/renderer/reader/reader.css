@@ -299,7 +299,7 @@
   --reader-surface: #f3f3f5;
   --reader-panel: #fff;
   --reader-soft: #e8e8eb;
-  --reader-muted: #727276;
+  --reader-muted: #66666a;
   --reader-line: rgb(0 0 0 / 12%);
   --reader-selection: #d8eafe;
   --paper: var(--reader-paper);
@@ -404,13 +404,6 @@
 .reader-theme-sample { font-size: 31px; line-height: 1.25; }
 .reader-theme-label { margin-top: 6px; font-family: "Segoe UI", "Microsoft YaHei", sans-serif; font-size: 13px; }
 .reader-theme-english { margin-top: 3px; font-family: "Segoe UI", sans-serif; font-size: 10px; opacity: .7; }
-.vocabulary-sidebar { background: var(--reader-panel, #fff); color: var(--reader-ink, #000); }
-.vocabulary-sidebar .icon-button { color: var(--reader-ink); }
-.vocabulary-sidebar .icon-button:hover { background: var(--reader-surface); }
-.vocabulary-sidebar .source-context { border-color: var(--reader-ink); }
-.vocabulary-sidebar .source-context mark { color: var(--reader-ink); }
-.vocabulary-sidebar .small-button { color: var(--reader-ink); border-color: var(--reader-ink); }
-.vocabulary-sidebar .small-button:hover { color: var(--reader-paper); background: var(--reader-ink); }
 .reading-layout :focus-visible { outline-color: var(--reader-ink); }
 
 .epub-reader[data-reading-focused="true"],

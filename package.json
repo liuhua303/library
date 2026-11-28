@@ -1,6 +1,6 @@
 {
   "name": "yuejian-reader",
-  "version": "0.4.0-dev.0",
+  "version": "0.4.0-dev.1",
   "private": true,
   "description": "阅间 · 本地英语阅读器",
   "author": "Yuejian",
@@ -39,7 +39,14 @@
       "signAndEditExecutable": false
     },
     "mac": {
-      "target": [{ "target": "dmg", "arch": ["arm64"] }],
+      "target": [
+        {
+          "target": "dmg",
+          "arch": [
+            "arm64"
+          ]
+        }
+      ],
       "artifactName": "Yuejian-${version}-mac-${arch}.${ext}",
       "category": "public.app-category.education",
       "minimumSystemVersion": "13.0.0",

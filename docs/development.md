@@ -1,8 +1,8 @@
 # 开发说明
 
-状态：当前开发与维护约定；开发版本 0.4.0-dev.0 已生成 Mac 试用包，最后已交付 Windows 正式安装包为 0.3.3。更新日期：2026-11-28。
+状态：当前开发与维护约定；源码预备版本 0.4.0-dev.1。已有历史产物为 Windows 0.3.3 和 Mac 0.4.0-dev.0 试用包。更新日期：2026-11-28。
 
-源码已上传到 [liuhua303/library](https://github.com/liuhua303/library)，Mac arm64 试用 DMG 已在云端构建并完成包内程序启动检查。当前为 `trial`：ad-hoc 签名、未公证；正式 `release` 模式尚未运行，DMG 安装、Keychain 与真实阅读体验仍未人工验收。本轮实际检查见 [0.4.0-dev.0 记录](./verification/0.4.0-dev.0.md)，既有 Windows 交付见 [0.3.3 报告](./verification/0.3.3.md)。
+源码已上传到 [liuhua303/library](https://github.com/liuhua303/library)。本轮单词本主题修复的实际检查见 [0.4.0-dev.1 验证报告](./verification/0.4.0-dev.1.md)，不沿用旧版通过结论。上一版 Mac arm64 试用 DMG 的云端构建及启动结果见 [0.4.0-dev.0 历史记录](./verification/0.4.0-dev.0.md)：ad-hoc 签名、未公证；正式 `release` 模式、DMG 安装、Keychain 与真实阅读体验仍未人工验收。
 
 ## 文档维护规则
 
@@ -68,6 +68,8 @@ docs/
 
 每书阅读主题使用 `original`、`quiet`、`paper`、`bold`、`calm`、`focus` 六个稳定标识；旧书缺少主题记录时回退 `original`，保留已有字号和位置。字号仍保存 14–34px、每次调整 2px，界面只显示小 A / 大 A。主题需同时覆盖正文 iframe 和外层工具、导航、单词本；深色的标记与交互状态不能固定使用黑色。新增阅读字段时同步维护校验、持久化、写入合并及迟到快照保护。
 
+单词本主题样式统一归组件的 `src/renderer/styles.css`，`reader.css` 不重复声明其背景，避免依赖导入顺序；面板使用已有 `--reader-panel` 不透明色，文字与次要文案使用对应主题前景和实色 `--reader-muted`。
+
 当前请求默认使用 `deepseek-flash`，非思考、非流式 JSON 输出；模型与密钥只在书架 API 设置中配置，阅读设置仅提供字号和主题。阅读中的配置问题保留简短状态与返回书架的引导，不直接打开 API 表单。每次请求进行字段完整性及原文匹配校验，技术失败有限重试；密钥错误和余额不足暂停相关请求，等待配置或用户处理。具体参数以队列和解析模块为准。历史选型理由和当时的费用估算见 [首版讨论归档](./archive/initial-requirements.md)，归档价格不作为当前报价。
 
 ### 本机数据与隔离运行
@@ -127,7 +129,7 @@ npm run dist
 | `npm run dist:mac` | 仅在 macOS 上构建固定 arm64 的正式包，要求 Developer ID 签名和公证凭据 |
 | `npm run dist:mac:local` | 仅在 macOS 上构建固定 arm64 的本机 ad-hoc 试用包，不公证 |
 
-`test:e2e` 的具体脚本以 [package.json](../package.json) 为准。阅读或主题改动除相关单元检查外，还应覆盖书架进度、目录/书签切换与持久化、每书字号与六主题、深色正文及浮层可读性、API 入口分工，以及原有选区、收录和回跳。本轮实际运行范围与结果只写入 [0.4.0-dev.0 记录](./verification/0.4.0-dev.0.md)，不因本文列出检查场景就视为已通过。Windows 结果不替代 Mac 验证。
+`test:e2e` 的具体脚本以 [package.json](../package.json) 为准。阅读或主题改动除相关单元检查外，还应覆盖书架进度、目录/书签切换与持久化、每书字号与六主题、非空单词本的面板及内容可读性、API 入口分工，以及原有选区、收录和回跳。本轮实际运行范围与结果只写入 [0.4.0-dev.1 验证报告](./verification/0.4.0-dev.1.md)，不因本文列出检查场景就视为已通过。Windows 结果不替代 Mac 验证。
 
 xmldom 的覆盖按使用方区分：EPUB.js 使用 0.9 安全修补分支，Mac 构建链的 plist 使用兼容的 0.8 安全修补分支，准确版本以锁文件为准；不要将构建链强制覆盖到不兼容 API。更新依赖后需保留其他平台可选包的完整锁记录，并通过干净的 `npm ci` 检查，不能只验证已有 `node_modules`。Mac 构建入口在发生错误或缺少实际 DMG 时必须失败。
 
@@ -146,7 +148,7 @@ node scripts/check-package.mjs "release/win-unpacked/阅间.exe"
 
 ## Mac 准备与打包
 
-当前 Mac 构建目标固定 Apple Silicon arm64，不扩展 Intel 或 universal。以下命令需在 macOS 上执行，可使用本地 Mac 或下述 GitHub macOS runner，不能直接在 Windows 主机执行。版本号以 [package.json](../package.json) 为准，目前为 `0.4.0-dev.0`；本轮已生成试用 DMG，正式签名公证包尚未构建。
+当前 Mac 构建目标固定 Apple Silicon arm64，不扩展 Intel 或 universal。以下命令需在 macOS 上执行，可使用本地 Mac 或下述 GitHub macOS runner，不能直接在 Windows 主机执行。版本号以 [package.json](../package.json) 为准，本轮源码预备版本为 `0.4.0-dev.1`；下述已生成的试用 DMG 和成功记录属于上一版 `0.4.0-dev.0`。
 
 ### 本机试用包
 
@@ -196,7 +198,7 @@ node scripts/check-package.mjs "release/mac-arm64-local/mac-arm64/阅间.app"
 
 ### 通过 GitHub Actions 构建
 
-没有本地 Mac 时，可将完整源码托管到 GitHub，手动使用 [.github/workflows/build-mac.yml](../.github/workflows/build-mac.yml)。该配置仅支持 `workflow_dispatch`，不会因推送自动构建，也不会创建 Release 或自动发布。源码和工作流已进入 [liuhua303/library](https://github.com/liuhua303/library)，入口为 [Build Mac arm64](https://github.com/liuhua303/library/actions/workflows/build-mac.yml)。本次 [trial 运行已成功](https://github.com/liuhua303/library/actions/runs/46033067492)，详情集中在 [版本报告](./verification/0.4.0-dev.0.md)。
+没有本地 Mac 时，可将完整源码托管到 GitHub，手动使用 [.github/workflows/build-mac.yml](../.github/workflows/build-mac.yml)。该配置仅支持 `workflow_dispatch`，不会因推送自动构建，也不会创建 Release 或自动发布。源码和工作流已进入 [liuhua303/library](https://github.com/liuhua303/library)，入口为 [Build Mac arm64](https://github.com/liuhua303/library/actions/workflows/build-mac.yml)。上一版 [0.4.0-dev.0 trial 运行已成功](https://github.com/liuhua303/library/actions/runs/46033067492)，详情集中在 [历史报告](./verification/0.4.0-dev.0.md)；本轮结果单独写入新报告。
 
 1. 将完整源码提交并推送到目标仓库的默认分支 `main`，包含 `.github/`、`build/`、`scripts/`、`src/`、锁文件及其他源码文件。若在其他仓库使用，先创建仓库并确认其默认分支。工作流配置必须先存在于默认分支，Actions 页面才可手动触发；操作人需有仓库写权限。[GitHub 手动运行说明](https://docs.github.com/en/actions/how-tos/manage-workflow-runs/manually-run-a-workflow)
 2. 需要正式包时，先按下表配置仓库 Secrets；首次尝试可直接使用不需要 Apple 分发凭据的 `trial`。
@@ -223,7 +225,7 @@ node scripts/check-package.mjs "release/mac-arm64-local/mac-arm64/阅间.app"
 
 工作流使用 `macos-26` runner 和 Node.js 24，先断言实际环境为 `darwin/arm64`，再执行 `npm ci`、`npm test`、对应构建命令及 `check-package.mjs` 隔离启动检查。当前 GitHub 标准 runner 的该标签为 Apple Silicon；标签和供应情况以 [GitHub runner 官方说明](https://docs.github.com/en/actions/reference/runners/github-hosted-runners) 为准。只有所有检查成功才上传 DMG artifact；检查证据无论成功或失败均尝试保留已有文件，两类 artifact 均保留 14 天。失败时通过运行日志及已有检查证据定位问题，不把失败产物作为交付。过期前需要自行下载保留，artifact 不是永久发布地址。
 
-本次 trial 已在云端 Mac arm64 完成构建与隔离启动检查，产物为 [Yuejian-mac-arm64-trial-4](https://github.com/liuhua303/library/actions/runs/46033067492/artifacts/15215362014)，包含 `Yuejian-0.4.0-dev.0-mac-arm64-local.dmg`，保留至 2026-12-12（北京时间）。登录并具备仓库读取权限后，按上述步骤下载、解压并转发 DMG。
+历史版本 0.4.0-dev.0 trial 已在云端 Mac arm64 完成构建与隔离启动检查，产物为 [Yuejian-mac-arm64-trial-4](https://github.com/liuhua303/library/actions/runs/46033067492/artifacts/15215362014)，包含 `Yuejian-0.4.0-dev.0-mac-arm64-local.dmg`，保留至 2026-12-12（北京时间）。登录并具备仓库读取权限后，按上述步骤下载、解压并转发 DMG；该历史包不包含本轮主题修复。
 
 云端成功仅证明该次 runner 环境中实际完成的检查，不替代 DMG 安装、Keychain 交互和真实阅读体验验收。运行环境、提交、实际结果与未验证项见 [版本报告](./verification/0.4.0-dev.0.md)；正式 `release` 模式尚未运行。
 
@@ -235,7 +237,7 @@ node scripts/check-package.mjs "release/mac-arm64-local/mac-arm64/阅间.app"
 
 ## 分享源码与交付
 
-源码压缩包保留 `.github/`、`src/`、`scripts/`、`tests/`、`samples/`、`docs/`、`build/`，以及根目录的 `package.json`、`package-lock.json`、`index.html`、配置文件、`.gitignore`、README、CHANGELOG 和 AGENTS。`.github/` 的工作流及 `build/` 的 Mac 签名权限声明属于源码配置，不是可排除的构建产物。本轮 GitHub 分享包路径为 `release/Yuejian-0.4.0-dev.0-github-source.zip`，它不是软件安装包。
+源码压缩包保留 `.github/`、`src/`、`scripts/`、`tests/`、`samples/`、`docs/`、`build/`，以及根目录的 `package.json`、`package-lock.json`、`index.html`、配置文件、`.gitignore`、README、CHANGELOG 和 AGENTS。`.github/` 的工作流及 `build/` 的 Mac 签名权限声明属于源码配置，不是可排除的构建产物。历史源码包 `release/Yuejian-0.4.0-dev.0-github-source.zip` 不含本轮修复；本轮交付入口以 README 为准，源码包不是软件安装包。
 
 可排除 `node_modules/`、`app/`、`release/`、`artifacts/` 和 `.git/`。依赖由 `npm ci` 安装，`app/` 由脚本构建；手动压缩整个文件夹时，`.gitignore` 不会自动排除这些目录。保存在应用用户数据目录的个人书架、单词本和密钥不属于源码包，对方首次运行会看到空书架。
 

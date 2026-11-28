@@ -57,7 +57,9 @@ p, h1, h2, h3 { margin: 0; }
 .shelf-empty { display: flex; justify-content: center; align-items: center; height: calc(100% - 160px); min-height: 180px; padding-bottom: 60px; }
 .reading-layout { position: relative; height: 100%; width: 100%; overflow: hidden; }
 .reading-space { width: 100%; height: 100%; min-width: 0; min-height: 0; position: relative; }
-.vocabulary-sidebar { position: absolute; top: 16px; right: 16px; bottom: 16px; width: 392px; max-width: calc(100% - 32px); display: flex; flex-direction: column; background: #fff; border: 1px solid var(--line); border-radius: 24px; box-shadow: 0 12px 56px rgb(0 0 0 / 12%); z-index: 60; overflow: hidden; animation: notebook-enter .18s ease-out; }
+.vocabulary-sidebar { position: absolute; top: 16px; right: 16px; bottom: 16px; width: 392px; max-width: calc(100% - 32px); display: flex; flex-direction: column; background: var(--reader-panel, var(--paper)); color: var(--reader-ink, var(--ink)); border: 1px solid var(--line); border-radius: 24px; box-shadow: 0 12px 56px rgb(0 0 0 / 12%); z-index: 60; overflow: hidden; animation: notebook-enter .18s ease-out; }
+.vocabulary-sidebar .icon-button:hover:not(:disabled) { background: var(--reader-surface, var(--line)); }
+.vocabulary-sidebar ::selection { background: var(--reader-selection, var(--selection)); color: var(--reader-ink, var(--ink)); }
 .vocabulary-header { padding: 20px 21px 16px 28px; display: flex; align-items: center; justify-content: space-between; gap: 15px; flex-shrink: 0; }
 .vocabulary-header h2 { font-size: 19px; font-weight: 500; }
 .notebook-actions { display: flex; align-items: center; gap: 7px; }
@@ -65,7 +67,10 @@ p, h1, h2, h3 { margin: 0; }
 .configure-notice { display: flex; align-items: center; gap: 9px; padding: 12px 0; margin: 0 28px; font-size: 14px; border-bottom: 1px solid var(--line); text-align: left; flex-shrink: 0; }
 .configure-notice > span { flex: 1; }
 .vocabulary-scroll { flex: 1; min-height: 0; overflow: auto; overscroll-behavior: contain; padding: 0 28px 26px; }
-.vocabulary-empty { padding: 55px 0; text-align: center; font-size: 15px; opacity: .6; }
+.vocabulary-scroll { scrollbar-color: var(--reader-muted) transparent; }
+.vocabulary-scroll::-webkit-scrollbar-thumb { background: var(--reader-muted); }
+.vocabulary-scroll::-webkit-scrollbar-thumb:hover { background: var(--reader-ink); }
+.vocabulary-empty { padding: 55px 0; text-align: center; font-size: 15px; color: var(--reader-muted); }
 .vocabulary-entry { padding: 22px 0; border-bottom: 1px solid var(--line); }
 .vocabulary-entry:last-child { border-bottom: 0; }
 .entry-heading { display: flex; width: 100%; align-items: flex-start; justify-content: space-between; gap: 14px; text-align: left; padding: 0; }
@@ -73,7 +78,7 @@ p, h1, h2, h3 { margin: 0; }
 .entry-term { font-family: var(--serif); font-size: 27px; line-height: 1.3; overflow-wrap: anywhere; }
 .entry-term--sentence { font-size: 20px; line-height: 1.6; }
 .entry-preview { font-size: 15px; line-height: 1.7; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-.entry-pending { font-size: 13px; line-height: 1.6; opacity: .65; }
+.entry-pending { font-size: 13px; line-height: 1.6; color: var(--reader-muted); }
 .entry-chevron { margin-top: 8px; flex-shrink: 0; transition: transform .15s ease; }
 .vocabulary-entry--expanded .entry-chevron { transform: rotate(180deg); }
 .entry-body { margin-top: 17px; }
@@ -84,20 +89,20 @@ p, h1, h2, h3 { margin: 0; }
 .analysis-details, .source-details { font-size: 14px; line-height: 1.7; margin-top: 15px; }
 .analysis-details summary, .source-details summary { cursor: pointer; width: fit-content; padding: 3px 0; }
 .analysis-field { margin-top: 13px; }
-.analysis-field > span { display: block; font-size: 12px; margin-bottom: 5px; opacity: .65; }
+.analysis-field > span { display: block; font-size: 12px; margin-bottom: 5px; color: var(--reader-muted); }
 .analysis-field > p { font-size: 15px; line-height: 1.7; white-space: pre-wrap; overflow-wrap: anywhere; }
-.source-caption { margin: 12px 0 8px; font-size: 13px; opacity: .65; overflow-wrap: anywhere; }
-.source-context { margin: 0; padding: 0 0 0 13px; border-left: 2px solid #000; font-family: var(--serif); font-size: 16px; line-height: 1.7; overflow-wrap: anywhere; }
-.source-context mark { background: transparent; color: #000; text-decoration: underline; text-underline-offset: 3px; }
+.source-caption { margin: 12px 0 8px; font-size: 13px; color: var(--reader-muted); overflow-wrap: anywhere; }
+.source-context { margin: 0; padding: 0 0 0 13px; border-left: 2px solid currentColor; font-family: var(--serif); font-size: 16px; line-height: 1.7; overflow-wrap: anywhere; }
+.source-context mark { background: transparent; color: inherit; text-decoration: underline; text-underline-offset: 3px; }
 .occurrence-actions { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 13px; }
 .source-jump { display: inline-flex; align-items: center; gap: 5px; font-size: 13px; padding: 7px 0; }
 .source-jump:hover { text-decoration: underline; text-underline-offset: 4px; }
 .remove-occurrence { min-width: 34px; min-height: 34px; }
-.occurrence-footer { display: flex; gap: 12px; font-size: 12px; opacity: .65; line-height: 1.6; margin-top: 5px; }
+.occurrence-footer { display: flex; gap: 12px; font-size: 12px; color: var(--reader-muted); line-height: 1.6; margin-top: 5px; }
 .task-status { display: flex; align-items: center; flex-wrap: wrap; gap: 7px; font-size: 14px; line-height: 1.7; }
 .task-error { width: 100%; font-size: 13px; overflow-wrap: anywhere; }
-.small-button { margin-top: 12px; padding: 7px 14px; border: 1px solid #000; border-radius: 18px; font-size: 13px; }
-.small-button:hover:not(:disabled) { background: #000; color: #fff; }
+.small-button { margin-top: 12px; padding: 7px 14px; border: 1px solid var(--ink); border-radius: 18px; font-size: 13px; }
+.small-button:hover:not(:disabled) { background: var(--ink); color: var(--paper); }
 .modal-backdrop { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; background: rgb(0 0 0 / 18%); z-index: 100; padding: 24px; }
 .settings-dialog { width: 430px; max-height: calc(100% - 48px); overflow: auto; background: #fff; box-shadow: 0 20px 80px rgb(0 0 0 / 15%); border: 1px solid var(--line); border-radius: 26px; padding: 22px 28px 28px; }
 .dialog-top { display: flex; align-items: center; justify-content: space-between; gap: 20px; margin-bottom: 26px; }

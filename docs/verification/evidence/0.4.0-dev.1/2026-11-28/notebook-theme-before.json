@@ -1,0 +1,12 @@
+{
+  "theme": "quiet",
+  "background": "rgb(255, 255, 255)",
+  "color": "rgb(229, 228, 225)",
+  "themePanel": "#4b4b4e",
+  "opacity": "1",
+  "filter": "none",
+  "backdropFilter": "none",
+  "stylesheets": [
+    "file:///D:/Users/ASUS/Documents/ChatGPT/enlish/app/renderer/assets/index-P3gtK_R9.css"
+  ]
+}

@@ -94,6 +94,11 @@ jobs:
           MAC_OUTPUT: ${{ steps.output.outputs.directory }}
         run: node scripts/check-package.mjs "$MAC_OUTPUT/mac-arm64/阅间.app"
 
+      - name: Check reading themes in packaged application
+        env:
+          MAC_OUTPUT: ${{ steps.output.outputs.directory }}
+        run: node scripts/reading-preferences-smoke.mjs "$MAC_OUTPUT/mac-arm64/阅间.app/Contents/MacOS/阅间"
+
       - name: Record checksums and build identity
         env:
           MAC_OUTPUT: ${{ steps.output.outputs.directory }}
@@ -141,5 +146,7 @@ jobs:
             artifacts/unit-results.json
             artifacts/package-result.json
             artifacts/packaged-startup.png
+            artifacts/reading-preferences-result.json
+            artifacts/preferences-notebook-*.png
           if-no-files-found: ignore
           retention-days: 14

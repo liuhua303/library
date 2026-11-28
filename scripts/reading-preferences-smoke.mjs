@@ -6,7 +6,7 @@ import { mkdtemp, mkdir, readFile, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 import { createSampleBook } from './create-sample.mjs';
-import { closeTools, importAndOpenBook, openBookFromShelf, openTools, turnPage } from './reader-test-ui.mjs';
+import { closeNotebook, closeTools, importAndOpenBook, openBookFromShelf, openNotebook, openTools, turnPage } from './reader-test-ui.mjs';
 
 const artifacts = resolve('artifacts');
 await mkdir(artifacts, { recursive: true });
@@ -37,12 +37,12 @@ delete env.ELECTRON_RUN_AS_NODE;
 delete env.ELECTRON_RENDERER_URL;
 const checks = [], measurements = [], errors = [];
 const themes = [
-  { id: 'original', label: '原色', paper: 'rgb(255, 255, 255)', ink: 'rgb(0, 0, 0)', fontFamily: 'Georgia, "Times New Roman", serif' },
-  { id: 'quiet', label: '静谧', paper: 'rgb(65, 65, 68)', ink: 'rgb(229, 228, 225)', fontFamily: 'Georgia, "Times New Roman", serif' },
-  { id: 'paper', label: '纸张', paper: 'rgb(238, 237, 233)', ink: 'rgb(41, 40, 36)', fontFamily: 'Georgia, "Times New Roman", serif' },
-  { id: 'bold', label: '醒目', paper: 'rgb(255, 255, 255)', ink: 'rgb(18, 18, 18)', fontFamily: '"Segoe UI", "Microsoft YaHei", sans-serif' },
-  { id: 'calm', label: '舒缓', paper: 'rgb(242, 228, 200)', ink: 'rgb(62, 52, 37)', fontFamily: 'Georgia, "Times New Roman", serif' },
-  { id: 'focus', label: '专注', paper: 'rgb(255, 251, 242)', ink: 'rgb(41, 40, 32)', fontFamily: '"Segoe UI", "Microsoft YaHei", sans-serif' },
+  { id: 'original', label: '原色', paper: 'rgb(255, 255, 255)', panel: 'rgb(255, 255, 255)', ink: 'rgb(0, 0, 0)', fontFamily: 'Georgia, "Times New Roman", serif' },
+  { id: 'quiet', label: '静谧', paper: 'rgb(65, 65, 68)', panel: 'rgb(75, 75, 78)', ink: 'rgb(229, 228, 225)', fontFamily: 'Georgia, "Times New Roman", serif' },
+  { id: 'paper', label: '纸张', paper: 'rgb(238, 237, 233)', panel: 'rgb(246, 245, 241)', ink: 'rgb(41, 40, 36)', fontFamily: 'Georgia, "Times New Roman", serif' },
+  { id: 'bold', label: '醒目', paper: 'rgb(255, 255, 255)', panel: 'rgb(255, 255, 255)', ink: 'rgb(18, 18, 18)', fontFamily: '"Segoe UI", "Microsoft YaHei", sans-serif' },
+  { id: 'calm', label: '舒缓', paper: 'rgb(242, 228, 200)', panel: 'rgb(249, 239, 217)', ink: 'rgb(62, 52, 37)', fontFamily: 'Georgia, "Times New Roman", serif' },
+  { id: 'focus', label: '专注', paper: 'rgb(255, 251, 242)', panel: 'rgb(255, 253, 247)', ink: 'rgb(41, 40, 32)', fontFamily: '"Segoe UI", "Microsoft YaHei", sans-serif' },
 ];
 let app, page, bookId, bookmark, runtimeAppVersion = null;
 const step = name => console.log('reading-preferences: ' + name);
@@ -144,6 +144,82 @@ async function selectTheme(dialog, theme) {
   await assertTheme(theme);
 }
 
+function rgba(value) {
+  assert.match(value, /^rgba?\(/, '颜色测量必须是浏览器解析后的 RGB 值');
+  const numbers = value.match(/[\d.]+/g).map(Number);
+  return [...numbers.slice(0, 3), numbers[3] ?? 1];
+}
+
+function blend(front, back) {
+  return [...front.slice(0, 3).map((channel, index) => channel * front[3] + back[index] * (1 - front[3])), 1];
+}
+
+function contrast(front, back) {
+  const luminance = color => color.slice(0, 3).map(channel => {
+    const srgb = channel / 255;
+    return srgb <= .04045 ? srgb / 12.92 : ((srgb + .055) / 1.055) ** 2.4;
+  }).reduce((sum, channel, index) => sum + channel * [.2126, .7152, .0722][index], 0);
+  const values = [luminance(front), luminance(back)].sort((a, b) => b - a);
+  return (values[0] + .05) / (values[1] + .05);
+}
+
+async function assertNotebookTheme(theme, stage = '切换后重开') {
+  const notebook = page.getByTestId('vocabulary-sidebar');
+  await notebook.waitFor();
+  await notebook.locator('.meaning-zh').waitFor();
+  for (const selector of ['.analysis-details', '.source-details']) {
+    const details = notebook.locator(selector).first();
+    if (!(await details.evaluate(element => element.open))) await details.locator('summary').click();
+  }
+  const snapshot = await notebook.evaluate(panel => {
+    const style = getComputedStyle(panel);
+    const scroll = panel.querySelector('.vocabulary-scroll');
+    const thumb = getComputedStyle(scroll, '::-webkit-scrollbar-thumb');
+    const selectors = ['.vocabulary-header h2', '.configure-notice', '.entry-term', '.meaning-zh', '.definition-en', '.analysis-details summary', '.analysis-field > span', '.analysis-field > p', '.source-details summary', '.source-caption', '.source-context', '.source-context mark', '.source-jump', '.occurrence-footer', '.vocabulary-header .icon-button', '.remove-occurrence'];
+    return {
+      background: style.backgroundColor, color: style.color, border: style.borderColor, borderWidth: style.borderTopWidth, shadow: style.boxShadow,
+      scrollbar: { color: thumb.backgroundColor, width: getComputedStyle(scroll, '::-webkit-scrollbar').width, clientHeight: scroll.clientHeight, scrollHeight: scroll.scrollHeight },
+      sourceBorder: getComputedStyle(panel.querySelector('.source-context')).borderLeftColor,
+      text: selectors.map(selector => {
+        const element = panel.querySelector(selector);
+        if (!element) return { selector, missing: true };
+        const own = getComputedStyle(element);
+        const ancestry = [];
+        for (let node = element; node; node = node.parentElement) {
+          const computed = getComputedStyle(node);
+          ancestry.push({ background: computed.backgroundColor, opacity: Number(computed.opacity), filter: computed.filter, backdrop: computed.backdropFilter || computed.webkitBackdropFilter || 'none' });
+        }
+        const box = element.getBoundingClientRect();
+        return { selector, color: own.color, textShadow: own.textShadow, display: own.display, visibility: own.visibility, width: box.width, height: box.height, ancestry };
+      }),
+    };
+  });
+  assert.equal(snapshot.background, theme.panel, theme.label + '的非空单词本必须使用该主题面板底色');
+  assert.equal(snapshot.color, theme.ink, '单词本主体文字必须跟随主题');
+  assert.ok(parseFloat(snapshot.borderWidth) > 0 && rgba(snapshot.border)[3] > 0 || snapshot.shadow !== 'none', '面板须有可辨认的边界或阴影');
+  assert.ok(contrast(blend(rgba(snapshot.sourceBorder), rgba(theme.panel)), rgba(theme.panel)) >= 3, '原文左边界应在主题面板上可见');
+  assert.ok(parseFloat(snapshot.scrollbar.width) >= 4, '单词本滚动条需保留可见宽度');
+  snapshot.scrollbar.contrast = contrast(blend(rgba(snapshot.scrollbar.color), rgba(theme.panel)), rgba(theme.panel));
+  assert.ok(snapshot.scrollbar.contrast >= 3, theme.label + '滚动条应在面板上清晰可辨');
+  for (const text of snapshot.text) {
+    assert.ok(!text.missing, '非空单词本缺少测试内容：' + text.selector);
+    assert.ok(text.width > 0 && text.height > 0 && text.display !== 'none' && text.visibility === 'visible', text.selector + '应实际参与显示');
+    const opacity = text.ancestry.reduce((product, ancestor) => product * ancestor.opacity, 1);
+    assert.equal(opacity, 1, text.selector + '不应通过透明度淡化，次要信息使用主题实色');
+    assert.ok(text.ancestry.every(ancestor => ancestor.filter === 'none' && ancestor.backdrop === 'none'), text.selector + '及祖先不得添加模糊滤镜');
+    assert.equal(text.textShadow, 'none', text.selector + '不应有模糊文字阴影');
+    let background = [255, 255, 255, 1];
+    for (const ancestor of [...text.ancestry].reverse()) background = blend(rgba(ancestor.background), background);
+    const ink = rgba(text.color); ink[3] *= opacity;
+    text.contrast = contrast(blend(ink, background), background);
+    assert.ok(text.contrast >= 4.5, `${theme.label} ${text.selector} 实际文字对比度 ${text.contrast.toFixed(2)} 应至少为 4.5:1`);
+    delete text.ancestry;
+  }
+  measurements.push({ notebookTheme: theme.id, stage, ...snapshot });
+  await notebook.locator('.vocabulary-scroll').evaluate(element => { element.scrollTop = 0; });
+  await page.screenshot({ path: join(artifacts, `preferences-notebook-${theme.id}.png`), animations: 'disabled' });
+}
+
 async function nextPage() {
   const before = await page.locator('.reader-page-position').innerText();
   await turnPage(page, 1);
@@ -223,6 +299,40 @@ try {
   measurements.push({ darkMark: mark });
   await page.screenshot({ path: join(artifacts, 'preferences-quiet.png'), animations: 'disabled' });
   checks.push('六种主题的页面背景、正文颜色与选择状态正确；覆盖原书 inline !important，暗色正文与下划线可见');
+
+  step('六主题非空单词本、实际文字对比与清晰度');
+  // Complete a real collected occurrence through a mocked model response, then
+  // remove the synthetic key. No paid API or personal data is used by this test.
+  await app.evaluate(() => {
+    globalThis.__themeSmokeOriginalFetch = globalThis.fetch;
+    globalThis.fetch = async () => {
+      const analysis = { kind: 'word', targetText: 'peculiar', meaningZh: '奇特的；这里形容房间里不同寻常的寂静。', definitionEn: 'Unusual or distinctive in this context.', usage: '用于描述不同寻常的事物或感受。', example: 'There was a peculiar silence in the room.' };
+      return new Response(JSON.stringify({ choices: [{ message: { content: JSON.stringify(analysis) }, finish_reason: 'stop' }] }), { status: 200, headers: { 'Content-Type': 'application/json' } });
+    };
+  });
+  await page.evaluate(() => window.readerApi.saveSettings({ apiKey: 'sk-theme-smoke-synthetic-test-only' }));
+  await page.waitForFunction(async id => (await window.readerApi.listEntries(id)).some(entry => entry.term === 'peculiar' && entry.occurrences[0].status === 'completed'), bookId);
+  await page.evaluate(() => window.readerApi.saveSettings({ apiKey: '' }));
+  await app.evaluate(() => { globalThis.fetch = globalThis.__themeSmokeOriginalFetch; delete globalThis.__themeSmokeOriginalFetch; });
+  assert.equal((await page.evaluate(() => window.readerApi.getSettings())).hasApiKey, false);
+  await openNotebook(page);
+  const entryHeading = page.getByTestId('vocabulary-sidebar').locator('.entry-heading').first();
+  await entryHeading.click();
+  await page.getByTestId('vocabulary-sidebar').locator('.configure-notice').waitFor();
+  await assertNotebookTheme(themes.find(theme => theme.id === 'quiet'), 'Quiet 首次打开');
+  await closeNotebook(page);
+  for (const theme of themes) {
+    const notebookSettings = await settingsDialog();
+    await selectTheme(notebookSettings, theme);
+    await closeSettings();
+    await openNotebook(page);
+    await assertNotebookTheme(theme);
+    await closeNotebook(page);
+  }
+  const restoreQuiet = await settingsDialog();
+  await selectTheme(restoreQuiet, themes.find(theme => theme.id === 'quiet'));
+  await closeSettings();
+  checks.push('六主题非空单词本底色与文字跟随主题，词条、释义、原文与次要信息实际对比度≥4.5:1；边界/滚动条可见且无透明淡化或模糊滤镜');
 
   step('添加书签、导航与字号变化后的回跳');
   await openTools(page);
