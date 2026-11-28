@@ -6,6 +6,8 @@
 
 当前 Windows 和 Mac 试用版本均为 0.4.0-dev.1，包含单词本主题配色修复，文档更新日期为 2026-11-28。构建、打包程序检查与未验证范围见 [0.4.0-dev.1 验证报告](./docs/verification/0.4.0-dev.1.md)。Windows 安装包位于 `release/0.4.0-dev.1/Yuejian-Setup-0.4.0-dev.1.exe`；安装包无需 Node.js。`release` 是本地构建目录，源码仓库或源码压缩包可能不包含安装包。
 
+本版已收到用户检查后未发现问题的反馈，以 Git 标签 [v0.4.0-dev.1](https://github.com/liuhua303/library/tree/v0.4.0-dev.1) 保留版本记录；反馈范围见对应验证报告。
+
 Mac 只面向 Apple Silicon（M 系列、arm64），要求 macOS 13 或更新版本，不提供 Intel 或通用包。本版已通过云端构建、包内程序启动及六主题等自动化检查，试用 DMG 采用 ad-hoc 签名、未公证。正式 Developer ID 签名和公证尚未配置；Windows 安装向导、Mac DMG 安装、真实 Keychain 和原生菜单等人工验收尚未完成。
 
 源码已上传到 [GitHub 仓库](https://github.com/liuhua303/library)。登录 GitHub 后下载 [当前 Mac 试用包 artifact](https://github.com/liuhua303/library/actions/runs/46111866028/artifacts/15250640003)，解压取得 `Yuejian-0.4.0-dev.1-mac-arm64-local.dmg`，可转发 DMG；artifact 保留至北京时间 2026-12-12 13:25。本版 [成功运行记录](https://github.com/liuhua303/library/actions/runs/46111866028)可查看构建过程。后续构建和手动发布步骤见 [GitHub Actions 构建流程](./docs/development.md#通过-github-actions-构建)，源码 ZIP 不是软件安装包。
